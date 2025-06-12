@@ -20,7 +20,7 @@ const CurrentProject = () => {
           <div className="animate-slide-in-left">
             <Card className="overflow-hidden border-0 shadow-xl hover-lift">
               <img 
-                src="/lovable-uploads/814e0956-9165-478c-b85c-e334a39182f9.png"
+                src="/lovable-uploads/image.png"
                 alt="NC Vihanga Project"
                 className="w-full h-96 object-cover"
               />

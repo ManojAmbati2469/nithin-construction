@@ -18,7 +18,7 @@ const Projects = () => {
       category: 'Current Project',
       description: '2 & 3BHK apartments located at Kardanoor near ORR Exit-3 with modern amenities.',
       icon: Construction,
-      image: '/lovable-uploads/814e0956-9165-478c-b85c-e334a39182f9.png',
+      image: '/lovable-uploads/image.png',
       status: 'In Progress',
       year: '2024'
     },
