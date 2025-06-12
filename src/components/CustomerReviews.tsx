@@ -2,8 +2,11 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { Star, Quote } from 'lucide-react';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const CustomerReviews = () => {
+  const { ref: reviewsRef, isVisible: reviewsVisible } = useScrollAnimation();
+
   const reviews = [
     {
       name: "Umesh U",
@@ -36,20 +39,20 @@ const CustomerReviews = () => {
   ];
 
   return (
-    <section className="py-20 bg-white">
-      <div className="container mx-auto px-4">
+    <section className="section-padding bg-white">
+      <div className="container mx-auto container-padding" ref={reviewsRef}>
         {/* Section Header */}
-        <div className="text-center mb-16 animate-fade-in">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+        <div className={`text-center mb-20 transition-all duration-800 ${reviewsVisible ? 'animate-fade-in' : 'opacity-0 translate-y-[30px]'}`}>
+          <h2 className="text-4xl lg:text-6xl font-bold mb-8">
             Customer <span className="gradient-text">Reviews</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
             Hear what our valued customers have to say about their experience with Nithin Constructions
           </p>
         </div>
 
         {/* Reviews Carousel */}
-        <div className="max-w-6xl mx-auto animate-fade-in">
+        <div className={`max-w-7xl mx-auto transition-all duration-1000 ${reviewsVisible ? 'animate-scale-in' : 'opacity-0 scale-90'}`}>
           <Carousel
             opts={{
               align: "start",
@@ -60,22 +63,22 @@ const CustomerReviews = () => {
             <CarouselContent className="-ml-2 md:-ml-4">
               {reviews.map((review, index) => (
                 <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/2">
-                  <Card className="hover-lift bg-gradient-to-br from-gray-50 to-white border-0 shadow-lg h-full">
-                    <CardContent className="p-8 flex flex-col h-full">
+                  <Card className="hover-lift bg-gradient-to-br from-gray-50 to-white border-0 shadow-xl h-full hover-scale">
+                    <CardContent className="p-8 lg:p-10 flex flex-col h-full">
                       {/* Quote Icon */}
-                      <div className="mb-6">
-                        <Quote className="w-8 h-8 text-primary opacity-30" />
+                      <div className="mb-8">
+                        <Quote className="w-12 h-12 text-primary opacity-30" />
                       </div>
 
                       {/* Review Text */}
-                      <p className="text-muted-foreground leading-relaxed mb-6 flex-grow">
+                      <p className="text-muted-foreground leading-relaxed mb-8 flex-grow text-base lg:text-lg">
                         "{review.review}"
                       </p>
 
                       {/* Rating */}
-                      <div className="flex items-center mb-4">
+                      <div className="flex items-center mb-6">
                         {[...Array(review.rating)].map((_, i) => (
-                          <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                          <Star key={i} className="w-6 h-6 fill-yellow-400 text-yellow-400 mr-1" />
                         ))}
                       </div>
 
@@ -84,11 +87,11 @@ const CustomerReviews = () => {
                         <img
                           src={review.avatar}
                           alt={review.name}
-                          className="w-12 h-12 rounded-full object-cover"
+                          className="w-16 h-16 rounded-full object-cover hover-scale"
                         />
                         <div>
-                          <div className="font-semibold text-gray-900">{review.name}</div>
-                          <div className="text-sm text-primary">{review.company}</div>
+                          <div className="font-bold text-gray-900 text-lg">{review.name}</div>
+                          <div className="text-primary font-medium">{review.company}</div>
                         </div>
                       </div>
                     </CardContent>
@@ -96,19 +99,19 @@ const CustomerReviews = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="gradient-construction text-white border-0 hover:opacity-80" />
-            <CarouselNext className="gradient-construction text-white border-0 hover:opacity-80" />
+            <CarouselPrevious className="gradient-construction text-white border-0 hover:opacity-80 w-12 h-12 hover-scale" />
+            <CarouselNext className="gradient-construction text-white border-0 hover:opacity-80 w-12 h-12 hover-scale" />
           </Carousel>
         </div>
 
-        {/* CTA Section */}
-        <div className="text-center mt-16 animate-fade-in">
-          <div className="gradient-construction rounded-2xl p-8 lg:p-12 text-white">
-            <h3 className="text-3xl font-bold mb-4">Join Our Happy Customers</h3>
-            <p className="text-xl mb-8 opacity-90">
+        {/* Enhanced CTA Section */}
+        <div className={`text-center mt-20 transition-all duration-800 ${reviewsVisible ? 'animate-fade-in' : 'opacity-0 translate-y-[30px]'}`} style={{ animationDelay: '0.5s' }}>
+          <div className="gradient-construction rounded-3xl p-10 lg:p-16 text-white hover-lift">
+            <h3 className="text-3xl lg:text-5xl font-bold mb-6">Join Our Happy Customers</h3>
+            <p className="text-xl lg:text-2xl mb-10 opacity-90 max-w-3xl mx-auto">
               Experience the Nithin Constructions difference and become part of our success story.
             </p>
-            <button className="bg-white text-primary px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+            <button className="bg-white text-primary px-10 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-all duration-300 hover:scale-105 text-lg">
               Start Your Journey
             </button>
           </div>
