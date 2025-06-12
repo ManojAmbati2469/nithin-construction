@@ -1,6 +1,6 @@
 
 import { Button } from '@/components/ui/button';
-import { Construction, Hammer, Wrench } from 'lucide-react';
+import { Construction, Hammer, Wrench, Building } from 'lucide-react';
 
 const Hero = () => {
   return (
