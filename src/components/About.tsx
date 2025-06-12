@@ -6,27 +6,27 @@ const About = () => {
   const achievements = [
     {
       icon: Building,
-      number: '100+',
-      label: 'Projects Completed',
+      number: '6 Lakh+',
+      label: 'sq.ft Constructed',
       description: 'Successfully delivered across residential and commercial sectors'
     },
     {
       icon: Construction,
-      number: '15+',
-      label: 'Years Experience',
-      description: 'Decades of expertise in construction and project management'
+      number: '26',
+      label: 'Completed Projects',
+      description: 'A milestone achieved by Nithin Construction'
     },
     {
       icon: Hammer,
-      number: '50+',
-      label: 'Skilled Workers',
-      description: 'Professional team committed to excellence in every project'
+      number: '400+',
+      label: 'Happy Customers',
+      description: 'Rejoicing in the pleasures of a splendid life'
     },
     {
       icon: Wrench,
-      number: '24/7',
-      label: 'Support Available',
-      description: 'Round-the-clock assistance for all your construction needs'
+      number: '20+',
+      label: 'Years Experience',
+      description: 'Decades of expertise in construction and project management'
     }
   ];
 
@@ -41,14 +41,16 @@ const About = () => {
                 About <span className="gradient-text">Nithin Constructions</span>
               </h2>
               <p className="text-xl text-muted-foreground leading-relaxed">
-                With over 15 years of excellence in the construction industry, Nithin Constructions 
-                has established itself as a trusted name in building quality structures that stand the test of time.
+                Established in 2002, with a banner as Ramana Planners had successfully completed 
+                several projects after two years with further acceleration as course changed its 
+                name to Ramana construction which has and became a mark in construction and real estate field.
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Our commitment to innovation, quality craftsmanship, and customer satisfaction has made us 
-                the preferred choice for residential, commercial, and infrastructure projects across the region. 
-                We believe in transforming visions into reality through meticulous planning, expert execution, 
-                and unwavering dedication to excellence.
+                Top-Notch in Construction and design is the mark of every Ramana constructions creation. 
+                From planning to materials, construction skills to customer relations we speak perfection 
+                everything we do. Our vision is to build a feature where in Ramana constructions is a 
+                house hold name across the country, known worldwide for development and marketing of a 
+                fine living environment with highest quality and unmatched value-for-money.
               </p>
             </div>
 
@@ -56,7 +58,7 @@ const About = () => {
               <h3 className="text-2xl font-bold text-gray-900">Why Choose Us?</h3>
               <ul className="space-y-3">
                 {[
-                  'Expert team with 15+ years of experience',
+                  'Expert team with 20+ years of experience',
                   'Quality materials and modern construction techniques',
                   'Timely project completion with transparent pricing',
                   'Comprehensive warranty and after-sales support',
@@ -100,20 +102,41 @@ const About = () => {
           </div>
         </div>
 
+        {/* About Our Experience Section */}
+        <div className="mt-20 animate-fade-in">
+          <div className="text-center mb-12">
+            <h3 className="text-3xl font-bold mb-4">About Our <span className="gradient-text">Experience</span></h3>
+          </div>
+          <div className="bg-gray-50 rounded-2xl p-8 lg:p-12">
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              <strong className="text-gray-900">SRI. BOGIREDDY VENKATA RAMANA REDDY</strong> graduate in Civil engineering in 1998, 
+              after graduation worked as Civil Contractor at RTPC, Karnataka up to 2002, after that returned to Hyderabad, 
+              taken License as Civil Engineer in LB Nagar Municipality and started Consultancy named on RAMANA PLANNERS up to 2005, 
+              then started Construction named as RAMANA CONSTRUCTIONS constructed 30 independent houses and 9 apartments, 
+              approximately construction area 150000 sft and started new company in 2016 name as NITHIN CONSTRUCTIONS 
+              constructed 6 apartments approximately 250000 sft and started new company in 2019 named as MEPRA PROJECTS 
+              with another partner Smt.Vallela Praveena constructing 3 apartments and started new company in 2020 named as 
+              JNR PROJECTS with two more partners named Smt.Vallela Praveena and Sri.G.V.Nalinikanth kumar Reddy constructing 2 apartments.
+            </p>
+          </div>
+        </div>
+
         {/* Mission & Vision */}
         <div className="mt-20 grid lg:grid-cols-2 gap-12 animate-fade-in">
           <div className="text-center p-8 gradient-construction rounded-2xl text-white hover-lift">
             <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
             <p className="text-lg opacity-90">
-              To deliver exceptional construction services that exceed client expectations 
-              while maintaining the highest standards of quality, safety, and sustainability.
+              We are passionate about designing buildings that embody our identity and create memorable experiences. 
+              At Nithin Constructions, our culture is about more than constructing homes; we are in the business of building dreams. 
+              Our mission is to be the most customer-focused builders.
             </p>
           </div>
           <div className="text-center p-8 bg-gray-50 rounded-2xl hover-lift">
             <h3 className="text-2xl font-bold mb-4 gradient-text">Our Vision</h3>
             <p className="text-lg text-muted-foreground">
-              To be the leading construction company recognized for innovation, reliability, 
-              and creating structures that contribute positively to communities.
+              Our vision, 'Building Moments,' reflects our dedication to society. Our top priority is ensuring customer 
+              satisfaction through our unique designs, offerings, and construction quality. We aim to continue developing 
+              projects that enhance our reputation as creators of homes and happiness.
             </p>
           </div>
         </div>

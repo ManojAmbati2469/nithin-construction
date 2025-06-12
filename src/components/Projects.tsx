@@ -14,11 +14,11 @@ const Projects = () => {
       year: '2023'
     },
     {
-      title: 'Corporate Office Building',
-      category: 'Commercial',
-      description: '20-story corporate headquarters featuring state-of-the-art facilities and energy-efficient systems.',
+      title: 'NC Vihanga',
+      category: 'Current Project',
+      description: '2 & 3BHK apartments located at Kardanoor near ORR Exit-3 with modern amenities.',
       icon: Construction,
-      image: 'https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=800&h=600&fit=crop',
+      image: '/lovable-uploads/814e0956-9165-478c-b85c-e334a39182f9.png',
       status: 'In Progress',
       year: '2024'
     },
@@ -39,6 +39,17 @@ const Projects = () => {
       image: 'https://images.unsplash.com/photo-1494891848038-7bd202a2afeb?w=800&h=600&fit=crop',
       status: 'Planning',
       year: '2024'
+    }
+  ];
+
+  const completedProjects = [
+    {
+      image: '/lovable-uploads/58a4c73a-fe50-4e0b-b127-51d2bd9dde86.png',
+      alt: 'Completed Residential Complex 1'
+    },
+    {
+      image: '/lovable-uploads/58a4c73a-fe50-4e0b-b127-51d2bd9dde86.png',
+      alt: 'Completed Residential Complex 2'
     }
   ];
 
@@ -108,6 +119,32 @@ const Projects = () => {
           ))}
         </div>
 
+        {/* Completed Projects Section */}
+        <div className="mb-16">
+          <div className="text-center mb-12 animate-fade-in">
+            <h3 className="text-3xl font-bold mb-4">Completed <span className="gradient-text">Projects</span></h3>
+            <p className="text-lg text-muted-foreground">
+              A showcase of our successfully delivered residential and commercial projects
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-8">
+            {completedProjects.map((project, index) => (
+              <Card 
+                key={index}
+                className="overflow-hidden hover-lift bg-white border-0 shadow-lg animate-fade-in"
+                style={{ animationDelay: `${index * 0.3}s` }}
+              >
+                <img 
+                  src={project.image} 
+                  alt={project.alt}
+                  className="w-full h-64 object-cover transition-transform duration-300 hover:scale-110"
+                />
+              </Card>
+            ))}
+          </div>
+        </div>
+
         {/* Stats Section */}
         <div className="gradient-construction rounded-2xl p-8 lg:p-12 text-white animate-fade-in">
           <div className="text-center mb-8">
@@ -118,10 +155,10 @@ const Projects = () => {
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { number: '100+', label: 'Total Projects' },
-              { number: '₹500Cr+', label: 'Project Value' },
-              { number: '98%', label: 'Client Satisfaction' },
-              { number: '15+', label: 'Years Experience' }
+              { number: '26', label: 'Completed Projects' },
+              { number: '6 Lakh+', label: 'sq.ft Constructed' },
+              { number: '400+', label: 'Happy Customers' },
+              { number: '20+', label: 'Years Experience' }
             ].map((stat, index) => (
               <div key={stat.label} className="text-center">
                 <div className="text-4xl font-bold mb-2">{stat.number}</div>
