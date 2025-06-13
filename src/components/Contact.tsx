@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Building, Construction, Hammer, Wrench, CheckCircle } from 'lucide-react';
+import { Building, Phone, Mail, MapPin, CheckCircle } from 'lucide-react';
 
 const Contact = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -13,23 +13,23 @@ const Contact = () => {
   const contactInfo = [
     {
       icon: Building,
-      title: 'Office Address',
+      title: 'Sales Office',
       content: 'Construction Plaza, Tech City, Bangalore - 560001'
     },
     {
-      icon: Construction,
+      icon: Phone,
       title: 'Phone Number',
       content: '+91 9876543210'
     },
     {
-      icon: Hammer,
+      icon: Mail,
       title: 'Email Address',
-      content: 'info@nithinconstructions.in'
+      content: 'sales@nithinconstructions.in'
     },
     {
-      icon: Wrench,
-      title: 'Working Hours',
-      content: 'Mon - Sat: 9:00 AM - 6:00 PM'
+      icon: MapPin,
+      title: 'Site Visit Hours',
+      content: 'Mon - Sun: 9:00 AM - 6:00 PM'
     }
   ];
 
@@ -72,13 +72,13 @@ const Contact = () => {
                 Thank You!
               </h2>
               <p className="text-lg sm:text-xl text-muted-foreground mb-8">
-                Your message has been successfully submitted. We'll get back to you within 24 hours.
+                Your inquiry has been successfully submitted. Our sales team will contact you within 24 hours to discuss your apartment requirements.
               </p>
               <Button 
                 onClick={() => setIsSubmitted(false)}
                 className="gradient-construction text-white hover:opacity-90 transition-opacity px-6 py-3 sm:px-8 sm:py-4"
               >
-                Send Another Message
+                Send Another Inquiry
               </Button>
             </div>
           </div>
@@ -93,11 +93,11 @@ const Contact = () => {
         {/* Section Header */}
         <div className="text-center mb-12 sm:mb-16 animate-fade-in">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
-            Get In <span className="gradient-text">Touch</span>
+            Inquire About <span className="gradient-text">Our Apartments</span>
           </h2>
           <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
-            Ready to start your construction project? Contact us today for a free consultation 
-            and let's build something amazing together.
+            Ready to find your perfect home? Contact us today to learn about our available 
+            apartments and schedule a site visit to experience quality living.
           </p>
         </div>
 
@@ -179,7 +179,7 @@ const Contact = () => {
                     <label className="text-sm font-medium text-gray-700">Message</label>
                     <Textarea 
                       name="message"
-                      placeholder="Tell us about your project requirements..."
+                      placeholder="I'm interested in 2BHK/3BHK apartments. Please share details about availability and pricing..."
                       className="border-gray-300 focus:border-primary min-h-[100px] sm:min-h-[120px]"
                     />
                   </div>
@@ -189,7 +189,7 @@ const Contact = () => {
                     disabled={isSubmitting}
                     className="w-full gradient-construction text-white hover:opacity-90 transition-opacity py-3 sm:py-4"
                   >
-                    {isSubmitting ? 'Sending...' : 'Send Message'}
+                    {isSubmitting ? 'Sending...' : 'Send Inquiry'}
                   </Button>
                 </form>
               </CardContent>
@@ -223,21 +223,21 @@ const Contact = () => {
               <div className="h-48 sm:h-64 gradient-construction flex items-center justify-center">
                 <div className="text-center text-white px-4">
                   <Building className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-3 sm:mb-4" />
-                  <h3 className="text-lg sm:text-xl font-bold mb-2">Visit Our Office</h3>
+                  <h3 className="text-lg sm:text-xl font-bold mb-2">Visit Our Sales Office</h3>
                   <p className="opacity-90 text-sm sm:text-base">Located in the heart of Tech City</p>
                 </div>
               </div>
             </Card>
 
-            {/* Emergency Contact */}
+            {/* Site Visit CTA */}
             <Card className="border-0 shadow-lg bg-gray-50">
               <CardContent className="p-4 sm:p-6 text-center">
-                <h3 className="text-lg sm:text-xl font-bold mb-2 gradient-text">24/7 Emergency Support</h3>
+                <h3 className="text-lg sm:text-xl font-bold mb-2 gradient-text">Schedule Site Visit</h3>
                 <p className="text-muted-foreground mb-3 sm:mb-4 text-sm sm:text-base">
-                  For urgent construction matters, reach out to our emergency hotline
+                  Experience our apartments firsthand. Schedule a visit to see the quality and comfort we offer.
                 </p>
                 <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white px-4 py-2 sm:px-6 sm:py-3">
-                  Call Emergency Line
+                  Book Site Visit
                 </Button>
               </CardContent>
             </Card>

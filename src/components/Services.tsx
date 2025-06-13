@@ -1,6 +1,6 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Building, Construction, Hammer, Wrench } from 'lucide-react';
+import { Building, Home, Hammer, Users } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const Services = () => {
@@ -9,27 +9,27 @@ const Services = () => {
   const services = [
     {
       icon: Building,
-      title: 'Residential Construction',
-      description: 'Custom homes designed and built to your exact specifications with premium materials and craftsmanship.',
-      features: ['Custom Design', 'Premium Materials', 'Quality Assurance']
+      title: '2 BHK Apartments',
+      description: 'Thoughtfully designed 2-bedroom apartments perfect for small families and young professionals.',
+      features: ['1090-1200 sq.ft', 'Modern Interiors', 'Premium Fittings']
     },
     {
-      icon: Construction,
-      title: 'Commercial Building',
-      description: 'State-of-the-art commercial spaces that enhance productivity and create lasting impressions.',
-      features: ['Modern Design', 'Efficient Layouts', 'Sustainable Solutions']
+      icon: Home,
+      title: '3 BHK Apartments',
+      description: 'Spacious 3-bedroom homes ideal for growing families with ample living and storage space.',
+      features: ['1500-2032 sq.ft', 'Family-Friendly', 'Balcony Views']
     },
     {
       icon: Hammer,
-      title: 'Renovation & Remodeling',
-      description: 'Transform existing spaces with innovative renovation solutions that maximize functionality.',
-      features: ['Space Optimization', 'Modern Updates', 'Value Addition']
+      title: 'Custom Interiors',
+      description: 'Personalized interior solutions to make your apartment truly feel like home.',
+      features: ['Modular Kitchen', 'Wardrobe Design', 'Premium Finishes']
     },
     {
-      icon: Wrench,
-      title: 'Infrastructure Development',
-      description: 'Large-scale infrastructure projects built with precision and adherence to industry standards.',
-      features: ['Heavy Construction', 'Site Development', 'Utility Installation']
+      icon: Users,
+      title: 'Family Amenities',
+      description: 'Community facilities designed to enhance your family\'s lifestyle and well-being.',
+      features: ['Children\'s Play Area', 'Community Hall', 'Security System']
     }
   ];
 
@@ -39,11 +39,11 @@ const Services = () => {
         {/* Section Header */}
         <div className={`text-center mb-20 transition-all duration-800 ${servicesVisible ? 'animate-fade-in' : 'opacity-0 translate-y-[30px]'}`}>
           <h2 className="text-4xl lg:text-6xl font-bold mb-8">
-            Our <span className="gradient-text">Services</span>
+            What We <span className="gradient-text">Offer</span>
           </h2>
           <p className="text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            From residential homes to commercial complexes, we provide comprehensive construction services 
-            that exceed expectations and deliver lasting value.
+            From cozy 2BHK apartments to spacious 3BHK homes, we create modern living spaces 
+            that combine comfort, style, and affordability for today's families.
           </p>
         </div>
 
@@ -86,16 +86,16 @@ const Services = () => {
         {/* Enhanced CTA Section */}
         <div className={`text-center mt-20 transition-all duration-800 ${servicesVisible ? 'animate-fade-in' : 'opacity-0 translate-y-[30px]'}`} style={{ animationDelay: '0.5s' }}>
           <div className="gradient-construction rounded-3xl p-10 lg:p-16 text-white hover-lift">
-            <h3 className="text-3xl lg:text-5xl font-bold mb-6">Ready to Start Your Project?</h3>
+            <h3 className="text-3xl lg:text-5xl font-bold mb-6">Ready to Own Your Dream Home?</h3>
             <p className="text-xl lg:text-2xl mb-10 opacity-90 max-w-3xl mx-auto">
-              Let's discuss your construction needs and bring your vision to life.
+              Explore our current residential projects and find the perfect apartment for your family.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <button className="bg-white text-primary px-10 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-all duration-300 hover:scale-105 text-lg">
-                Get Free Consultation
+                Schedule Site Visit
               </button>
               <button className="border-2 border-white text-white px-10 py-4 rounded-xl font-semibold hover:bg-white hover:text-primary transition-all duration-300 hover:scale-105 text-lg">
-                View Our Work
+                View Available Units
               </button>
             </div>
           </div>

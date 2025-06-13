@@ -1,6 +1,6 @@
 
 import { Button } from '@/components/ui/button';
-import { Construction, Hammer, Wrench, Building } from 'lucide-react';
+import { Home, Building, Users, Award } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const Hero = () => {
@@ -26,37 +26,37 @@ const Hero = () => {
           <div className={`space-y-10 transition-all duration-1000 ${heroVisible ? 'animate-slide-in-left' : 'opacity-0 translate-x-[-60px]'}`}>
             <div className="space-y-6">
               <h1 className="text-5xl lg:text-7xl font-bold leading-tight">
-                Building
-                <span className="gradient-text block">Tomorrow's</span>
-                Infrastructure
+                Your Dream
+                <span className="gradient-text block">Home</span>
+                Awaits
               </h1>
               <p className="text-xl lg:text-2xl text-muted-foreground leading-relaxed max-w-2xl">
-                With over a decade of excellence in construction, we transform visions into reality through innovative building solutions and uncompromising quality.
+                Discover premium residential apartments crafted with excellence. From modern 2BHK to spacious 3BHK homes, we build quality living spaces for families who value comfort and style.
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-6">
               <Button size="lg" className="gradient-construction text-white hover:opacity-90 transition-all duration-300 hover:scale-105 animate-pulse-glow text-lg px-8 py-4">
-                Start Your Project
+                Explore Our Apartments
               </Button>
               <Button size="lg" variant="outline" className="border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 hover:scale-105 text-lg px-8 py-4">
-                View Portfolio
+                Schedule Site Visit
               </Button>
             </div>
 
             {/* Enhanced Stats */}
             <div className="grid grid-cols-3 gap-8 pt-10 border-t border-gray-200">
               <div className={`text-center transition-all duration-700 ${heroVisible ? 'animate-scale-in animate-stagger-1' : 'opacity-0 scale-90'}`}>
-                <div className="text-4xl lg:text-5xl font-bold gradient-text">100+</div>
+                <div className="text-4xl lg:text-5xl font-bold gradient-text">26+</div>
                 <div className="text-sm lg:text-base text-muted-foreground font-medium">Projects Completed</div>
               </div>
               <div className={`text-center transition-all duration-700 ${heroVisible ? 'animate-scale-in animate-stagger-2' : 'opacity-0 scale-90'}`}>
-                <div className="text-4xl lg:text-5xl font-bold gradient-text">15+</div>
-                <div className="text-sm lg:text-base text-muted-foreground font-medium">Years Experience</div>
+                <div className="text-4xl lg:text-5xl font-bold gradient-text">400+</div>
+                <div className="text-sm lg:text-base text-muted-foreground font-medium">Happy Families</div>
               </div>
               <div className={`text-center transition-all duration-700 ${heroVisible ? 'animate-scale-in animate-stagger-3' : 'opacity-0 scale-90'}`}>
-                <div className="text-4xl lg:text-5xl font-bold gradient-text">50+</div>
-                <div className="text-sm lg:text-base text-muted-foreground font-medium">Happy Clients</div>
+                <div className="text-4xl lg:text-5xl font-bold gradient-text">6L+</div>
+                <div className="text-sm lg:text-base text-muted-foreground font-medium">sq.ft Delivered</div>
               </div>
             </div>
           </div>
@@ -67,17 +67,17 @@ const Hero = () => {
               {/* Main construction illustration */}
               <div className="w-full h-[500px] lg:h-[600px] gradient-construction rounded-3xl flex items-center justify-center relative overflow-hidden hover-lift">
                 <div className="text-white text-center space-y-6">
-                  <Construction className="w-20 h-20 mx-auto animate-bounce-subtle" />
-                  <h3 className="text-3xl lg:text-4xl font-bold">Expert Construction</h3>
-                  <p className="text-xl lg:text-2xl opacity-90">Quality & Innovation</p>
+                  <Building className="w-20 h-20 mx-auto animate-bounce-subtle" />
+                  <h3 className="text-3xl lg:text-4xl font-bold">Premium Apartments</h3>
+                  <p className="text-xl lg:text-2xl opacity-90">Quality Living Spaces</p>
                 </div>
                 
                 {/* Floating icons with enhanced animations */}
                 <div className="absolute top-6 right-6 bg-white/20 backdrop-blur-sm p-4 rounded-full animate-float hover-scale" style={{ animationDelay: '0.5s' }}>
-                  <Hammer className="w-8 h-8 text-white" />
+                  <Home className="w-8 h-8 text-white" />
                 </div>
                 <div className="absolute bottom-6 left-6 bg-white/20 backdrop-blur-sm p-4 rounded-full animate-float hover-scale" style={{ animationDelay: '1.5s' }}>
-                  <Wrench className="w-8 h-8 text-white" />
+                  <Users className="w-8 h-8 text-white" />
                 </div>
               </div>
 
@@ -85,11 +85,11 @@ const Hero = () => {
               <div className="absolute -bottom-8 -left-8 bg-white rounded-2xl p-6 shadow-2xl hover-lift hover-scale">
                 <div className="flex items-center space-x-4">
                   <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
-                    <Building className="w-8 h-8 text-primary" />
+                    <Home className="w-8 h-8 text-primary" />
                   </div>
                   <div>
-                    <div className="font-bold text-gray-900 text-lg">Residential</div>
-                    <div className="text-muted-foreground">Modern Homes</div>
+                    <div className="font-bold text-gray-900 text-lg">2 & 3 BHK</div>
+                    <div className="text-muted-foreground">Modern Apartments</div>
                   </div>
                 </div>
               </div>
@@ -97,11 +97,11 @@ const Hero = () => {
               <div className="absolute -top-8 -right-8 bg-white rounded-2xl p-6 shadow-2xl hover-lift hover-scale">
                 <div className="flex items-center space-x-4">
                   <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center">
-                    <Construction className="w-8 h-8 text-secondary" />
+                    <Award className="w-8 h-8 text-secondary" />
                   </div>
                   <div>
-                    <div className="font-bold text-gray-900 text-lg">Commercial</div>
-                    <div className="text-muted-foreground">Business Spaces</div>
+                    <div className="font-bold text-gray-900 text-lg">Premium</div>
+                    <div className="text-muted-foreground">Quality Homes</div>
                   </div>
                 </div>
               </div>

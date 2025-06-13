@@ -1,17 +1,18 @@
 
 import { Card, CardContent } from '@/components/ui/card';
-import { Building, Construction, Hammer, Wrench } from 'lucide-react';
+import { Building, Construction, Home, Users } from 'lucide-react';
 
 const Projects = () => {
   const projects = [
     {
       title: 'Luxury Residential Complex',
-      category: 'Residential',
-      description: 'Modern 50-unit residential complex with premium amenities and sustainable design features.',
+      category: 'Completed Project',
+      description: 'Modern 50-unit residential complex with premium amenities and contemporary design.',
       icon: Building,
       image: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&h=600&fit=crop',
-      status: 'Completed',
-      year: '2023'
+      status: 'Sold Out',
+      year: '2023',
+      units: '50 Apartments'
     },
     {
       title: 'NC Vihanga',
@@ -19,26 +20,29 @@ const Projects = () => {
       description: '2 & 3BHK apartments located at Kardanoor near ORR Exit-3 with modern amenities.',
       icon: Construction,
       image: '/lovable-uploads/image.png',
-      status: 'In Progress',
-      year: '2024'
+      status: 'Selling',
+      year: '2024',
+      units: '2 & 3 BHK Available'
     },
     {
-      title: 'Shopping Mall Development',
-      category: 'Commercial',
-      description: 'Large-scale retail complex with modern architecture and comprehensive shopping experience.',
-      icon: Hammer,
+      title: 'Garden View Residency',
+      category: 'Completed Project',
+      description: 'Family-friendly apartment complex with landscaped gardens and children\'s play areas.',
+      icon: Home,
       image: 'https://images.unsplash.com/photo-1486718448742-163732cd1544?w=800&h=600&fit=crop',
-      status: 'Completed',
-      year: '2023'
+      status: 'Sold Out',
+      year: '2023',
+      units: '75 Apartments'
     },
     {
-      title: 'Infrastructure Bridge Project',
-      category: 'Infrastructure',
-      description: 'Major bridge construction project enhancing regional connectivity and transportation.',
-      icon: Wrench,
+      title: 'Elite Heights',
+      category: 'Upcoming Project',
+      description: 'Premium residential towers with state-of-the-art amenities and panoramic city views.',
+      icon: Users,
       image: 'https://images.unsplash.com/photo-1494891848038-7bd202a2afeb?w=800&h=600&fit=crop',
-      status: 'Planning',
-      year: '2024'
+      status: 'Pre-Launch',
+      year: '2025',
+      units: '120 Apartments'
     }
   ];
 
@@ -59,11 +63,11 @@ const Projects = () => {
         {/* Section Header */}
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            Our <span className="gradient-text">Projects</span>
+            Our <span className="gradient-text">Residential Projects</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Explore our portfolio of successful construction projects that showcase our expertise 
-            in delivering quality structures across various sectors.
+            Explore our portfolio of premium residential apartments that have provided 
+            comfortable homes to hundreds of satisfied families.
           </p>
         </div>
 
@@ -83,8 +87,8 @@ const Projects = () => {
                 />
                 <div className="absolute top-4 left-4 flex items-center space-x-2">
                   <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                    project.status === 'Completed' ? 'bg-green-100 text-green-800' :
-                    project.status === 'In Progress' ? 'bg-blue-100 text-blue-800' :
+                    project.status === 'Sold Out' ? 'bg-green-100 text-green-800' :
+                    project.status === 'Selling' ? 'bg-blue-100 text-blue-800' :
                     'bg-yellow-100 text-yellow-800'
                   }`}>
                     {project.status}
@@ -111,9 +115,11 @@ const Projects = () => {
                 <p className="text-muted-foreground leading-relaxed">
                   {project.description}
                 </p>
-                <button className="text-primary font-medium hover:text-primary/80 transition-colors">
-                  View Details →
-                </button>
+                <div className="flex justify-between items-center pt-2">
+                  <span className="text-sm font-medium text-gray-600">
+                    {project.units}
+                  </span>
+                </div>
               </CardContent>
             </Card>
           ))}
@@ -122,9 +128,9 @@ const Projects = () => {
         {/* Completed Projects Section */}
         <div className="mb-16">
           <div className="text-center mb-12 animate-fade-in">
-            <h3 className="text-3xl font-bold mb-4">Completed <span className="gradient-text">Projects</span></h3>
+            <h3 className="text-3xl font-bold mb-4">Successfully <span className="gradient-text">Delivered</span></h3>
             <p className="text-lg text-muted-foreground">
-              A showcase of our successfully delivered residential and commercial projects
+              A showcase of our completed residential projects where families now call home
             </p>
           </div>
           
@@ -148,16 +154,16 @@ const Projects = () => {
         {/* Stats Section */}
         <div className="gradient-construction rounded-2xl p-8 lg:p-12 text-white animate-fade-in">
           <div className="text-center mb-8">
-            <h3 className="text-3xl font-bold mb-4">Project Statistics</h3>
+            <h3 className="text-3xl font-bold mb-4">Our Achievement</h3>
             <p className="text-xl opacity-90">
-              Numbers that speak for our commitment to excellence
+              Numbers that reflect our commitment to providing quality homes
             </p>
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               { number: '26', label: 'Completed Projects' },
-              { number: '6 Lakh+', label: 'sq.ft Constructed' },
-              { number: '400+', label: 'Happy Customers' },
+              { number: '6 Lakh+', label: 'sq.ft Delivered' },
+              { number: '400+', label: 'Happy Families' },
               { number: '20+', label: 'Years Experience' }
             ].map((stat, index) => (
               <div key={stat.label} className="text-center">
