@@ -58,7 +58,7 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="py-20 bg-gray-50">
+    <section id="projects" className="py-20 bg-muted/30">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-16 animate-fade-in">
@@ -76,7 +76,7 @@ const Projects = () => {
           {projects.map((project, index) => (
             <Card 
               key={project.title} 
-              className="overflow-hidden hover-lift bg-white border-0 shadow-lg animate-fade-in"
+              className="overflow-hidden hover-lift bg-card border-border shadow-lg animate-fade-in"
               style={{ animationDelay: `${index * 0.2}s` }}
             >
               <div className="relative h-64 overflow-hidden">
@@ -101,7 +101,7 @@ const Projects = () => {
               <CardContent className="p-6 space-y-4">
                 <div className="flex justify-between items-start">
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">
+                    <h3 className="text-xl font-bold text-foreground mb-2">
                       {project.title}
                     </h3>
                     <span className="text-sm font-medium text-primary">
@@ -116,7 +116,7 @@ const Projects = () => {
                   {project.description}
                 </p>
                 <div className="flex justify-between items-center pt-2">
-                  <span className="text-sm font-medium text-gray-600">
+                  <span className="text-sm font-medium text-muted-foreground">
                     {project.units}
                   </span>
                 </div>
@@ -138,7 +138,7 @@ const Projects = () => {
             {completedProjects.map((project, index) => (
               <Card 
                 key={index}
-                className="overflow-hidden hover-lift bg-white border-0 shadow-lg animate-fade-in"
+                className="overflow-hidden hover-lift bg-card border-border shadow-lg animate-fade-in"
                 style={{ animationDelay: `${index * 0.3}s` }}
               >
                 <img 

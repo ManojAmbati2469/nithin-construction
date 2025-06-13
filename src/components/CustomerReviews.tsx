@@ -39,7 +39,7 @@ const CustomerReviews = () => {
   ];
 
   return (
-    <section className="section-padding bg-white">
+    <section className="section-padding bg-background">
       <div className="container mx-auto container-padding" ref={reviewsRef}>
         {/* Section Header */}
         <div className={`text-center mb-20 transition-all duration-800 ${reviewsVisible ? 'animate-fade-in' : 'opacity-0 translate-y-[30px]'}`}>
@@ -63,7 +63,7 @@ const CustomerReviews = () => {
             <CarouselContent className="-ml-2 md:-ml-4">
               {reviews.map((review, index) => (
                 <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/2">
-                  <Card className="hover-lift bg-gradient-to-br from-gray-50 to-white border-0 shadow-xl h-full hover-scale">
+                  <Card className="hover-lift bg-card border-border shadow-xl h-full hover-scale">
                     <CardContent className="p-8 lg:p-10 flex flex-col h-full">
                       {/* Quote Icon */}
                       <div className="mb-8">
@@ -90,7 +90,7 @@ const CustomerReviews = () => {
                           className="w-16 h-16 rounded-full object-cover hover-scale"
                         />
                         <div>
-                          <div className="font-bold text-gray-900 text-lg">{review.name}</div>
+                          <div className="font-bold text-foreground text-lg">{review.name}</div>
                           <div className="text-primary font-medium">{review.company}</div>
                         </div>
                       </div>

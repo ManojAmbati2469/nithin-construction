@@ -39,7 +39,7 @@ const Services = () => {
 
   return (
     <>
-      <section id="services" className="section-padding bg-gray-50">
+      <section id="services" className="section-padding bg-muted/30">
         <div className="container mx-auto container-padding" ref={servicesRef}>
           {/* Section Header */}
           <div className={`text-center mb-20 transition-all duration-800 ${servicesVisible ? 'animate-fade-in' : 'opacity-0 translate-y-[30px]'}`}>
@@ -57,7 +57,7 @@ const Services = () => {
             {services.map((service, index) => (
               <Card 
                 key={service.title} 
-                className={`hover-lift bg-white border-0 shadow-xl transition-all duration-700 ${
+                className={`hover-lift bg-card border-border shadow-xl transition-all duration-700 ${
                   servicesVisible 
                     ? `animate-scale-on-scroll in-view animate-stagger-${index + 1}` 
                     : 'animate-scale-on-scroll'
@@ -67,7 +67,7 @@ const Services = () => {
                   <div className="w-20 h-20 gradient-construction rounded-full flex items-center justify-center mx-auto mb-6 hover-scale">
                     <service.icon className="w-10 h-10 text-white" />
                   </div>
-                  <CardTitle className="text-xl lg:text-2xl font-bold text-gray-900">
+                  <CardTitle className="text-xl lg:text-2xl font-bold text-foreground">
                     {service.title}
                   </CardTitle>
                 </CardHeader>
