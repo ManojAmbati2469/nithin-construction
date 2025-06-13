@@ -13,12 +13,10 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter basename="/nithin-construction">
+      <BrowserRouter>
         <Routes>
-          {/* <Route path="/" element={<Navigate to="/nithin-construction" replace />} />
+          <Route path="/" element={<Navigate to="/nithin-construction" replace />} />
           <Route path="/nithin-construction" element={<Index />} />
-          <Route path="*" element={<NotFound />} /> */}
-          <Route path="/" element={<Index />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
