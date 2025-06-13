@@ -1,7 +1,6 @@
 
 import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Building, Construction, Menu, X } from 'lucide-react';
+import { Building, Menu, X } from 'lucide-react';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -40,13 +39,6 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* CTA Button */}
-          <div className="hidden md:block animate-slide-in-right">
-            <Button className="gradient-construction text-white hover:opacity-90 transition-opacity">
-              Get Quote
-            </Button>
-          </div>
-
           {/* Mobile Menu Button */}
           <button
             className="md:hidden p-2"
@@ -70,9 +62,6 @@ const Header = () => {
                   {item.name}
                 </a>
               ))}
-              <Button className="gradient-construction text-white mt-4 w-full">
-                Get Quote
-              </Button>
             </nav>
           </div>
         )}
