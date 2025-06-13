@@ -47,12 +47,35 @@
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: 215 25% 27%; /* Steel gray as dark background */
     --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
+
+    --card: 220 9% 46%; /* Concrete gray for cards */
     --card-foreground: 210 40% 98%;
+
+    --popover: 220 9% 46%;
+    --popover-foreground: 210 40% 98%;
+
+    /* Primary: Brighter brick red for dark mode */
     --primary: 0 70% 50%;
+    --primary-foreground: 210 40% 98%;
+
+    /* Secondary: Brighter construction blue for dark mode */
     --secondary: 221 83% 60%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 220 9% 46%;
+    --muted-foreground: 215.4 16.3% 65%;
+
+    --accent: 221 83% 60%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 55%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 9% 46%;
+    --input: 220 9% 46%;
+    --ring: 0 70% 50%;
   }
 }
 

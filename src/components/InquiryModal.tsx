@@ -65,14 +65,14 @@ const InquiryModal = ({ isOpen, onClose, type }: InquiryModalProps) => {
       <Dialog open={isOpen} onOpenChange={resetForm}>
         <DialogContent className="sm:max-w-md">
           <div className="text-center space-y-6 py-8">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
-              <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto">
+              <svg className="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
             <div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">Thank You!</h3>
-              <p className="text-gray-600">
+              <h3 className="text-2xl font-bold text-foreground mb-2">Thank You!</h3>
+              <p className="text-muted-foreground">
                 Your {type === 'site-visit' ? 'site visit request' : 'inquiry'} has been submitted successfully. 
                 Our team will contact you within 24 hours.
               </p>
