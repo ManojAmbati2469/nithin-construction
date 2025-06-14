@@ -78,7 +78,7 @@ const Footer = () => {
         </div>
 
         {/* Newsletter */}
-        <div className="mt-12 pt-8 border-t border-gray-600">
+        {/* <div className="mt-12 pt-8 border-t border-gray-600">
           <div className="grid lg:grid-cols-2 gap-8 items-center">
             <div>
               <h3 className="text-2xl font-bold mb-2">Stay Updated</h3>
@@ -95,7 +95,7 @@ const Footer = () => {
               </button>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-gray-600 flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0">

@@ -12,7 +12,7 @@ const CurrentProject = () => {
 
   return (
     <>
-      <section className="section-padding bg-white">
+      <section className="py-5">
         <div className="container mx-auto container-padding" ref={projectRef}>
           {/* Section Header */}
           <div className={`text-center mb-20 transition-all duration-800 ${projectVisible ? 'animate-fade-in' : 'opacity-0 translate-y-[30px]'}`}>
@@ -38,12 +38,12 @@ const CurrentProject = () => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                     <div className="absolute bottom-6 left-6 right-6">
-                      <div className="bg-white/95 backdrop-blur-sm p-6 rounded-xl">
+                      <div className="bg-white/95 backdrop-blur-sm p-6 rounded-xl dark:bg-gray-900">
                         <div className="flex items-center space-x-3 mb-2">
                           <Navigation className="w-5 h-5 text-primary" />
-                          <span className="text-sm font-medium text-gray-600">Prime Location</span>
+                          <span className="text-sm font-medium text-gray-600 dark:text-white">Prime Location</span>
                         </div>
-                        <p className="text-lg font-bold text-gray-900">Kardanoor near ORR Exit-3</p>
+                        <p className="text-lg font-bold text-gray-900 dark:text-white">Kardanoor near ORR Exit-3</p>
                       </div>
                     </div>
                   </div>
@@ -54,7 +54,7 @@ const CurrentProject = () => {
               <div className={`space-y-10 transition-all duration-1000 ${projectVisible ? 'animate-slide-in-right' : 'opacity-0 translate-x-[60px]'}`}>
                 <div className="space-y-6">
                   <div>
-                    <h3 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">NC Vihanga</h3>
+                    <h3 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4 dark:text-white">NC Vihanga</h3>
                     <div className="w-20 h-1 gradient-construction rounded-full"></div>
                   </div>
                   <p className="text-2xl lg:text-3xl gradient-text font-medium italic">
@@ -66,16 +66,16 @@ const CurrentProject = () => {
                 </div>
 
                 <div className="space-y-8">
-                  <h4 className="text-2xl lg:text-3xl font-bold text-gray-900">Project Highlights</h4>
+                  <h4 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white">Project Highlights</h4>
                   
                   <div className="grid gap-6">
-                    <div className={`group p-6 bg-gray-50 rounded-2xl border border-gray-100 hover:border-primary/20 hover:bg-primary/5 transition-all duration-500 ${projectVisible ? 'animate-scale-in animate-stagger-1' : 'opacity-0 scale-90'}`}>
+                    <div className={`group p-6 bg-gray-50 dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-primary/20 dark:hover:border-primary/30 hover:bg-primary/5 dark:hover:bg-whiet/30 transition-all duration-500 ${projectVisible ? 'animate-scale-in animate-stagger-1' : 'opacity-0 scale-90'}`}>
                       <div className="flex items-start space-x-6">
                         <div className="w-16 h-16 gradient-construction rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                           <Home className="w-8 h-8 text-white" />
                         </div>
                         <div className="flex-1">
-                          <div className="font-bold text-gray-900 text-xl mb-2">2 & 3BHK Apartments</div>
+                          <div className="font-bold light:text-gray-900 dark:text-gray-50 text-xl mb-2">2 & 3BHK Apartments</div>
                           <div className="text-muted-foreground text-lg leading-relaxed">
                             Spacious and thoughtfully designed apartments to suit different family sizes and preferences
                           </div>
@@ -83,13 +83,13 @@ const CurrentProject = () => {
                       </div>
                     </div>
 
-                    <div className={`group p-6 bg-gray-50 rounded-2xl border border-gray-100 hover:border-primary/20 hover:bg-primary/5 transition-all duration-500 ${projectVisible ? 'animate-scale-in animate-stagger-2' : 'opacity-0 scale-90'}`}>
+                    <div className={`group p-6 bg-gray-50 dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-primary/20 dark:hover:border-primary/30 hover:bg-primary/5 dark:hover:bg-whiet/30 transition-all duration-500 ${projectVisible ? 'animate-scale-in animate-stagger-1' : 'opacity-0 scale-90'}`}>
                       <div className="flex items-start space-x-6">
                         <div className="w-16 h-16 gradient-construction rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                           <Square className="w-8 h-8 text-white" />
                         </div>
                         <div className="flex-1">
-                          <div className="font-bold text-gray-900 text-xl mb-2">1090 - 2032 sq.ft</div>
+                          <div className="font-bold text-gray-900 text-xl mb-2 dark:text-gray-50">1090 - 2032 sq.ft</div>
                           <div className="text-muted-foreground text-lg leading-relaxed">
                             Flexible floor plans ranging from compact 2BHK to spacious 3BHK apartments
                           </div>
@@ -97,13 +97,13 @@ const CurrentProject = () => {
                       </div>
                     </div>
 
-                    <div className={`group p-6 bg-gray-50 rounded-2xl border border-gray-100 hover:border-primary/20 hover:bg-primary/5 transition-all duration-500 ${projectVisible ? 'animate-scale-in animate-stagger-3' : 'opacity-0 scale-90'}`}>
+                    <div className={`group p-6 bg-gray-50 dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-primary/20 dark:hover:border-primary/30 hover:bg-primary/5 dark:hover:bg-whiet/30 transition-all duration-500 ${projectVisible ? 'animate-scale-in animate-stagger-1' : 'opacity-0 scale-90'}`}>
                       <div className="flex items-start space-x-6">
                         <div className="w-16 h-16 gradient-construction rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                           <MapPin className="w-8 h-8 text-white" />
                         </div>
                         <div className="flex-1">
-                          <div className="font-bold text-gray-900 text-xl mb-2">Strategic Location</div>
+                          <div className="font-bold text-gray-900 text-xl mb-2 dark:text-gray-50">Strategic Location</div>
                           <div className="text-muted-foreground text-lg leading-relaxed">
                             Located at Kardanoor near ORR Exit-3 with excellent connectivity to major IT hubs and city centers
                           </div>

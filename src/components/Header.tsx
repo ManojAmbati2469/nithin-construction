@@ -19,9 +19,10 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center space-x-2 animate-slide-in-left">
-            <div className="gradient-construction p-2 rounded-lg">
-              <Building className="w-6 h-6 text-white" />
+          <div className="flex items-center space-x-2 animate-slide-in-left cursor-pointer" onClick={() => (window.location.href = '#home')}>
+            <div className="">
+              {/* <Building className="w-6 h-6 text-white" /> */}
+              <img src="/Nithin_Constructions_Logo.png" alt='Nithin Constructions Logo'/>
             </div>
             <span className="text-xl font-bold gradient-text">Nithin Constructions</span>
           </div>

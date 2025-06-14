@@ -1,6 +1,8 @@
 
 import { Card, CardContent } from '@/components/ui/card';
 import { Building, Construction, Home, Users } from 'lucide-react';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './ui/carousel';
+import { title } from 'process';
 
 const Projects = () => {
   const projects = [
@@ -48,17 +50,39 @@ const Projects = () => {
 
   const completedProjects = [
     {
-      image: '/lovable-uploads/58a4c73a-fe50-4e0b-b127-51d2bd9dde86.png',
-      alt: 'Completed Residential Complex 1'
+      image: '/nithinConstruction1.png',
+      alt: 'Completed Residential Complex 1',
+      title: 'RC GreenFeilds'
     },
     {
-      image: '/lovable-uploads/58a4c73a-fe50-4e0b-b127-51d2bd9dde86.png',
-      alt: 'Completed Residential Complex 2'
+      image: '/nithinConstruction2.png',
+      alt: 'Completed Residential Complex 2',
+      title: 'RC Diamond'
+    },
+    {
+      image: '/nithinConstruction3.png',
+      alt: 'Completed Residential Complex 2',
+      title: 'NC Sunrise'
+    },
+    {
+      image: '/nithinConstruction4.png',
+      alt: 'Completed Residential Complex 2',
+      title: 'Mepra'
+    },
+    {
+      image: '/nithinConstruction5.png',
+      alt: 'Completed Residential Complex 2',
+      title: 'NC Lily'
+    },
+    {
+      image: '/nithinConstruction6.png',
+      alt: 'Completed Residential Complex 2',
+      title: 'RC Green Leaves'
     }
   ];
 
   return (
-    <section id="projects" className="py-20 bg-muted/30">
+    <section id="projects" className="py-5">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-16 animate-fade-in">
@@ -76,7 +100,7 @@ const Projects = () => {
           {projects.map((project, index) => (
             <Card 
               key={project.title} 
-              className="overflow-hidden hover-lift bg-card border-border shadow-lg animate-fade-in"
+              className="overflow-hidden hover-lift bg-card border-border shadow-lg animate-fade-in dark:bg-gray-900"
               style={{ animationDelay: `${index * 0.2}s` }}
             >
               <div className="relative h-64 overflow-hidden">
@@ -134,20 +158,40 @@ const Projects = () => {
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-8">
-            {completedProjects.map((project, index) => (
-              <Card 
-                key={index}
-                className="overflow-hidden hover-lift bg-card border-border shadow-lg animate-fade-in"
-                style={{ animationDelay: `${index * 0.3}s` }}
-              >
-                <img 
-                  src={project.image} 
-                  alt={project.alt}
-                  className="w-full h-64 object-cover transition-transform duration-300 hover:scale-110"
-                />
-              </Card>
-            ))}
+          <div className="w-[90vw] mx-auto py-8">
+            <Carousel 
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+              className="w-full">
+                <CarouselContent>
+                  {completedProjects.map((project, index) => (
+                    <CarouselItem
+                      key={index}
+                      className="md:basis-1/2 lg:basis-1/3 px-2"
+                    >
+                      <div
+                        className="group overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-md hover:shadow-xl transition-shadow duration-300"
+                        style={{ animationDelay: `${index * 0.2}s` }}
+                      >
+                        <img
+                          src={project.image}
+                          alt={project.alt}
+                          className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
+                        />
+                        <div className="p-4 text-center">
+                          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                            {project.title}
+                          </h3>
+                        </div>
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+              </Carousel>
           </div>
         </div>
 

@@ -31,7 +31,7 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-20 bg-white">
+    <section id="about" className="py-5">
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Content */}
@@ -55,7 +55,7 @@ const About = () => {
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-2xl font-bold text-gray-900">Why Choose Us?</h3>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Why Choose Us?</h3>
               <ul className="space-y-3">
                 {[
                   'Expert team with 20+ years of experience',
@@ -78,7 +78,7 @@ const About = () => {
             {achievements.map((achievement, index) => (
               <Card 
                 key={achievement.label} 
-                className="hover-lift bg-gradient-to-br from-gray-50 to-white border-0 shadow-lg"
+                className="hover-lift border-0 shadow-lg bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-900"
                 style={{ animationDelay: `${index * 0.2}s` }}
               >
                 <CardContent className="p-6 text-center space-y-4">
@@ -89,7 +89,7 @@ const About = () => {
                     <div className="text-3xl font-bold gradient-text">
                       {achievement.number}
                     </div>
-                    <div className="font-semibold text-gray-900">
+                    <div className="font-semibold text-gray-900 dark:text-white">
                       {achievement.label}
                     </div>
                     <p className="text-sm text-muted-foreground">
@@ -107,9 +107,9 @@ const About = () => {
           <div className="text-center mb-12">
             <h3 className="text-3xl font-bold mb-4">About Our <span className="gradient-text">Experience</span></h3>
           </div>
-          <div className="bg-gray-50 rounded-2xl p-8 lg:p-12">
+          <div className="light:bg-gray-50 dark:bg-gray-900 rounded-2xl p-8 lg:p-12">
             <p className="text-lg text-muted-foreground leading-relaxed">
-              <strong className="text-gray-900">SRI. BOGIREDDY VENKATA RAMANA REDDY</strong> graduate in Civil engineering in 1998, 
+              <strong className="light:text-gray-900 dark:text-white">SRI. BOGIREDDY VENKATA RAMANA REDDY</strong> graduate in Civil engineering in 1998, 
               after graduation worked as Civil Contractor at RTPC, Karnataka up to 2002, after that returned to Hyderabad, 
               taken License as Civil Engineer in LB Nagar Municipality and started Consultancy named on RAMANA PLANNERS up to 2005, 
               then started Construction named as RAMANA CONSTRUCTIONS constructed 30 independent houses and 9 apartments, 
@@ -131,7 +131,7 @@ const About = () => {
               Our mission is to be the most customer-focused builders.
             </p>
           </div>
-          <div className="text-center p-8 bg-gray-50 rounded-2xl hover-lift">
+          <div className="text-center p-8 light:bg-gray-50 dark:bg-gray-900 rounded-2xl hover-lift">
             <h3 className="text-2xl font-bold mb-4 gradient-text">Our Vision</h3>
             <p className="text-lg text-muted-foreground">
               Our vision, 'Building Moments,' reflects our dedication to society. Our top priority is ensuring customer 

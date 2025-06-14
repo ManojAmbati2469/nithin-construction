@@ -39,7 +39,7 @@ const CustomerReviews = () => {
   ];
 
   return (
-    <section className="section-padding bg-background">
+    <section className="py-5 bg-background">
       <div className="container mx-auto container-padding" ref={reviewsRef}>
         {/* Section Header */}
         <div className={`text-center mb-20 transition-all duration-800 ${reviewsVisible ? 'animate-fade-in' : 'opacity-0 translate-y-[30px]'}`}>
@@ -63,7 +63,7 @@ const CustomerReviews = () => {
             <CarouselContent className="-ml-2 md:-ml-4">
               {reviews.map((review, index) => (
                 <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/2">
-                  <Card className="hover-lift bg-card border-border shadow-xl h-full hover-scale">
+                  <Card className="hover-lift bg-card border-border shadow-xl h-full hover-scale dark:bg-gray-900">
                     <CardContent className="p-8 lg:p-10 flex flex-col h-full">
                       {/* Quote Icon */}
                       <div className="mb-8">

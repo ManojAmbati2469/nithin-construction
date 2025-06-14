@@ -7,7 +7,7 @@ import { ThemeProvider } from '@/components/ThemeProvider';
 
 function App() {
   return (
-    <ThemeProvider defaultTheme="light" storageKey="nithin-constructions-theme">
+    <ThemeProvider defaultTheme="dark" storageKey="nithin-constructions-theme">
       <div className="min-h-screen bg-background text-foreground">
         <Routes>
           <Route path="/" element={<Index />} />

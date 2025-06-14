@@ -63,7 +63,7 @@ const Contact = () => {
 
   if (isSubmitted) {
     return (
-      <section id="contact" className="py-12 sm:py-20 bg-white">
+      <section id="contact" className="py-5 sm:py-20 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mx-auto text-center animate-fade-in">
             <div className="mb-8">
@@ -88,7 +88,7 @@ const Contact = () => {
   }
 
   return (
-    <section id="contact" className="py-12 sm:py-20 bg-white">
+    <section id="contact" className="py-12 sm:py-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-12 sm:mb-16 animate-fade-in">
@@ -104,7 +104,7 @@ const Contact = () => {
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16">
           {/* Contact Form */}
           <div className="animate-slide-in-left">
-            <Card className="border-0 shadow-lg">
+            <Card className="border-0 shadow-lg dark:bg-gray-900 dark:text-muted-foreground">
               <CardHeader className="px-4 sm:px-6">
                 <CardTitle className="text-xl sm:text-2xl font-bold">Send us a Message</CardTitle>
               </CardHeader>
@@ -129,7 +129,7 @@ const Contact = () => {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <label className="text-sm font-medium text-gray-700">
+                      <label className="text-sm font-medium text-muted-foreground">
                         First Name <span className="text-red-500">*</span>
                       </label>
                       <Input 
@@ -140,7 +140,7 @@ const Contact = () => {
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-sm font-medium text-gray-700">Last Name</label>
+                      <label className="text-sm font-medium text-muted-foreground">Last Name</label>
                       <Input 
                         name="lastName"
                         placeholder="Doe" 
@@ -150,7 +150,7 @@ const Contact = () => {
                   </div>
                   
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-700">
+                    <label className="text-sm font-medium text-muted-foreground">
                       Email <span className="text-red-500">*</span>
                     </label>
                     <Input 
@@ -163,7 +163,7 @@ const Contact = () => {
                   </div>
                   
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-700">
+                    <label className="text-sm font-medium text-muted-foreground">
                       Phone Number <span className="text-red-500">*</span>
                     </label>
                     <Input 
@@ -176,7 +176,7 @@ const Contact = () => {
                   </div>
                   
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-700">Message</label>
+                    <label className="text-sm font-medium text-muted-foreground">Message</label>
                     <Textarea 
                       name="message"
                       placeholder="I'm interested in 2BHK/3BHK apartments. Please share details about availability and pricing..."
@@ -202,7 +202,7 @@ const Contact = () => {
               {contactInfo.map((info, index) => (
                 <Card 
                   key={info.title} 
-                  className="hover-lift border-0 shadow-lg"
+                  className="hover-lift border-0 shadow-lg dark:bg-gray-900"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <CardContent className="p-4 sm:p-6 flex items-center space-x-3 sm:space-x-4">
@@ -210,7 +210,7 @@ const Contact = () => {
                       <info.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1 text-sm sm:text-base">{info.title}</h3>
+                      <h3 className="font-semibold text-gray-900 mb-1 text-sm sm:text-base dark:text-white">{info.title}</h3>
                       <p className="text-muted-foreground text-sm sm:text-base">{info.content}</p>
                     </div>
                   </CardContent>
@@ -230,13 +230,13 @@ const Contact = () => {
             </Card>
 
             {/* Site Visit CTA */}
-            <Card className="border-0 shadow-lg bg-gray-50">
+            <Card className="border-0 shadow-lg dark:bg-gray-900">
               <CardContent className="p-4 sm:p-6 text-center">
                 <h3 className="text-lg sm:text-xl font-bold mb-2 gradient-text">Schedule Site Visit</h3>
                 <p className="text-muted-foreground mb-3 sm:mb-4 text-sm sm:text-base">
                   Experience our apartments firsthand. Schedule a visit to see the quality and comfort we offer.
                 </p>
-                <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white px-4 py-2 sm:px-6 sm:py-3">
+                <Button variant="outline" className="dark:text-white light:text-black border-black hover:bg-gray-900 hover:text-white px-4 py-2 sm:px-6 sm:py-3">
                   Book Site Visit
                 </Button>
               </CardContent>
