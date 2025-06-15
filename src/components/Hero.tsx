@@ -43,13 +43,13 @@ const Hero = () => {
             {/* Left Content */}
             <div className={`space-y-10 reveal-left ${heroVisible ? 'visible' : ''}`}>
               <div className="space-y-6">
-                <h1 className="text-4xl lg:text-7xl font-bold leading-tight">
-                  Your Dream<br />
-                  <span className="gradient-text block">2 &amp; 3 BHK Flat</span>
+                <h1 className="text-5xl lg:text-7xl font-bold leading-tight">
+                  Your Dream
+                  <span className="gradient-text block">Apartment</span>
                   Awaits
                 </h1>
                 <p className="text-xl lg:text-2xl text-muted-foreground leading-relaxed max-w-2xl">
-                  We build apartments, you own your home — choose from thoughtfully designed 2 &amp; 3 BHK flats perfect for families, with quality and comfort as the foundation of every space.
+                  Discover premium residential apartments crafted with excellence. From modern 2BHK to spacious 3BHK homes, we build quality living spaces for families who value comfort and style.
                 </p>
               </div>
 
