@@ -2,6 +2,7 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Building, Construction, Hammer, Wrench } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { useCountUp } from '@/hooks/useCountUp';
 
 const About = () => {
   const { ref: aboutRef, isVisible: aboutVisible } = useScrollAnimation();
@@ -9,28 +10,34 @@ const About = () => {
   const { ref: experienceRef, isVisible: experienceVisible } = useScrollAnimation();
   const { ref: missionRef, isVisible: missionVisible } = useScrollAnimation();
 
+  // Counter animations for achievements
+  const sqftCount = useCountUp(6, 2000, achievementsVisible);
+  const projectsCount = useCountUp(26, 2500, achievementsVisible);
+  const customersCount = useCountUp(400, 3000, achievementsVisible);
+  const experienceCount = useCountUp(20, 1500, achievementsVisible);
+
   const achievements = [
     {
       icon: Building,
-      number: '6 Lakh+',
+      number: `${sqftCount} Lakh+`,
       label: 'sq.ft Constructed',
       description: 'Successfully delivered across residential and commercial sectors'
     },
     {
       icon: Construction,
-      number: '26',
+      number: projectsCount.toString(),
       label: 'Completed Projects',
       description: 'A milestone achieved by Nithin Construction'
     },
     {
       icon: Hammer,
-      number: '400+',
+      number: `${customersCount}+`,
       label: 'Happy Customers',
       description: 'Rejoicing in the pleasures of a splendid life'
     },
     {
       icon: Wrench,
-      number: '20+',
+      number: `${experienceCount}+`,
       label: 'Years Experience',
       description: 'Decades of expertise in construction and project management'
     }
