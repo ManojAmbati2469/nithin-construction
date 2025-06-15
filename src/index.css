@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -70,22 +69,60 @@
 @layer base {
   * {
     @apply border-border;
-  }
-
-  body {
-    @apply bg-background text-foreground font-sans;
-    overflow-x: hidden; /* Prevent horizontal scroll on body */
+    box-sizing: border-box;
   }
 
   html {
     scroll-behavior: smooth;
-    overflow-x: hidden; /* Prevent horizontal scroll on html */
+    overflow-x: hidden !important;
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    overflow-x: hidden !important;
+    width: 100%;
+    max-width: 100vw;
+    margin: 0;
+    padding: 0;
+  }
+
+  #root {
+    overflow-x: hidden !important;
+    width: 100%;
+    max-width: 100vw;
   }
 
   /* Prevent horizontal overflow on all elements */
   * {
     max-width: 100%;
-    box-sizing: border-box;
+  }
+
+  /* Ensure all containers respect viewport width */
+  .container {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Fix for medium and large devices */
+  @media (min-width: 768px) {
+    .container {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
   }
 }
 
@@ -192,9 +229,11 @@
     animation: pulse-glow 2s ease-in-out infinite;
   }
 
-  /* Prevent horizontal overflow utility classes */
+  /* Strong horizontal overflow prevention */
   .no-overflow-x {
-    overflow-x: hidden;
+    overflow-x: hidden !important;
+    width: 100%;
+    max-width: 100vw;
   }
 
   .container-safe {
@@ -203,8 +242,10 @@
     margin: 0 auto;
     padding-left: 1rem;
     padding-right: 1rem;
+    overflow-x: hidden;
   }
 
+  /* Responsive container padding */
   @media (min-width: 640px) {
     .container-safe {
       padding-left: 1.5rem;
@@ -212,11 +253,38 @@
     }
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) {
     .container-safe {
       padding-left: 2rem;
       padding-right: 2rem;
     }
+  }
+
+  @media (min-width: 1024px) {
+    .container-safe {
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+      max-width: 1200px;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .container-safe {
+      max-width: 1280px;
+    }
+  }
+
+  /* Carousel specific overflow fix */
+  .carousel-container {
+    width: 100%;
+    max-width: 100vw;
+    overflow: hidden;
+  }
+
+  /* Grid responsive fixes */
+  .grid-safe {
+    width: 100%;
+    overflow-x: hidden;
   }
 }
 
