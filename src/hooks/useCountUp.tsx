@@ -1,11 +1,23 @@
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 
-export const useCountUp = (end: number, duration: number = 2000, isVisible: boolean = false) => {
+export const useCountUp = (
+  end: number,
+  duration: number = 2000,
+  isVisible: boolean = false
+) => {
   const [count, setCount] = useState(0);
   const countRef = useRef(0);
   const startTimeRef = useRef<number | null>(null);
   const animationRef = useRef<number | null>(null);
+  const [restartKey, setRestartKey] = useState(0);
+
+  const reset = useCallback(() => {
+    setCount(0);
+    countRef.current = 0;
+    startTimeRef.current = null;
+    setRestartKey((k) => k + 1); // triggers useEffect, restarting animation
+  }, []);
 
   useEffect(() => {
     if (!isVisible) {
@@ -22,9 +34,7 @@ export const useCountUp = (end: number, duration: number = 2000, isVisible: bool
       if (!startTimeRef.current) {
         startTimeRef.current = timestamp;
       }
-
       const progress = (timestamp - startTimeRef.current) / duration;
-      
       if (progress < 1) {
         const easeOutQuart = 1 - Math.pow(1 - progress, 4);
         countRef.current = Math.floor(end * easeOutQuart);
@@ -42,7 +52,7 @@ export const useCountUp = (end: number, duration: number = 2000, isVisible: bool
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [end, duration, isVisible]);
+  }, [end, duration, isVisible, restartKey]);
 
-  return count;
+  return [count, reset] as const;
 };

@@ -1,14 +1,27 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Home, Building, Users, Award } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import InquiryModal from './InquiryModal';
+import { useCountUp } from '@/hooks/useCountUp';
 
 const Hero = () => {
   const { ref: heroRef, isVisible: heroVisible } = useScrollAnimation();
   const [siteVisitModalOpen, setSiteVisitModalOpen] = useState(false);
   const [journeyModalOpen, setJourneyModalOpen] = useState(false);
+
+  // Animated counters for hero stats, start only when visible
+  const [years, resetYears] = useCountUp(20, 1200, heroVisible);
+  const [families, resetFamilies] = useCountUp(400, 1200, heroVisible);
+  const [sqft, resetSqft] = useCountUp(6, 1200, heroVisible);
+
+  // Format helper
+  const formatNumber = (val: number, label: "years" | "families" | "sqft") => {
+    if (label === "families") return val + "+";
+    if (label === "years") return val + "+";
+    if (label === "sqft") return val + " Lakh+";
+    return val.toString();
+  };
 
   return (
     <>
@@ -58,18 +71,39 @@ const Hero = () => {
                 </Button>
               </div>
 
-              {/* Enhanced Stats */}
+              {/* Animated Stats */}
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 pt-10 border-t border-gray-200 dark:border-gray-700">
-                <div className={`text-center reveal-scale reveal-stagger-1 ${heroVisible ? 'visible' : ''}`}>
-                  <div className="text-4xl lg:text-5xl font-bold gradient-text">20+</div>
+                <div
+                  className={`text-center reveal-scale reveal-stagger-1 cursor-pointer select-none transition-transform duration-300 active:scale-95 ${heroVisible ? 'visible' : ''}`}
+                  title="Click to replay"
+                  onClick={resetYears}
+                  tabIndex={0}
+                  role="button"
+                  aria-label="Replay years counter animation"
+                >
+                  <div className="text-4xl lg:text-5xl font-bold gradient-text">{formatNumber(years, "years")}</div>
                   <div className="text-sm lg:text-base text-muted-foreground font-medium">Years Experience</div>
                 </div>
-                <div className={`text-center reveal-scale reveal-stagger-2 ${heroVisible ? 'visible' : ''}`}>
-                  <div className="text-4xl lg:text-5xl font-bold gradient-text">400+</div>
+                <div
+                  className={`text-center reveal-scale reveal-stagger-2 cursor-pointer select-none transition-transform duration-300 active:scale-95 ${heroVisible ? 'visible' : ''}`}
+                  title="Click to replay"
+                  onClick={resetFamilies}
+                  tabIndex={0}
+                  role="button"
+                  aria-label="Replay happy families counter animation"
+                >
+                  <div className="text-4xl lg:text-5xl font-bold gradient-text">{formatNumber(families, "families")}</div>
                   <div className="text-sm lg:text-base text-muted-foreground font-medium">Happy Families</div>
                 </div>
-                <div className={`text-center reveal-scale reveal-stagger-3 ${heroVisible ? 'visible' : ''}`}>
-                  <div className="text-4xl lg:text-5xl font-bold gradient-text">6 Lakh+</div>
+                <div
+                  className={`text-center reveal-scale reveal-stagger-3 cursor-pointer select-none transition-transform duration-300 active:scale-95 ${heroVisible ? 'visible' : ''}`}
+                  title="Click to replay"
+                  onClick={resetSqft}
+                  tabIndex={0}
+                  role="button"
+                  aria-label="Replay sq.ft delivered counter animation"
+                >
+                  <div className="text-4xl lg:text-5xl font-bold gradient-text">{formatNumber(sqft, "sqft")}</div>
                   <div className="text-sm lg:text-base text-muted-foreground font-medium">sq.ft Delivered</div>
                 </div>
               </div>
