@@ -27,7 +27,6 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
   const getImageStyle = (idx: number): React.CSSProperties => {
     let delta = idx - activeIdx;
 
-    // 2 or 3 images: always wrap around
     if (total === 2) {
       if (delta > 1) delta -= total;
       if (delta < -1) delta += total;
@@ -36,10 +35,9 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
       if (delta < -1) delta += total;
     }
 
-    // For >3 images: NO WRAP, only show up to two neighbors; hide others
+    // For >3 images: allow up to 3 peeking images at left/right, rest hidden
     if (total > 3) {
-      if (delta < -2 || delta > 2) {
-        // Hide images too far from active
+      if (delta < -3 || delta > 3) {
         return {
           visibility: 'hidden',
           opacity: 0,
@@ -76,7 +74,7 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
         boxShadow: "0 2px 12px rgba(20,18,38,0.13)",
       };
     } else {
-      // For >=4 images, standard peeking, but no wrap
+      // For >=4 images, peeking: up to 3 left/right, fixed spacing
       const peekDistance = baseSpacing * delta;
       return {
         zIndex,
