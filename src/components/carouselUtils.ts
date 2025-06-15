@@ -46,7 +46,7 @@ export function getDisplayIndices(total: number, activeIdx: number): number[] {
   ];
 }
 
-// Returns styles for each image as per position in displayIndices.
+// Update: side images overlap under main image. Partially overlap (negative margin effect).
 export function getImageStyle(opts: CarouselImageStyleOpts): React.CSSProperties {
   const {
     displayIndices,
@@ -91,27 +91,27 @@ export function getImageStyle(opts: CarouselImageStyleOpts): React.CSSProperties
     filter = "none";
     op = 1;
     bs = "0 18px 38px rgba(0,0,0,0.16)";
-    z = 30;
+    z = 40; // Highest
   } else if (Math.abs(rel) === 1) {
-    // 1-away: main peekers, overlap over 2-away when present, clickability
-    baseX = rel * (spacing * 2.5);
-    s = inactiveScale + 0.17;
-    w = inactiveW + 54;
+    // 1-away: main peekers - overlap under main by negative margin/translate
+    baseX = rel * (spacing * 1.6); // overlap more tightly
+    s = inactiveScale + 0.20;
+    w = inactiveW + 70; // wider for peeking
     h = highlightHeight * 0.88;
     filter = "grayscale(0.58) brightness(0.88)";
     op = 0.93;
     bs = "0 4px 18px rgba(20,18,38,0.13)";
-    z = 25;
+    z = 15; // Below main
   } else if (Math.abs(rel) === 2) {
-    // 2-away: smaller, more peeking for click area
-    baseX = rel * (spacing * 4.35); // More width, easier to see/click
-    s = inactiveScale + 0.11;
-    w = inactiveW + 38;
-    h = highlightHeight * 0.74;
+    // 2-away: even more overlapped and thin
+    baseX = rel * (spacing * 2.2); // closer in, more overlap
+    s = inactiveScale + 0.08;
+    w = inactiveW + 22;
+    h = highlightHeight * 0.70;
     filter = "grayscale(0.92) brightness(0.77)";
-    op = 0.82;
+    op = 0.79;
     bs = "0 1px 12px rgba(20,18,38,0.09)";
-    z = 22;
+    z = 8;
   } else {
     return {
       visibility: "hidden",
@@ -120,6 +120,9 @@ export function getImageStyle(opts: CarouselImageStyleOpts): React.CSSProperties
       position: "absolute"
     };
   }
+
+  // Negative margin by `translateX(-50%)` and baseX
+  // Lower z-index for side images, so main image always above for correct overlap
 
   return {
     zIndex: z,
