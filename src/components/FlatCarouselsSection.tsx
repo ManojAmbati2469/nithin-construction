@@ -9,17 +9,17 @@ import { Building2, Images, Video } from "lucide-react";
 const sampleVideos = {
   "2BHK": [
     {
-      src: "/lovable-uploads/sample-video-1.mp4",
+      src: "https://youtu.be/YAOIbHBEvi0?si=vu1zH3Ewr611glEZ",
       title: "2BHK Living Room Tour",
       thumbnail: "/lovable-uploads/58a4c73a-fe50-4e0b-b127-51d2bd9dde86.png"
     },
     {
-      src: "/lovable-uploads/sample-video-2.mp4", 
+      src: "https://youtu.be/jOst7Trpj7o?si=uGRLSapwgFIx_6QK", 
       title: "2BHK Kitchen & Dining",
       thumbnail: "/lovable-uploads/814e0956-9165-478c-b85c-e334a39182f9.png"
     },
     {
-      src: "/lovable-uploads/sample-video-3.mp4",
+      src: "https://youtu.be/QcQpqWhTBCE?si=N4rQ_sn2AKlf6S3I",
       title: "2BHK Bedroom & Bathroom",
       thumbnail: "/lovable-uploads/image.png"
     }

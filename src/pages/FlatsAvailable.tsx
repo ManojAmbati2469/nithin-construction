@@ -105,7 +105,7 @@ const FlatsAvailable = () => {
                 </div>
 
                 {/* Availability Table */}
-                <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-6 md:p-8 shadow-xl">
+                {/* <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-6 md:p-8 shadow-xl">
                   <div className="mb-6">
                     <h2 className="text-2xl md:text-3xl font-bold gradient-text mb-2">Current Availability</h2>
                     <p className="text-muted-foreground">Real-time status of available units - Updated regularly</p>
@@ -116,13 +116,13 @@ const FlatsAvailable = () => {
                     variant={variant}
                     flats={flats}
                   />
-                </div>
+                </div> */}
               </>
             )}
           </div>
 
           {/* Call to Action */}
-          <div className="mt-16 text-center">
+          {/* <div className="mt-16 text-center">
             <div className="bg-gradient-construction rounded-2xl p-8 md:p-12 text-white">
               <h3 className="text-2xl md:text-3xl font-bold mb-4">
                 {variant === "completed" ? "Ready for Your Next Home?" : "Ready to Visit?"}
@@ -142,7 +142,7 @@ const FlatsAvailable = () => {
                 </button>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
     </>
