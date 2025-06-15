@@ -1,4 +1,3 @@
-
 import React from "react";
 
 type CarouselImageStyleOpts = {
@@ -46,7 +45,7 @@ export function getDisplayIndices(total: number, activeIdx: number): number[] {
   ];
 }
 
-// Update: side images overlap under main image. Partially overlap (negative margin effect).
+// Consistent style logic for all carousels
 export function getImageStyle(opts: CarouselImageStyleOpts): React.CSSProperties {
   const {
     displayIndices,
@@ -82,8 +81,12 @@ export function getImageStyle(opts: CarouselImageStyleOpts): React.CSSProperties
   let bs = "0 18px 38px rgba(0,0,0,0.16)";
   let z = 20 - Math.abs(rel);
 
+  // Consistency: same peeking width for all carousels
+  // 1st peeking image (next to active): mid peek
+  // 2nd peeking image: smaller/thinner
+  // All overlap under main by negative translateX, main image always highest z.
+
   if (rel === 0) {
-    // Center
     baseX = 0;
     s = 1.0;
     w = highlightW;
@@ -93,25 +96,25 @@ export function getImageStyle(opts: CarouselImageStyleOpts): React.CSSProperties
     bs = "0 18px 38px rgba(0,0,0,0.16)";
     z = 40; // Highest
   } else if (Math.abs(rel) === 1) {
-    // 1-away: main peekers - overlap under main by negative margin/translate
-    baseX = rel * (spacing * 1.6); // overlap more tightly
-    s = inactiveScale + 0.20;
-    w = inactiveW + 70; // wider for peeking
+    // 1st away: wider peek, under main
+    baseX = rel * (spacing * 1.6);
+    s = inactiveScale + 0.18;
+    w = inactiveW + 60;
     h = highlightHeight * 0.88;
     filter = "grayscale(0.58) brightness(0.88)";
     op = 0.93;
     bs = "0 4px 18px rgba(20,18,38,0.13)";
-    z = 15; // Below main
+    z = 15;
   } else if (Math.abs(rel) === 2) {
-    // 2-away: even more overlapped and thin
-    baseX = rel * (spacing * 2.2); // closer in, more overlap
-    s = inactiveScale + 0.08;
-    w = inactiveW + 22;
-    h = highlightHeight * 0.70;
+    // 2nd away: thinner peek, still clickable but less prominent
+    baseX = rel * (spacing * 2.05);
+    s = inactiveScale + 0.04;
+    w = inactiveW + 16;
+    h = highlightHeight * 0.73;
     filter = "grayscale(0.92) brightness(0.77)";
-    op = 0.79;
+    op = 0.77;
     bs = "0 1px 12px rgba(20,18,38,0.09)";
-    z = 8;
+    z = 7;
   } else {
     return {
       visibility: "hidden",
@@ -120,9 +123,6 @@ export function getImageStyle(opts: CarouselImageStyleOpts): React.CSSProperties
       position: "absolute"
     };
   }
-
-  // Negative margin by `translateX(-50%)` and baseX
-  // Lower z-index for side images, so main image always above for correct overlap
 
   return {
     zIndex: z,

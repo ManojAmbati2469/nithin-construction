@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import ScreenshotCarouselImage from "./ScreenshotCarouselImage";
 import { getDisplayIndices, getImageStyle } from "./carouselUtils";
@@ -25,7 +24,7 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
   const highlightW = 350;
   const inactiveW = 220;
 
-  // Get indices to display
+  // Get indices to display (ensuring consistency)
   const displayIndices = getDisplayIndices(total, activeIdx);
 
   // --- Auto-advance logic (pause on hover/focus) ---
@@ -35,7 +34,7 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
     if (isPaused || total <= 1) return;
     autoChangeRef.current = setTimeout(() => {
       setActiveIdx((prev) => (prev + 1) % total);
-    }, 3000);
+    }, 4000); // now 4 seconds
     return () => {
       if (autoChangeRef.current) clearTimeout(autoChangeRef.current);
     };
