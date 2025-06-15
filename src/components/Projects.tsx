@@ -2,6 +2,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Building, Construction, Home, Users } from 'lucide-react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './ui/carousel';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { Link } from "react-router-dom";
 
 const Projects = () => {
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
@@ -154,10 +155,10 @@ const Projects = () => {
           
           <div className={`w-[90vw] mx-auto py-8 reveal-scale ${carouselVisible ? 'visible' : ''}`} ref={carouselRef}>
             <Carousel 
-            opts={{
-              align: "start",
-              loop: true,
-            }}
+              opts={{
+                align: "start",
+                loop: true,
+              }}
               className="w-full">
                 <CarouselContent>
                   {completedProjects.map((project, index) => (
@@ -165,18 +166,25 @@ const Projects = () => {
                       key={index}
                       className="md:basis-1/2 lg:basis-1/3 px-2"
                     >
-                      <div className="group overflow-hidden rounded-2xl border border-border bg-card shadow-md hover:shadow-xl transition-shadow duration-300">
-                        <img
-                          src={project.image}
-                          alt={project.alt}
-                          className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
-                        />
-                        <div className="p-4 text-center">
-                          <h3 className="text-lg font-semibold text-card-foreground">
-                            {project.title}
-                          </h3>
+                      <Link
+                        to={`/flats-available?variant=completed&project=${encodeURIComponent(project.title)}`}
+                        tabIndex={0}
+                        className="block h-full outline-none focus-visible:ring-2 focus-visible:ring-primary group"
+                        aria-label={`View details for ${project.title}`}
+                      >
+                        <div className="group overflow-hidden rounded-2xl border border-border bg-card shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer h-full">
+                          <img
+                            src={project.image}
+                            alt={project.alt}
+                            className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
+                          />
+                          <div className="p-4 text-center">
+                            <h3 className="text-lg font-semibold text-card-foreground">
+                              {project.title}
+                            </h3>
+                          </div>
                         </div>
-                      </div>
+                      </Link>
                     </CarouselItem>
                   ))}
                 </CarouselContent>
