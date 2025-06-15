@@ -23,29 +23,57 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
   const highlightW = 350;
   const inactiveW = 220;
 
-  // For circular: show always 2 left and 2 right relative to active, wrap if needed
+  // --- DISPLAY INDICES LOGIC ---
+  // If 3 or fewer, just display all (as center and sides)
+  // If 4, display all 4: two sides, center, and one "behind"
+  // If 5 or more, display 5: 2 left, center, 2 right
   const getDisplayIndices = () => {
     if (total <= 1) return [activeIdx];
+    if (total === 2) {
+      return [
+        (activeIdx + total - 1) % total,
+        activeIdx,
+      ];
+    }
+    if (total === 3) {
+      // Show all: left, active, right around the circle
+      return [
+        (activeIdx + total - 1) % total, // left
+        activeIdx,
+        (activeIdx + 1) % total // right
+      ];
+    }
+    if (total === 4) {
+      // Show all 4: 2 left, active, right
+      return [
+        (activeIdx + total - 2) % total,
+        (activeIdx + total - 1) % total,
+        activeIdx,
+        (activeIdx + 1) % total
+      ]
+    }
+    // 5 or more: 2 left, center, 2 right
     const getIdx = (idx: number) => (idx + total) % total;
     let indices: number[] = [];
-    // 2 left
     indices.push(getIdx(activeIdx - 2));
     indices.push(getIdx(activeIdx - 1));
-    // active
     indices.push(activeIdx);
-    // 2 right
     indices.push(getIdx(activeIdx + 1));
     indices.push(getIdx(activeIdx + 2));
     return indices;
   };
   const displayIndices = getDisplayIndices();
 
-  // Used for transition and click
+  // --- IMAGE STYLE LOGIC ---
   const getImageStyle = (idx: number): React.CSSProperties => {
-    const posInDisplay = displayIndices.indexOf(idx); // 0 to 4, active at 2
+    const posInDisplay = displayIndices.indexOf(idx);
 
+    // Adjust visible positions for different counts
+    // For displayIndices.length===2 => left, active
+    // For 3 => left, active, right
+    // For 4 => 2 left, active, right
+    // For 5 => 2 left, active, 2 right
     if (posInDisplay === -1) {
-      // Hide images not in display
       return {
         visibility: "hidden",
         opacity: 0,
@@ -54,18 +82,22 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
       };
     }
 
-    // Relative position (-2 to 2)
-    const rel = posInDisplay - 2;
+    // For variable length, compute rel so that
+    // center is at middle index of displayIndices
+    const displayLen = displayIndices.length;
+    const centerIdx = Math.floor(displayLen / 2); // middle of array
+    const rel = posInDisplay - centerIdx;
 
-    // Arrange: -2, -1, 0, 1, 2 from left to right
-    // Peeking: -2 and 2 furthest, -1 and 1 closer, 0 is active
+    // Default styling
     let baseX = 0;
-    let s = 1;
+    let s = 1.0;
     let w = highlightW;
     let h = highlightHeight;
     let filter = "none";
     let op = 1;
     let bs = "0 18px 38px rgba(0,0,0,0.16)";
+
+    // Styling for rel pos
     if (rel === 0) {
       // Center
       baseX = 0;
@@ -85,7 +117,7 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
       op = 0.89;
       bs = "0 2px 12px rgba(20,18,38,0.12)";
     } else if (Math.abs(rel) === 2) {
-      // Farthest peek
+      // Farthest peek (only for 5+)
       baseX = rel * spacing * 2.13;
       s = inactiveScale;
       w = inactiveW * 0.92;
@@ -93,6 +125,29 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
       filter = "grayscale(0.95) brightness(0.73)";
       op = 0.58;
       bs = "0 1px 5px rgba(20,18,38,0.07)";
+    } else {
+      // Extra images should just not show (for >5, shouldn't happen)
+      return {
+        visibility: "hidden",
+        opacity: 0,
+        pointerEvents: "none",
+        position: "absolute"
+      };
+    }
+
+    // Tweak style for 3 image case: both sides peek equally
+    if (displayLen === 3 && posInDisplay !== centerIdx) {
+      baseX = rel * spacing * 1.7;
+      s = inactiveScale + 0.13;
+      w = inactiveW + 15;
+      h = highlightHeight * 0.8;
+    }
+    // For 2 images, more overlap
+    if (displayLen === 2) {
+      baseX = rel * spacing * 1.2;
+      s = inactiveScale + 0.17;
+      w = inactiveW + 22;
+      h = highlightHeight * 0.83;
     }
 
     return {
@@ -160,7 +215,7 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
           pointerEvents: "auto"
         }}
       >
-        {/* 5 visible images, circular from displayIndices */}
+        {/* Only show the images in displayIndices */}
         {images.map((img, idx) => (
           <div
             key={img.label + idx}
