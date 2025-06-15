@@ -112,7 +112,8 @@ const screenshotImages = {
     },
     {
       label: "Pooja Room",
-      img: "https://images.unsplash.com/photo-1452378174528-3090a4bba7b2?auto=format&fit=crop&w=400&q=80"
+      img: "https://images.unsplash.com/photo-1473177104440-ffee2f376098?auto=format&fit=crop&w=400&q=80"
+      // A peaceful, spiritual indoor space (cathedral-inspired).
     }
   ]
 };
