@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 
 type ScreenshotCarouselProps = {
@@ -26,15 +25,20 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
   // For overlays & peeking logic
   const maxPeek = 3;
 
+  // Compute dynamic peeking window: keeps always up to maxPeek per side but does NOT hide images that are "next to" active even at edges
+  let leftPeek = Math.min(maxPeek, activeIdx);
+  let rightPeek = Math.min(maxPeek, total - activeIdx - 1);
+
+  // In case total <= 2 or 3, we want full wrap (cycle)
   // Only for >3 images, we may have more-hidden indicators
-  const showLeftOverlay = total > 3 && activeIdx - maxPeek > 0;
-  const showRightOverlay = total > 3 && activeIdx + maxPeek < total - 1;
+  const showLeftOverlay = total > 3 && activeIdx - leftPeek > 0;
+  const showRightOverlay = total > 3 && activeIdx + rightPeek < total - 1;
 
   // Number of images hidden on each side
-  const hiddenLeftCount = total > 3 ? Math.max(0, activeIdx - maxPeek) : 0;
-  const hiddenRightCount = total > 3 ? Math.max(0, total - 1 - (activeIdx + maxPeek)) : 0;
+  const hiddenLeftCount = total > 3 ? Math.max(0, activeIdx - leftPeek) : 0;
+  const hiddenRightCount = total > 3 ? Math.max(0, total - 1 - (activeIdx + rightPeek)) : 0;
 
-  // Returns style for each image based on position.
+  // Returns style for each image based on position and peeking range.
   const getImageStyle = (idx: number): React.CSSProperties => {
     let delta = idx - activeIdx;
 
@@ -46,9 +50,9 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
       if (delta < -1) delta += total;
     }
 
-    // For >3 images: allow up to 3 peeking images at left/right, rest hidden
+    // New logic: hide only truly out-of-range
     if (total > 3) {
-      if (delta < -maxPeek || delta > maxPeek) {
+      if (delta < -leftPeek || delta > rightPeek) {
         return {
           visibility: 'hidden',
           opacity: 0,
@@ -58,11 +62,7 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
       }
     }
 
-    // Z-index logic: highlight on top, sides below
     const zIndex = 30 - Math.abs(delta);
-
-    // Adjust for wider peeking effect: increase space behind active image
-    // For peeking images immediately next to active, use a larger spacing
     const widerPeekSpacing = baseSpacing * 1.45;
 
     if (delta === 0) {
@@ -77,7 +77,7 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
         opacity: 1,
       };
     } else if (total <= 3) {
-      // For 2 or 3 images, always have two images peek left/right of center, no hiding
+      // For 2 or 3 images, peek both sides, no hiding
       const peekDistance = highlightW * 0.63;
       return {
         zIndex,
@@ -89,12 +89,12 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
         boxShadow: "0 2px 12px rgba(20,18,38,0.13)",
       };
     } else {
-      // For >=4 images, peeking: up to 3 left/right, with the very next image peeking more
+      // For >=4 images, use peeking distance logic
       let peekDistance;
       if (delta === -1) {
-        peekDistance = -widerPeekSpacing; // left of active
+        peekDistance = -widerPeekSpacing;
       } else if (delta === 1) {
-        peekDistance = widerPeekSpacing; // right of active
+        peekDistance = widerPeekSpacing;
       } else {
         peekDistance = baseSpacing * delta;
       }
