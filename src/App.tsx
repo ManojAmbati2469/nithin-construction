@@ -9,7 +9,7 @@ import FlatsAvailable from '@/pages/FlatsAvailable';
 function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="nithin-constructions-theme">
-      <div className="min-h-screen bg-background text-foreground no-overflow-x">
+      <div className="page-container bg-background text-foreground">
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/flats-available" element={<FlatsAvailable />} />

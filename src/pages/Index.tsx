@@ -11,7 +11,7 @@ import Footer from '@/components/Footer';
 
 const Index = () => {
   return (
-    <div className="min-h-screen no-overflow-x">
+    <div className="page-container">
       <Header />
       <Hero />
       <About />
