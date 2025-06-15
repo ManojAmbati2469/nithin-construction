@@ -6,6 +6,7 @@ import { parseTableFromHtml, projectDetailsList } from "@/utils/flatsUtils";
 import ProjectDetailsSection from "@/components/ProjectDetailsSection";
 import FlatCarouselsSection from "@/components/FlatCarouselsSection";
 import FlatsTableSection from "@/components/FlatsTableSection";
+import CompletedProjectsShowcase from "@/components/CompletedProjectsShowcase";
 import { FlatEntry } from "@/utils/flatsUtils";
 
 const FlatsAvailable = () => {
@@ -51,18 +52,24 @@ const FlatsAvailable = () => {
           </h1>
           <p className="text-center text-muted-foreground mb-6">
             {variant === "completed"
-              ? "Browse our completed projects and their highlights."
+              ? "Browse our completed projects with a glimpse into their rooms and floor plans."
               : "Latest availability as per our records."
             }
           </p>
-          <ProjectDetailsSection />
-          <FlatCarouselsSection />
-          <FlatsTableSection
-            loading={loading}
-            error={error}
-            variant={variant}
-            flats={flats}
-          />
+          {variant === "completed" ? (
+            <CompletedProjectsShowcase />
+          ) : (
+            <>
+              <ProjectDetailsSection />
+              <FlatCarouselsSection />
+              <FlatsTableSection
+                loading={loading}
+                error={error}
+                variant={variant}
+                flats={flats}
+              />
+            </>
+          )}
         </div>
       </section>
     </>

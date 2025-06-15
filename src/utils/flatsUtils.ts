@@ -48,6 +48,60 @@ export const projectDetailsList = [
   }
 ];
 
+// --- Completed Projects Data (For Showcase) ---
+export const completedProjectsDetails = [
+  {
+    name: "RC GreenFields",
+    address: "Hitech City Road, Hyderabad",
+    description: "Modern gated community with greenery and premium amenities.",
+  },
+  {
+    name: "NC Sunrise",
+    address: "Kukatpally, Hyderabad",
+    description: "Sun-lit apartments with energy-efficient design and scenic views.",
+  },
+  {
+    name: "RC Diamond",
+    address: "Miyapur, Hyderabad",
+    description: "Luxury 3BHK apartments featuring top-tier interiors.",
+  },
+];
+
+// Placeholder: Sample plans for each completed project
+export const completedProjectsPlans: Record<string, { label: string; img: string }[]> = {
+  "RC GreenFields": [
+    { label: "3BHK Floor Plan", img: "https://images.unsplash.com/photo-1439886183900-e79ec0057170?auto=format&fit=crop&w=800&q=80" },
+    { label: "Site Layout", img: "https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=800&q=80" },
+  ],
+  "NC Sunrise": [
+    { label: "2BHK Layout Plan", img: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80" },
+    { label: "Block Plan", img: "https://images.unsplash.com/photo-1441057206919-63d19fac2369?auto=format&fit=crop&w=800&q=80" },
+  ],
+  "RC Diamond": [
+    { label: "Floor Plan", img: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80" },
+    { label: "Overall Layout", img: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80" },
+  ]
+};
+
+// Placeholder: Actual room images for each completed project
+export const completedProjectsScreenshots: Record<string, { label: string; img: string }[]> = {
+  "RC GreenFields": [
+    { label: "Living Room", img: "https://images.unsplash.com/photo-1721322800607-8c38375eef04?auto=format&fit=crop&w=800&q=80" },
+    { label: "Dining Area", img: "https://images.unsplash.com/photo-1519985176271-adb1088fa94c?auto=format&fit=crop&w=800&q=80" },
+    { label: "Master Bedroom", img: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80" },
+  ],
+  "NC Sunrise": [
+    { label: "Drawing Room", img: "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=800&q=80" },
+    { label: "Guest Bedroom", img: "https://images.unsplash.com/photo-1467242040243-dcc2ac1a7295?auto=format&fit=crop&w=800&q=80" },
+    { label: "Balcony", img: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80" },
+  ],
+  "RC Diamond": [
+    { label: "Hall", img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" },
+    { label: "Children's Room", img: "https://images.unsplash.com/photo-1487252665478-49b61b47f302?auto=format&fit=crop&w=800&q=80" },
+    { label: "Kitchen", img: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80" },
+  ]
+};
+
 // Carousel images (sample, update for your taste)
 export const screenshotImages = {
   "2BHK": [
