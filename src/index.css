@@ -73,24 +73,16 @@
 
   html {
     scroll-behavior: smooth;
-    overflow-x: hidden !important;
-    width: 100%;
-    max-width: 100vw;
   }
 
   body {
     @apply bg-background text-foreground font-sans;
-    overflow-x: hidden !important;
-    width: 100%;
-    max-width: 100vw;
     margin: 0;
     padding: 0;
   }
 
   #root {
-    overflow-x: hidden !important;
     width: 100%;
-    max-width: 100vw;
   }
 
   /* Prevent horizontal overflow on all elements */
@@ -102,7 +94,6 @@
   .container {
     width: 100%;
     max-width: 100vw;
-    overflow-x: hidden;
     padding-left: 1rem;
     padding-right: 1rem;
   }
@@ -228,27 +219,18 @@
     animation: pulse-glow 2s ease-in-out infinite;
   }
 
-  /* Strong horizontal overflow prevention */
-  .no-overflow-x {
-    overflow-x: hidden !important;
-    width: 100%;
-    max-width: 100vw;
-  }
-
+  /* Safe containers without overflow conflicts */
   .container-safe {
     width: 100%;
     max-width: 100vw;
     margin: 0 auto;
     padding-left: 1rem;
     padding-right: 1rem;
-    overflow-x: hidden;
   }
 
-  /* Simple page container without conflicting scroll properties */
+  /* Clean page container - no scroll conflicts */
   .page-container {
     width: 100%;
-    max-width: 100vw;
-    overflow-x: hidden;
   }
 
   /* Responsive container padding */
@@ -290,7 +272,6 @@
   /* Grid responsive fixes */
   .grid-safe {
     width: 100%;
-    overflow-x: hidden;
   }
 }
 
@@ -337,7 +318,7 @@
   @apply px-4 sm:px-6 lg:px-8;
 }
 
-/* globals.css */
+/* Simple thin scrollbar for specific components that need it */
 .thin-scrollbar {
   scrollbar-width: thin;
   scrollbar-color: var(--scroll-thumb) transparent;
