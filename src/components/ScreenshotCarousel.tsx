@@ -23,7 +23,14 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
   const highlightW = 350;
   const inactiveW = 220;
 
-  // Get style for each image based on its position
+  // For overlays
+  const maxPeek = 3;
+
+  // Only for >3 images, we may have more-hidden indicators
+  const showLeftOverlay = total > 3 && activeIdx - maxPeek > 0;
+  const showRightOverlay = total > 3 && activeIdx + maxPeek < total - 1;
+
+  // Returns style for each image based on position.
   const getImageStyle = (idx: number): React.CSSProperties => {
     let delta = idx - activeIdx;
 
@@ -37,7 +44,7 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
 
     // For >3 images: allow up to 3 peeking images at left/right, rest hidden
     if (total > 3) {
-      if (delta < -3 || delta > 3) {
+      if (delta < -maxPeek || delta > maxPeek) {
         return {
           visibility: 'hidden',
           opacity: 0,
@@ -99,6 +106,29 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
           pointerEvents: "auto",
         }}
       >
+        {/* Gradient overlays (left/right) for more images indication */}
+        {showLeftOverlay && (
+          <div
+            className="absolute top-0 left-0 h-full z-40 pointer-events-none"
+            style={{
+              width: 40,
+              background: "linear-gradient(to right,rgba(20,18,53,0.73) 60%,rgba(20,18,53,0.01) 100%)",
+              borderRadius: "1rem 0 0 1rem"
+            }}
+            aria-hidden="true"
+          />
+        )}
+        {showRightOverlay && (
+          <div
+            className="absolute top-0 right-0 h-full z-40 pointer-events-none"
+            style={{
+              width: 40,
+              background: "linear-gradient(to left,rgba(20,18,53,0.73) 60%,rgba(20,18,53,0.01) 100%)",
+              borderRadius: "0 1rem 1rem 0"
+            }}
+            aria-hidden="true"
+          />
+        )}
         {images.map((img, idx) => (
           <div
             key={img.label + idx}
@@ -159,3 +189,4 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
 };
 
 export default ScreenshotCarousel;
+
