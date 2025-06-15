@@ -11,6 +11,7 @@ const Header = () => {
     { name: 'About', href: '#about' },
     { name: 'Services', href: '#services' },
     { name: 'Projects', href: '#projects' },
+    { name: 'Flats Available', href: '/flats-available' },
     { name: 'Contact', href: '#contact' }
   ];
 
@@ -30,14 +31,24 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             {navItems.map((item, index) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="text-foreground hover:text-primary transition-colors duration-300 font-medium relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                {item.name}
-              </a>
+              item.href.startsWith('/') ?
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="text-foreground hover:text-primary transition-colors duration-300 font-medium relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  {item.name}
+                </a>
+              :
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="text-foreground hover:text-primary transition-colors duration-300 font-medium relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  {item.name}
+                </a>
             ))}
             <ThemeToggle />
           </nav>
@@ -58,16 +69,26 @@ const Header = () => {
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t border-border animate-fade-in">
             <nav className="flex flex-col space-y-4">
-              {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="text-foreground hover:text-primary transition-colors duration-300 font-medium"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.name}
-                </a>
-              ))}
+              {navItems.map((item) =>
+                item.href.startsWith('/') ?
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className="text-foreground hover:text-primary transition-colors duration-300 font-medium"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.name}
+                  </a>
+                :
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className="text-foreground hover:text-primary transition-colors duration-300 font-medium"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.name}
+                  </a>
+              )}
             </nav>
           </div>
         )}
