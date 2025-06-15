@@ -19,7 +19,24 @@
   </head>
 
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <form name="site-visit-form" data-netlify="true" hidden>
+        <input type="text" name="firstName" />
+        <input type="text" name="lastName" />
+        <input type="email" name="email" />
+        <input type="tel" name="phone" />
+        <textarea name="message"></textarea>
+      </form>
+      
+      <form name="journey-form" data-netlify="true" hidden>
+        <input type="text" name="firstName" />
+        <input type="text" name="lastName" />
+        <input type="email" name="email" />
+        <input type="tel" name="phone" />
+        <textarea name="message"></textarea>
+      </form>
+      
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

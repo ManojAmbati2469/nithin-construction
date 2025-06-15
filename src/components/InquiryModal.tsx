@@ -98,9 +98,9 @@ const InquiryModal = ({ isOpen, onClose, type }: InquiryModalProps) => {
         <form
           name={formName}
           method="POST"
+          action="/thank-you"
           data-netlify="true"
           data-netlify-honeypot="bot-field"
-          onSubmit={handleSubmit}
           className="space-y-6"
         >
           <input type="hidden" name="form-name" value={formName} />
