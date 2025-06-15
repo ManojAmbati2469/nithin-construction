@@ -12,60 +12,94 @@ type ScreenshotCarouselProps = {
 const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
   images,
   initialIndex = 0,
-  spacing = 64, // more spacing for partial overlap
-  highlightHeight = 260, // taller highlighted image
-  inactiveScale = 0.78 // smaller inactive images
+  spacing = 110, // more spacing for better peeking
+  highlightHeight = 340, // even taller for highlight
+  inactiveScale = 0.78
 }) => {
   const [activeIdx, setActiveIdx] = useState(initialIndex);
 
-  // Calculate style for each image
-  const getImageStyle = (idx: number) => {
-    if (idx === activeIdx) {
+  // Ensure proper overlap for edge images (every image "peeks")
+  // We offset all images, center active in the middle, and spread rest left/right.
+  const total = images.length;
+  const overlap = spacing;
+
+  // For each index, calculate proper "stack" positioning so that image at 0 and length-1 are visible even when not active
+  // We'll center the active in the carousel, and push others left/right with visible overflow.
+
+  // Calculate the position for each image so that all images peek out from behind the active one
+  const getImageStyle = (idx: number): React.CSSProperties => {
+    const delta = idx - activeIdx;
+
+    // At edges, wrap so first/last images aren't fully hidden
+    // For 3 images:
+    // when activeIdx=1: show [0(left),1(active),2(right)]
+    // when activeIdx=0: show [2(left edge),0(active),1(right)]
+    // when activeIdx=2: show [1(left),2(active),0(right edge)]
+    let realDelta = delta;
+
+    if (total > 2) {
+      // Make the carousel "infinite look" by wrapping indices for neighbors
+      if (delta > 1) realDelta = delta - total;
+      if (delta < -1) realDelta = delta + total;
+    }
+
+    // Active image - on top, large, no filter
+    if (realDelta === 0) {
       return {
         zIndex: 30,
         transform: "translateX(0) scale(1.0)",
         filter: "none",
-        width: "334px",
+        width: "350px",
         height: `${highlightHeight}px`,
+        boxShadow: "0 18px 38px rgba(0,0,0,0.16)",
+        opacity: 1,
       };
     }
-    const delta = idx - activeIdx;
-    // Partial overlap: shift left/right with visible overlay, but not fully covered
-    const overlap = spacing;
+
+    // Side images: Peek out from left/right, never 100% hidden!
+    // Each side is spread by overlap * realDelta, scale down side images, set grayscale
     return {
-      zIndex: 20 - Math.abs(delta),
-      transform: `translateX(${delta * overlap * 0.75}px) scale(${inactiveScale})`,
-      filter: "grayscale(1) brightness(0.72)",
-      width: "210px",
-      height: `${highlightHeight * 0.68}px`,
-      opacity: 0.89,
+      zIndex: 20 - Math.abs(realDelta),
+      transform: `translateX(${realDelta * overlap}px) scale(${inactiveScale})`,
+      filter: "grayscale(1) brightness(0.74)",
+      width: "220px",
+      height: `${highlightHeight * 0.69}px`,
+      opacity: 0.9,
+      boxShadow: "0 2px 12px rgba(20,18,38,0.11)",
     };
   };
 
   return (
-    <div className="relative w-full flex flex-col items-center">
-      <div className="relative flex justify-center w-full" style={{ height: `${highlightHeight + 24}px` }}>
+    <div className="relative w-full flex flex-col items-center select-none">
+      <div 
+        className="relative flex justify-center w-full"
+        style={{
+          height: `${highlightHeight + 28}px`,
+          minWidth: "min(100%,340px)",
+          maxWidth: "100vw",
+          pointerEvents: "auto",
+        }}
+      >
         {images.map((img, idx) => (
           <div
             key={img.label + idx}
-            className={`absolute left-1/2 top-2 cursor-pointer transition-all duration-500 rounded-2xl shadow-lg border-4 
+            className={`absolute left-1/2 top-2 cursor-pointer transition-all duration-500 rounded-2xl border-4
               ${idx === activeIdx ? "border-primary" : "border-muted"}
-            `}
+              group`}
             style={{
               ...getImageStyle(idx),
               transition: "all 0.45s cubic-bezier(0.4, 0, 0.2, 1)",
               transform: `${getImageStyle(idx).transform} translateX(-50%)`,
-              boxShadow:
-                idx === activeIdx
-                  ? "0 14px 34px rgba(0,0,0,0.14)"
-                  : "0 2px 14px rgba(13,12,34,0.11)",
               cursor: idx === activeIdx ? "default" : "pointer",
-              filter: getImageStyle(idx).filter,
-              opacity: getImageStyle(idx).opacity || 1,
-              width: getImageStyle(idx).width,
-              height: getImageStyle(idx).height,
+              background: "#141235",
             }}
             onClick={() => idx !== activeIdx && setActiveIdx(idx)}
+            aria-label={img.label}
+            aria-current={idx === activeIdx ? "true" : undefined}
+            tabIndex={0}
+            onKeyDown={e => {
+              if ((e.key === "Enter" || e.key === " ") && idx !== activeIdx) setActiveIdx(idx);
+            }}
           >
             <img
               src={img.img}
