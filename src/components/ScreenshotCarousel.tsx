@@ -1,19 +1,21 @@
 
-import React, { useRef, useEffect, useState } from "react";
+import React, { useState } from "react";
 
 // Accepts a list of screenshots: [{label, img}]
 type ScreenshotCarouselProps = {
   images: { label: string; img: string }[];
   initialIndex?: number;
+  spacing?: number; // px to separate images, for highlighting
 };
 
 const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
   images,
   initialIndex = 0,
+  spacing = 44, // default spacing between overlapped images
 }) => {
   const [activeIdx, setActiveIdx] = useState(initialIndex);
 
-  // Calculate zIndex and position for stacking/overlapping
+  // Calculate zIndex, position, and style for stacking/overlapping
   const getImageStyle = (idx: number) => {
     if (idx === activeIdx) {
       return {
@@ -22,18 +24,18 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
         filter: "none",
       };
     }
-    // Stack left or right, slightly offset
+    // Stack left or right, more spread if spacing is higher
     const delta = idx - activeIdx;
     return {
       zIndex: 20 - Math.abs(delta),
-      transform: `translateX(${delta * 32}px) scale(0.85)`,
-      filter: "grayscale(1) brightness(0.7)",
+      transform: `translateX(${delta * spacing}px) scale(0.85)`,
+      filter: "grayscale(1) brightness(0.68)",
     };
   };
 
   return (
     <div className="relative w-full flex flex-col items-center">
-      <div className="relative w-full flex justify-center" style={{height: "210px"}}>
+      <div className="relative w-full flex justify-center" style={{ height: "220px" }}>
         {images.map((img, idx) => (
           <div
             key={img.label + idx}
@@ -45,12 +47,12 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
               transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
               // Center on left-1/2
               transform: `${getImageStyle(idx).transform} translateX(-50%)`,
-              width: idx === activeIdx ? "230px" : "170px",
-              height: idx === activeIdx ? "160px" : "120px",
+              width: idx === activeIdx ? "244px" : "168px",
+              height: idx === activeIdx ? "178px" : "128px",
               boxShadow:
                 idx === activeIdx
-                  ? "0 12px 36px rgba(0,0,0,0.30)"
-                  : "0 4px 20px rgba(0,0,0,0.07)",
+                  ? "0 16px 36px rgba(0,0,0,0.18)"
+                  : "0 3px 14px rgba(0,0,0,0.09)",
               cursor: idx === activeIdx ? "default" : "pointer",
               filter: getImageStyle(idx).filter,
               opacity: idx === activeIdx ? 1 : 0.92,
@@ -64,10 +66,13 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
               draggable={false}
             />
             <div
-              className={`absolute bottom-1 left-1/2 -translate-x-1/2 text-sm font-semibold px-2 py-0.5 rounded-lg
-                ${idx === activeIdx ? "bg-primary text-white shadow" : "bg-card/80 text-muted-foreground"}
-              `}
-              style={{whiteSpace: "nowrap", pointerEvents: "none"}}
+              className={`absolute bottom-2 left-1/2 -translate-x-1/2 text-[0.98rem] font-semibold px-3 py-1 rounded-lg bg-card/80 shadow`}
+              style={{
+                color: idx === activeIdx ? "#fff" : "#9ca3af",
+                background: idx === activeIdx ? "rgb(var(--primary))" : "rgba(28,28,28,0.75)",
+                pointerEvents: "none",
+                whiteSpace: "nowrap"
+              }}
             >
               {img.label}
             </div>

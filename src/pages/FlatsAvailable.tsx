@@ -71,6 +71,14 @@ const screenshotImages = {
       label: "Washroom",
       img: "https://images.unsplash.com/photo-1549187774-b4e9b0445b06?auto=format&fit=crop&w=400&q=80"
     },
+    {
+      label: "Kids Room",
+      img: "https://images.unsplash.com/photo-1487252665478-49b61b47f302?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      label: "Study",
+      img: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?auto=format&fit=crop&w=400&q=80"
+    }
   ],
   "3BHK": [
     {
@@ -97,12 +105,47 @@ const screenshotImages = {
       label: "Washroom",
       img: "https://images.unsplash.com/photo-1465101178521-c1a9136a3fd4?auto=format&fit=crop&w=400&q=80"
     },
+    {
+      label: "Guest Room",
+      img: "https://images.unsplash.com/photo-1465379944081-7f47de8d74ac?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      label: "Pooja Room",
+      img: "https://images.unsplash.com/photo-1452378174528-3090a4bba7b2?auto=format&fit=crop&w=400&q=80"
+    }
   ]
 };
 
-const planImages: Record<string, string> = {
-  "2BHK": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400&q=80",
-  "3BHK": "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=400&q=80"
+// Plan images: more per flat type
+const planImages: Record<string, { label: string; img: string }[]> = {
+  "2BHK": [
+    {
+      label: "2BHK Main Plan",
+      img: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      label: "2BHK Floor Layout",
+      img: "https://images.unsplash.com/photo-1441057206919-63d19fac2369?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      label: "2BHK Overall View",
+      img: "https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=800&q=80"
+    },
+  ],
+  "3BHK": [
+    {
+      label: "3BHK Main Plan",
+      img: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      label: "3BHK Floor Layout",
+      img: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      label: "3BHK Site Direction",
+      img: "https://images.unsplash.com/photo-1439886183900-e79ec0057170?auto=format&fit=crop&w=800&q=80"
+    },
+  ]
 };
 
 const FlatsAvailable = () => {
@@ -142,34 +185,43 @@ const FlatsAvailable = () => {
         {/* Plans + Screenshots: 2BHK */}
         <div className="mb-16 bg-card/60 rounded-2xl p-8 shadow-md border border-border">
           <h2 className="text-3xl font-bold mb-2 gradient-text">2BHK Flat Plan</h2>
-          <div className="flex flex-col md:flex-row items-start gap-8">
-            <img
-              src={planImages["2BHK"]}
-              alt="2BHK Plan"
-              className="rounded-xl shadow-xl w-full md:w-1/2 object-cover"
+          
+          {/* Plan carousel (top) */}
+          <ScreenshotCarousel
+            images={planImages["2BHK"]}
+            initialIndex={0}
+            spacing={56} // closer overlapping for plans
+          />
+
+          <div className="mt-10">
+            <h3 className="text-xl font-bold mb-2">Sample Screenshots</h3>
+            {/* Screenshot carousel (bottom) */}
+            <ScreenshotCarousel
+              images={screenshotImages["2BHK"]}
+              initialIndex={2}
+              spacing={80} // more "spread" for screenshot highlights!
             />
-            <div className="flex-1">
-              <h3 className="text-xl font-bold mb-2">Sample Screenshots</h3>
-              {/* Carousel */}
-              <ScreenshotCarousel images={screenshotImages["2BHK"]} initialIndex={0} />
-            </div>
           </div>
         </div>
 
         {/* Plans + Screenshots: 3BHK */}
         <div className="mb-16 bg-card/60 rounded-2xl p-8 shadow-md border border-border">
           <h2 className="text-3xl font-bold mb-2 gradient-text">3BHK Flat Plan</h2>
-          <div className="flex flex-col md:flex-row items-start gap-8">
-            <img
-              src={planImages["3BHK"]}
-              alt="3BHK Plan"
-              className="rounded-xl shadow-xl w-full md:w-1/2 object-cover"
+          
+          {/* Plan carousel (top) */}
+          <ScreenshotCarousel
+            images={planImages["3BHK"]}
+            initialIndex={0}
+            spacing={56}
+          />
+
+          <div className="mt-10">
+            <h3 className="text-xl font-bold mb-2">Sample Screenshots</h3>
+            <ScreenshotCarousel
+              images={screenshotImages["3BHK"]}
+              initialIndex={1}
+              spacing={80}
             />
-            <div className="flex-1">
-              <h3 className="text-xl font-bold mb-2">Sample Screenshots</h3>
-              {/* Carousel */}
-              <ScreenshotCarousel images={screenshotImages["3BHK"]} initialIndex={0} />
-            </div>
           </div>
         </div>
 
