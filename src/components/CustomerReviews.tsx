@@ -3,9 +3,13 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { Star, Quote } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { useState } from 'react';
+import InquiryModal from './InquiryModal';
 
 const CustomerReviews = () => {
   const { ref: reviewsRef, isVisible: reviewsVisible } = useScrollAnimation();
+  const [journeyModalOpen, setJourneyModalOpen] = useState(false);
+
 
   const reviews = [
     {
@@ -111,12 +115,17 @@ const CustomerReviews = () => {
             <p className="text-xl lg:text-2xl mb-10 opacity-90 max-w-3xl mx-auto">
               Experience the Nithin Constructions difference and become part of our success story.
             </p>
-            <button className="bg-white text-primary px-10 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-all duration-300 hover:scale-105 text-lg">
+            <button onClick={() => setJourneyModalOpen(true)} className="bg-white text-primary px-10 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-all duration-300 hover:scale-105 text-lg">
               Start Your Journey
             </button>
           </div>
         </div>
       </div>
+      <InquiryModal
+        isOpen={journeyModalOpen}
+        onClose={() => setJourneyModalOpen(false)}
+        type="journey"
+      />
     </section>
   );
 };

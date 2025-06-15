@@ -88,7 +88,7 @@ const Contact = () => {
   }
 
   return (
-    <section id="contact" className="py-12 sm:py-20">
+    <section id="contact" className="py-4 sm:py-2">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-12 sm:mb-16 animate-fade-in">
@@ -112,9 +112,10 @@ const Contact = () => {
                 <form 
                   name="contact" 
                   method="POST" 
+                  action="/thank-you"
                   data-netlify="true" 
                   data-netlify-honeypot="bot-field"
-                  onSubmit={handleSubmit}
+                  // onSubmit={handleSubmit}
                   className="space-y-4 sm:space-y-6"
                 >
                   {/* Netlify form detection */}
@@ -169,7 +170,11 @@ const Contact = () => {
                     <Input 
                       type="tel"
                       name="phone"
-                      placeholder="+91 9876543210" 
+                      placeholder="Enter your phone number"
+                      minLength={10}
+                      maxLength={10}
+                      pattern="[0-9]{10}"
+                      title="Phone number must be 10 digits only" 
                       className="border-gray-300 focus:border-primary" 
                       required 
                     />
@@ -230,7 +235,7 @@ const Contact = () => {
             </Card>
 
             {/* Site Visit CTA */}
-            <Card className="border-0 shadow-lg dark:bg-gray-900">
+            {/* <Card className="border-0 shadow-lg dark:bg-gray-900">
               <CardContent className="p-4 sm:p-6 text-center">
                 <h3 className="text-lg sm:text-xl font-bold mb-2 gradient-text">Schedule Site Visit</h3>
                 <p className="text-muted-foreground mb-3 sm:mb-4 text-sm sm:text-base">
@@ -240,7 +245,7 @@ const Contact = () => {
                   Book Site Visit
                 </Button>
               </CardContent>
-            </Card>
+            </Card> */}
           </div>
         </div>
       </div>

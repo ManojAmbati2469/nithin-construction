@@ -7,6 +7,9 @@
 
 @layer base {
   :root {
+
+    --scroll-thumb: #a3a3a3; /* gray-400 */
+
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
@@ -49,6 +52,8 @@
   .dark {
     --background: 215 25% 27%; /* Steel gray as dark background */
     --foreground: 210 40% 98%;
+
+    --scroll-thumb: #52525b; /* zinc-600 */
 
     --card: 220 9% 46%; /* Concrete gray for cards */
     --card-foreground: 210 40% 98%;
@@ -275,4 +280,18 @@
 
 .container-padding {
   @apply px-6 lg:px-8;
+}
+
+/* globals.css */
+.thin-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scroll-thumb) transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-thumb);
+  border-radius: 8px;
 }

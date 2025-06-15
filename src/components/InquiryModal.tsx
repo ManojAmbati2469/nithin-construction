@@ -88,20 +88,19 @@ const InquiryModal = ({ isOpen, onClose, type }: InquiryModalProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto thin-scrollbar">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-center gradient-text">
+          <DialogTitle className="text-2xl font-bold text-center light:gradient-text dark:text-white">
             {formTitle}
           </DialogTitle>
         </DialogHeader>
-        
         <form
           name={formName}
           method="POST"
           action="/thank-you"
           data-netlify="true"
           data-netlify-honeypot="bot-field"
-          className="space-y-6"
+          className="space-y-3"
         >
           <input type="hidden" name="form-name" value={formName} />
           <input type="hidden" name="bot-field" />
@@ -156,6 +155,10 @@ const InquiryModal = ({ isOpen, onClose, type }: InquiryModalProps) => {
               id="phone"
               name="phone"
               type="tel"
+              minLength={10}
+              maxLength={10}
+              pattern="[0-9]{10}"
+              title="Phone number must be 10 digits"
               required
               className="w-full"
               placeholder="Enter your phone number"
@@ -175,7 +178,7 @@ const InquiryModal = ({ isOpen, onClose, type }: InquiryModalProps) => {
                   className="w-full"
                 />
               </div>
-              <div className="space-y-2">
+              {/* <div className="space-y-2">
                 <Label htmlFor="preferredTime" className="text-sm font-medium">
                   Preferred Time
                 </Label>
@@ -185,11 +188,11 @@ const InquiryModal = ({ isOpen, onClose, type }: InquiryModalProps) => {
                   type="time"
                   className="w-full"
                 />
-              </div>
+              </div> */}
             </>
           )}
 
-          {type === 'journey' && (
+          {/* {type === 'journey' && (
             <div className="space-y-2">
               <Label htmlFor="interestedIn" className="text-sm font-medium">
                 Interested In
@@ -205,7 +208,7 @@ const InquiryModal = ({ isOpen, onClose, type }: InquiryModalProps) => {
                 <option value="Both">Both 2 & 3 BHK</option>
               </select>
             </div>
-          )}
+          )} */}
 
           <div className="space-y-2">
             <Label htmlFor="message" className="text-sm font-medium">
@@ -221,19 +224,19 @@ const InquiryModal = ({ isOpen, onClose, type }: InquiryModalProps) => {
 
           <div className="flex flex-col sm:flex-row gap-3 pt-4">
             <Button
-              type="submit"
-              disabled={isSubmitting}
-              className="flex-1 gradient-construction text-white hover:opacity-90"
-            >
-              {isSubmitting ? 'Submitting...' : 'Submit Request'}
-            </Button>
-            <Button
               type="button"
               variant="outline"
               onClick={onClose}
               className="flex-1"
             >
               Cancel
+            </Button>
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className="flex-1 gradient-construction text-white hover:opacity-90"
+            >
+              {isSubmitting ? 'Submitting...' : 'Submit Request'}
             </Button>
           </div>
         </form>
