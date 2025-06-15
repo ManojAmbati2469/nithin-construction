@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 
 type ScreenshotCarouselProps = {
@@ -24,9 +23,6 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
   const inactiveW = 220;
 
   // --- DISPLAY INDICES LOGIC ---
-  // If 3 or fewer, just display all (as center and sides)
-  // If 4, display all 4: two sides, center, and one "behind"
-  // If 5 or more, display 5: 2 left, center, 2 right
   const getDisplayIndices = () => {
     if (total <= 1) return [activeIdx];
     if (total === 2) {
@@ -68,11 +64,6 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
   const getImageStyle = (idx: number): React.CSSProperties => {
     const posInDisplay = displayIndices.indexOf(idx);
 
-    // Adjust visible positions for different counts
-    // For displayIndices.length===2 => left, active
-    // For 3 => left, active, right
-    // For 4 => 2 left, active, right
-    // For 5 => 2 left, active, 2 right
     if (posInDisplay === -1) {
       return {
         visibility: "hidden",
@@ -82,10 +73,8 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
       };
     }
 
-    // For variable length, compute rel so that
-    // center is at middle index of displayIndices
     const displayLen = displayIndices.length;
-    const centerIdx = Math.floor(displayLen / 2); // middle of array
+    const centerIdx = Math.floor(displayLen / 2); // Middle
     const rel = posInDisplay - centerIdx;
 
     // Default styling
@@ -97,7 +86,6 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
     let op = 1;
     let bs = "0 18px 38px rgba(0,0,0,0.16)";
 
-    // Styling for rel pos
     if (rel === 0) {
       // Center
       baseX = 0;
@@ -109,10 +97,26 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
       bs = "0 18px 38px rgba(0,0,0,0.16)";
     } else if (Math.abs(rel) === 1) {
       // Nearest peek
-      baseX = rel * spacing * 1.55;
-      s = inactiveScale + 0.11;
-      w = inactiveW;
-      h = highlightHeight * 0.75;
+      // --- ADJUSTED FOR STRONGER, MORE EQUAL PEEKING ---
+      if (displayLen === 3) {
+        // 3 images: emphasize peeking
+        baseX = rel * (spacing * 2.25);
+        s = inactiveScale + 0.13;
+        w = inactiveW + 42;
+        h = highlightHeight * 0.86;
+      } else if (displayLen === 2) {
+        // classic, just 2: left/right
+        baseX = rel * spacing * 1.2;
+        s = inactiveScale + 0.17;
+        w = inactiveW + 22;
+        h = highlightHeight * 0.83;
+      } else {
+        // 4+ images: normal peek
+        baseX = rel * spacing * 1.55;
+        s = inactiveScale + 0.11;
+        w = inactiveW;
+        h = highlightHeight * 0.75;
+      }
       filter = "grayscale(0.7) brightness(0.86)";
       op = 0.89;
       bs = "0 2px 12px rgba(20,18,38,0.12)";
@@ -126,28 +130,13 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
       op = 0.58;
       bs = "0 1px 5px rgba(20,18,38,0.07)";
     } else {
-      // Extra images should just not show (for >5, shouldn't happen)
+      // Not visible
       return {
         visibility: "hidden",
         opacity: 0,
         pointerEvents: "none",
         position: "absolute"
       };
-    }
-
-    // Tweak style for 3 image case: both sides peek equally
-    if (displayLen === 3 && posInDisplay !== centerIdx) {
-      baseX = rel * spacing * 1.7;
-      s = inactiveScale + 0.13;
-      w = inactiveW + 15;
-      h = highlightHeight * 0.8;
-    }
-    // For 2 images, more overlap
-    if (displayLen === 2) {
-      baseX = rel * spacing * 1.2;
-      s = inactiveScale + 0.17;
-      w = inactiveW + 22;
-      h = highlightHeight * 0.83;
     }
 
     return {
@@ -167,7 +156,6 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
 
   useEffect(() => {
     if (isPaused || total <= 1) return;
-
     autoChangeRef.current = setTimeout(() => {
       setActiveIdx((prev) => (prev + 1) % total);
     }, 3000);
@@ -179,7 +167,6 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
 
   const carouselAreaRef = useRef<HTMLDivElement>(null);
 
-  // Pause auto-change on hover or focus within the carousel area
   useEffect(() => {
     const area = carouselAreaRef.current;
     if (!area) return;
@@ -243,7 +230,6 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
               className="w-full h-full object-cover rounded-2xl user-select-none"
               draggable={false}
             />
-            {/* Label shown for each image, with contrast for active */}
             <div
               className={`absolute bottom-2 left-1/2 -translate-x-1/2 text-[1rem] font-semibold px-3 py-1 rounded-lg bg-card/80 shadow`}
               style={{
