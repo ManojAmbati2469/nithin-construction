@@ -1,75 +1,83 @@
 
 import React, { useState } from "react";
 
-// Accepts a list of screenshots: [{label, img}]
 type ScreenshotCarouselProps = {
   images: { label: string; img: string }[];
   initialIndex?: number;
-  spacing?: number; // px to separate images, for highlighting
+  spacing?: number; // px to separate images for "overlap" effect
+  highlightHeight?: number; // height px for active image
+  inactiveScale?: number; // scale for inactive images
 };
 
 const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
   images,
   initialIndex = 0,
-  spacing = 44, // default spacing between overlapped images
+  spacing = 64, // more spacing for partial overlap
+  highlightHeight = 260, // taller highlighted image
+  inactiveScale = 0.78 // smaller inactive images
 }) => {
   const [activeIdx, setActiveIdx] = useState(initialIndex);
 
-  // Calculate zIndex, position, and style for stacking/overlapping
+  // Calculate style for each image
   const getImageStyle = (idx: number) => {
     if (idx === activeIdx) {
       return {
         zIndex: 30,
         transform: "translateX(0) scale(1.0)",
         filter: "none",
+        width: "334px",
+        height: `${highlightHeight}px`,
       };
     }
-    // Stack left or right, more spread if spacing is higher
     const delta = idx - activeIdx;
+    // Partial overlap: shift left/right with visible overlay, but not fully covered
+    const overlap = spacing;
     return {
       zIndex: 20 - Math.abs(delta),
-      transform: `translateX(${delta * spacing}px) scale(0.85)`,
-      filter: "grayscale(1) brightness(0.68)",
+      transform: `translateX(${delta * overlap * 0.75}px) scale(${inactiveScale})`,
+      filter: "grayscale(1) brightness(0.72)",
+      width: "210px",
+      height: `${highlightHeight * 0.68}px`,
+      opacity: 0.89,
     };
   };
 
   return (
     <div className="relative w-full flex flex-col items-center">
-      <div className="relative w-full flex justify-center" style={{ height: "220px" }}>
+      <div className="relative flex justify-center w-full" style={{ height: `${highlightHeight + 24}px` }}>
         {images.map((img, idx) => (
           <div
             key={img.label + idx}
-            className={`absolute left-1/2 top-4 cursor-pointer transition-all duration-500 rounded-2xl shadow-lg border-4 
-              ${idx === activeIdx ? "border-primary scale-105" : "border-muted scale-85"}
+            className={`absolute left-1/2 top-2 cursor-pointer transition-all duration-500 rounded-2xl shadow-lg border-4 
+              ${idx === activeIdx ? "border-primary" : "border-muted"}
             `}
             style={{
               ...getImageStyle(idx),
-              transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
-              // Center on left-1/2
+              transition: "all 0.45s cubic-bezier(0.4, 0, 0.2, 1)",
               transform: `${getImageStyle(idx).transform} translateX(-50%)`,
-              width: idx === activeIdx ? "244px" : "168px",
-              height: idx === activeIdx ? "178px" : "128px",
               boxShadow:
                 idx === activeIdx
-                  ? "0 16px 36px rgba(0,0,0,0.18)"
-                  : "0 3px 14px rgba(0,0,0,0.09)",
+                  ? "0 14px 34px rgba(0,0,0,0.14)"
+                  : "0 2px 14px rgba(13,12,34,0.11)",
               cursor: idx === activeIdx ? "default" : "pointer",
               filter: getImageStyle(idx).filter,
-              opacity: idx === activeIdx ? 1 : 0.92,
+              opacity: getImageStyle(idx).opacity || 1,
+              width: getImageStyle(idx).width,
+              height: getImageStyle(idx).height,
             }}
             onClick={() => idx !== activeIdx && setActiveIdx(idx)}
           >
             <img
               src={img.img}
               alt={img.label}
-              className="w-full h-full object-cover rounded-2xl"
+              className="w-full h-full object-cover rounded-2xl user-select-none"
               draggable={false}
             />
             <div
-              className={`absolute bottom-2 left-1/2 -translate-x-1/2 text-[0.98rem] font-semibold px-3 py-1 rounded-lg bg-card/80 shadow`}
+              className={`absolute bottom-2 left-1/2 -translate-x-1/2 text-[1rem] font-semibold px-3 py-1 rounded-lg bg-card/80 shadow`}
               style={{
-                color: idx === activeIdx ? "#fff" : "#9ca3af",
-                background: idx === activeIdx ? "rgb(var(--primary))" : "rgba(28,28,28,0.75)",
+                color: idx === activeIdx ? "#fff" : "#b5b8c5",
+                background: idx === activeIdx ? "rgb(var(--primary))" : "rgba(28,28,28,0.77)",
                 pointerEvents: "none",
                 whiteSpace: "nowrap"
               }}
@@ -79,7 +87,7 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
           </div>
         ))}
       </div>
-      {/* Optionally, dots navigation */}
+      {/* Dots navigation */}
       <div className="flex items-center justify-center gap-2 mt-4">
         {images.map((img, idx) => (
           <button
