@@ -117,7 +117,6 @@ const Contact = () => {
                   action="/thank-you"
                   data-netlify="true" 
                   data-netlify-honeypot="bot-field"
-                  // onSubmit={handleSubmit}
                   className="space-y-4 sm:space-y-6"
                 >
                   {/* Netlify form detection */}
