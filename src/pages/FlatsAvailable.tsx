@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell, TableCaption } from "@/components/ui/table";
 import { Loader2, AlertTriangle } from "lucide-react";
+import ScreenshotCarousel from "@/components/ScreenshotCarousel";
 
 type FlatEntry = {
   project: string;
@@ -125,14 +126,8 @@ const FlatsAvailable = () => {
             />
             <div className="flex-1">
               <h3 className="text-xl font-bold mb-2">Sample Screenshots</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                {screenshotImages["2BHK"].map((item) => (
-                  <div key={item.label} className="flex flex-col items-center bg-card rounded-xl p-3 shadow hover-scale">
-                    <img src={item.img} alt={item.label} className="rounded-lg h-32 w-full object-cover mb-2" />
-                    <span className="font-semibold text-sm">{item.label}</span>
-                  </div>
-                ))}
-              </div>
+              {/* Carousel */}
+              <ScreenshotCarousel images={screenshotImages["2BHK"]} initialIndex={1} />
             </div>
           </div>
         </div>
@@ -148,14 +143,8 @@ const FlatsAvailable = () => {
             />
             <div className="flex-1">
               <h3 className="text-xl font-bold mb-2">Sample Screenshots</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                {screenshotImages["3BHK"].map((item) => (
-                  <div key={item.label} className="flex flex-col items-center bg-card rounded-xl p-3 shadow hover-scale">
-                    <img src={item.img} alt={item.label} className="rounded-lg h-32 w-full object-cover mb-2" />
-                    <span className="font-semibold text-sm">{item.label}</span>
-                  </div>
-                ))}
-              </div>
+              {/* Carousel */}
+              <ScreenshotCarousel images={screenshotImages["3BHK"]} initialIndex={1} />
             </div>
           </div>
         </div>
