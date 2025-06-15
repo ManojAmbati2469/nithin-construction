@@ -61,6 +61,10 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
     // Z-index logic: highlight on top, sides below
     const zIndex = 30 - Math.abs(delta);
 
+    // Adjust for wider peeking effect: increase space behind active image
+    // For peeking images immediately next to active, use a larger spacing
+    const widerPeekSpacing = baseSpacing * 1.45;
+
     if (delta === 0) {
       // Highlighted image
       return {
@@ -85,8 +89,15 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
         boxShadow: "0 2px 12px rgba(20,18,38,0.13)",
       };
     } else {
-      // For >=4 images, peeking: up to 3 left/right, fixed spacing
-      const peekDistance = baseSpacing * delta;
+      // For >=4 images, peeking: up to 3 left/right, with the very next image peeking more
+      let peekDistance;
+      if (delta === -1) {
+        peekDistance = -widerPeekSpacing; // left of active
+      } else if (delta === 1) {
+        peekDistance = widerPeekSpacing; // right of active
+      } else {
+        peekDistance = baseSpacing * delta;
+      }
       return {
         zIndex,
         transform: `translateX(${peekDistance}px) scale(${inactiveScale})`,
@@ -127,8 +138,6 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
               <span
                 className="absolute left-3 top-1/2 -translate-y-1/2 z-[50] bg-primary text-white text-xs font-semibold px-2 py-1 rounded-full border-2 border-background shadow select-none pointer-events-none"
                 style={{
-                  // Place at vertical center, left edge, on top of gradient
-                  // Adjust as needed for aesthetics
                   minWidth: 27,
                   textAlign: "center"
                 }}
@@ -225,5 +234,3 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
 };
 
 export default ScreenshotCarousel;
-
-
