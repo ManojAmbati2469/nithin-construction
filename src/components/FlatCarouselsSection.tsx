@@ -20,7 +20,7 @@ const FlatCarouselsSection: React.FC = () => (
         <ScreenshotCarousel
           images={planImages["2BHK"]}
           initialIndex={0}
-          spacing={56}
+          spacing={80}
         />
       </div>
 
@@ -51,7 +51,7 @@ const FlatCarouselsSection: React.FC = () => (
         <ScreenshotCarousel
           images={planImages["3BHK"]}
           initialIndex={0}
-          spacing={56}
+          spacing={80}
         />
       </div>
 
