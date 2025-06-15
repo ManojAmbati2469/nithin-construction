@@ -27,15 +27,15 @@ const CurrentProject = () => {
 
           {/* Current Project Content */}
           <div className="max-w-7xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-16 items-start">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
               {/* Project Image */}
               <div className={`reveal-left ${projectVisible ? 'visible' : ''}`}>
                 <Card className="overflow-hidden border-0 shadow-2xl hover-lift">
-                  <div className="relative">
+                  <div className="relative h-[500px] lg:h-[600px]">
                     <img 
                       src="/lovable-uploads/image.png"
                       alt="NC Vihanga Project"
-                      className="w-full h-[500px] lg:h-[600px] object-cover"
+                      className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                     <div className="absolute bottom-6 left-6 right-6">
