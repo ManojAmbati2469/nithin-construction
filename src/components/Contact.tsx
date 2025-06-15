@@ -98,15 +98,15 @@ const Contact = () => {
             Inquire About <span className="gradient-text">Our Apartments</span>
           </h2>
           <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
-            Ready to find your perfect home? Contact us today to learn about our available 
+            Ready to find your perfect home? Contact us today to learn about our available
             apartments and schedule a site visit to experience quality living.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-12 items-stretch">
           {/* Contact Form */}
           <div className={`reveal-left ${contactVisible ? 'visible' : ''}`}>
-            <Card className="border border-border shadow-lg bg-card">
+            <Card className="border border-border shadow-lg bg-card h-full">
               <CardHeader className="px-4 sm:px-6">
                 <CardTitle className="text-xl sm:text-2xl font-bold text-foreground">Send us a Message</CardTitle>
               </CardHeader>
@@ -204,11 +204,11 @@ const Contact = () => {
           </div>
 
           {/* Contact Information */}
-          <div className={`space-y-6 sm:space-y-8 reveal-right ${contactVisible ? 'visible' : ''}`}>
+          <div className={`flex flex-col space-y-6 sm:space-y-8 reveal-right ${contactVisible ? 'visible' : ''}`}>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 sm:gap-6">
               {contactInfo.map((info, index) => (
-                <Card 
-                  key={info.title} 
+                <Card
+                  key={info.title}
                   className="h-full hover-lift border border-border shadow-lg bg-card"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
@@ -226,8 +226,8 @@ const Contact = () => {
             </div>
 
             {/* Map Placeholder */}
-            <Card className="border border-border shadow-lg overflow-hidden bg-card">
-              <div className="h-48 sm:h-64 gradient-construction flex items-center justify-center">
+            <Card className="border border-border shadow-lg overflow-hidden bg-card flex-grow">
+              <div className="h-full gradient-construction flex items-center justify-center">
                 <div className="text-center text-white px-4">
                   <Building className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-3 sm:mb-4" />
                   <h3 className="text-lg sm:text-xl font-bold mb-2">Visit Our Sales Office</h3>

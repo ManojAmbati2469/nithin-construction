@@ -26,11 +26,11 @@ const CurrentProject = () => {
 
           {/* Current Project Content */}
           <div className="max-w-7xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
               {/* Project Image */}
               <div className={`reveal-left ${projectVisible ? 'visible' : ''}`}>
-                <Card className="overflow-hidden border-0 shadow-2xl hover-lift">
-                  <div className="relative h-[500px] lg:h-[600px]">
+                <Card className="overflow-hidden border-0 shadow-2xl hover-lift h-full">
+                  <div className="relative h-full min-h-[500px]">
                     <img 
                       src="/lovable-uploads/image.png"
                       alt="NC Vihanga Project"
@@ -51,7 +51,7 @@ const CurrentProject = () => {
               </div>
 
               {/* Project Details */}
-              <div className={`space-y-10 reveal-right ${projectVisible ? 'visible' : ''}`}>
+              <div className={`space-y-8 reveal-right ${projectVisible ? 'visible' : ''}`}>
                 <div className="space-y-6">
                   <div>
                     <h3 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">NC Vihanga</h3>
