@@ -23,23 +23,30 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
   const highlightW = 350;
   const inactiveW = 220;
 
-  // Fix: For small carousels always visually show each image (never perfectly hidden behind the active)
+  // Get style for each image based on its position
   const getImageStyle = (idx: number): React.CSSProperties => {
     let delta = idx - activeIdx;
 
-    // Always wrap for small carousels
+    // 2 or 3 images: always wrap around
     if (total === 2) {
-      // For 2 images, one is active (center) and one peeks fully left/right
       if (delta > 1) delta -= total;
       if (delta < -1) delta += total;
     } else if (total === 3) {
-      // For 3 images, always show two neighbors peeking on each side of the active
       if (delta > 1) delta -= total;
       if (delta < -1) delta += total;
-    } else {
-      // For >=4 images, only show left/right-most neighbors peeking
-      if (delta > 2) delta -= total;
-      if (delta < -2) delta += total;
+    }
+
+    // For >3 images: NO WRAP, only show up to two neighbors; hide others
+    if (total > 3) {
+      if (delta < -2 || delta > 2) {
+        // Hide images too far from active
+        return {
+          visibility: 'hidden',
+          opacity: 0,
+          pointerEvents: "none",
+          position: "absolute"
+        };
+      }
     }
 
     // Z-index logic: highlight on top, sides below
@@ -58,9 +65,7 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
       };
     } else if (total <= 3) {
       // For 2 or 3 images, always have two images peek left/right of center, no hiding
-      // Always same distance out
       const peekDistance = highlightW * 0.63;
-      // Left or right
       return {
         zIndex,
         transform: `translateX(${(delta === -1 ? -1 : 1) * peekDistance}px) scale(${inactiveScale})`,
@@ -71,7 +76,7 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
         boxShadow: "0 2px 12px rgba(20,18,38,0.13)",
       };
     } else {
-      // For >=4 images, standard peeking logic
+      // For >=4 images, standard peeking, but no wrap
       const peekDistance = baseSpacing * delta;
       return {
         zIndex,
