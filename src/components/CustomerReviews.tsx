@@ -107,7 +107,7 @@ const CustomerReviews = () => {
             <CarouselContent className="-ml-2 md:-ml-4">
               {reviews.map((review, index) => (
                 <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/2">
-                  <Card className="hover-lift bg-card/80 backdrop-blur-sm border-2 border-border/50 shadow-2xl h-full group hover:border-primary/30 transition-all duration-500">
+                  <Card className="hover-lift bg-card backdrop-blur-sm border-2 border-border shadow-2xl h-full group hover:border-primary/30 transition-all duration-500">
                     <CardContent className="p-8 lg:p-10 flex flex-col h-full relative overflow-hidden">
                       {/* Verified Badge */}
                       {review.verified && (
@@ -150,7 +150,7 @@ const CustomerReviews = () => {
                             alt={review.name}
                             className="w-16 h-16 rounded-full object-cover border-4 border-primary/20 group-hover:border-primary/40 transition-colors duration-300"
                           />
-                          <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-background flex items-center justify-center">
+                          <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-card flex items-center justify-center">
                             <div className="w-2 h-2 bg-white rounded-full"></div>
                           </div>
                         </div>
