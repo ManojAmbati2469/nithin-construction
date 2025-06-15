@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+
+import React, { useState, useEffect, useRef } from "react";
 
 type ScreenshotCarouselProps = {
   images: { label: string; img: string }[];
   initialIndex?: number;
-  spacing?: number; // px to separate images for "overlap" effect
-  highlightHeight?: number; // height px for active image
-  inactiveScale?: number; // scale for inactive images
+  spacing?: number;
+  highlightHeight?: number;
+  inactiveScale?: number;
 };
 
 const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
@@ -16,164 +17,150 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
   inactiveScale = 0.78
 }) => {
   const [activeIdx, setActiveIdx] = useState(initialIndex);
+  const [isPaused, setIsPaused] = useState(false);
 
   const total = images.length;
-  const baseSpacing = spacing;
   const highlightW = 350;
   const inactiveW = 220;
 
-  // For overlays & peeking logic
-  const maxPeek = 3;
+  // For circular: show always 2 left and 2 right relative to active, wrap if needed
+  const getDisplayIndices = () => {
+    if (total <= 1) return [activeIdx];
+    const getIdx = (idx: number) => (idx + total) % total;
+    let indices: number[] = [];
+    // 2 left
+    indices.push(getIdx(activeIdx - 2));
+    indices.push(getIdx(activeIdx - 1));
+    // active
+    indices.push(activeIdx);
+    // 2 right
+    indices.push(getIdx(activeIdx + 1));
+    indices.push(getIdx(activeIdx + 2));
+    return indices;
+  };
+  const displayIndices = getDisplayIndices();
 
-  // Compute dynamic peeking window: keeps always up to maxPeek per side but does NOT hide images that are "next to" active even at edges
-  let leftPeek = Math.min(maxPeek, activeIdx);
-  let rightPeek = Math.min(maxPeek, total - activeIdx - 1);
-
-  // In case total <= 2 or 3, we want full wrap (cycle)
-  // Only for >3 images, we may have more-hidden indicators
-  const showLeftOverlay = total > 3 && activeIdx - leftPeek > 0;
-  const showRightOverlay = total > 3 && activeIdx + rightPeek < total - 1;
-
-  // Number of images hidden on each side
-  const hiddenLeftCount = total > 3 ? Math.max(0, activeIdx - leftPeek) : 0;
-  const hiddenRightCount = total > 3 ? Math.max(0, total - 1 - (activeIdx + rightPeek)) : 0;
-
-  // Returns style for each image based on position and peeking range.
+  // Used for transition and click
   const getImageStyle = (idx: number): React.CSSProperties => {
-    let delta = idx - activeIdx;
+    const posInDisplay = displayIndices.indexOf(idx); // 0 to 4, active at 2
 
-    if (total === 2) {
-      if (delta > 1) delta -= total;
-      if (delta < -1) delta += total;
-    } else if (total === 3) {
-      if (delta > 1) delta -= total;
-      if (delta < -1) delta += total;
-    }
-
-    // New logic: hide only truly out-of-range
-    if (total > 3) {
-      if (delta < -leftPeek || delta > rightPeek) {
-        return {
-          visibility: 'hidden',
-          opacity: 0,
-          pointerEvents: "none",
-          position: "absolute"
-        };
-      }
-    }
-
-    const zIndex = 30 - Math.abs(delta);
-    const widerPeekSpacing = baseSpacing * 1.45;
-
-    if (delta === 0) {
-      // Highlighted image
+    if (posInDisplay === -1) {
+      // Hide images not in display
       return {
-        zIndex,
-        transform: `translateX(0px) scale(1.0)`,
-        filter: "none",
-        width: `${highlightW}px`,
-        height: `${highlightHeight}px`,
-        boxShadow: "0 18px 38px rgba(0,0,0,0.16)",
-        opacity: 1,
-      };
-    } else if (total <= 3) {
-      // For 2 or 3 images, peek both sides, no hiding
-      const peekDistance = highlightW * 0.63;
-      return {
-        zIndex,
-        transform: `translateX(${(delta === -1 ? -1 : 1) * peekDistance}px) scale(${inactiveScale})`,
-        filter: "grayscale(1) brightness(0.74)",
-        width: `${inactiveW}px`,
-        height: `${highlightHeight * 0.70}px`,
-        opacity: 0.96,
-        boxShadow: "0 2px 12px rgba(20,18,38,0.13)",
-      };
-    } else {
-      // For >=4 images, use peeking distance logic
-      let peekDistance;
-      if (delta === -1) {
-        peekDistance = -widerPeekSpacing;
-      } else if (delta === 1) {
-        peekDistance = widerPeekSpacing;
-      } else {
-        peekDistance = baseSpacing * delta;
-      }
-      return {
-        zIndex,
-        transform: `translateX(${peekDistance}px) scale(${inactiveScale})`,
-        filter: "grayscale(1) brightness(0.74)",
-        width: `${inactiveW}px`,
-        height: `${highlightHeight * 0.70}px`,
-        opacity: 0.92,
-        boxShadow: "0 2px 12px rgba(20,18,38,0.11)",
+        visibility: "hidden",
+        opacity: 0,
+        pointerEvents: "none",
+        position: "absolute"
       };
     }
+
+    // Relative position (-2 to 2)
+    const rel = posInDisplay - 2;
+
+    // Arrange: -2, -1, 0, 1, 2 from left to right
+    // Peeking: -2 and 2 furthest, -1 and 1 closer, 0 is active
+    let baseX = 0;
+    let s = 1;
+    let w = highlightW;
+    let h = highlightHeight;
+    let filter = "none";
+    let op = 1;
+    let bs = "0 18px 38px rgba(0,0,0,0.16)";
+    if (rel === 0) {
+      // Center
+      baseX = 0;
+      s = 1.0;
+      w = highlightW;
+      h = highlightHeight;
+      filter = "none";
+      op = 1;
+      bs = "0 18px 38px rgba(0,0,0,0.16)";
+    } else if (Math.abs(rel) === 1) {
+      // Nearest peek
+      baseX = rel * spacing * 1.55;
+      s = inactiveScale + 0.11;
+      w = inactiveW;
+      h = highlightHeight * 0.75;
+      filter = "grayscale(0.7) brightness(0.86)";
+      op = 0.89;
+      bs = "0 2px 12px rgba(20,18,38,0.12)";
+    } else if (Math.abs(rel) === 2) {
+      // Farthest peek
+      baseX = rel * spacing * 2.13;
+      s = inactiveScale;
+      w = inactiveW * 0.92;
+      h = highlightHeight * 0.67;
+      filter = "grayscale(0.95) brightness(0.73)";
+      op = 0.58;
+      bs = "0 1px 5px rgba(20,18,38,0.07)";
+    }
+
+    return {
+      zIndex: 20 - Math.abs(rel),
+      transform: `translateX(${baseX}px) scale(${s}) translateX(-50%)`,
+      width: `${w}px`,
+      height: `${h}px`,
+      filter,
+      opacity: op,
+      boxShadow: bs,
+      background: "#141235"
+    };
   };
 
+  // --- Auto-advance logic (pause on hover/focus) ---
+  const autoChangeRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    if (isPaused || total <= 1) return;
+
+    autoChangeRef.current = setTimeout(() => {
+      setActiveIdx((prev) => (prev + 1) % total);
+    }, 3000);
+
+    return () => {
+      if (autoChangeRef.current) clearTimeout(autoChangeRef.current);
+    };
+  }, [activeIdx, isPaused, total]);
+
+  const carouselAreaRef = useRef<HTMLDivElement>(null);
+
+  // Pause auto-change on hover or focus within the carousel area
+  useEffect(() => {
+    const area = carouselAreaRef.current;
+    if (!area) return;
+    const onEnter = () => setIsPaused(true);
+    const onLeave = () => setIsPaused(false);
+
+    area.addEventListener("mouseenter", onEnter);
+    area.addEventListener("focusin", onEnter);
+    area.addEventListener("mouseleave", onLeave);
+    area.addEventListener("focusout", onLeave);
+
+    return () => {
+      area.removeEventListener("mouseenter", onEnter);
+      area.removeEventListener("focusin", onEnter);
+      area.removeEventListener("mouseleave", onLeave);
+      area.removeEventListener("focusout", onLeave);
+    };
+  }, []);
+
   return (
-    <div className="relative w-full flex flex-col items-center select-none">
+    <div
+      className="relative w-full flex flex-col items-center select-none"
+      ref={carouselAreaRef}
+      tabIndex={-1}
+      aria-label="Image Carousel"
+    >
       <div
         className="relative flex justify-center w-full"
         style={{
           height: `${highlightHeight + 32}px`,
           minWidth: "min(100%,340px)",
           maxWidth: "100vw",
-          pointerEvents: "auto",
+          pointerEvents: "auto"
         }}
       >
-        {/* Gradient overlays (left/right) for more images indication */}
-        {showLeftOverlay && (
-          <>
-            <div
-              className="absolute top-0 left-0 h-full z-40 pointer-events-none"
-              style={{
-                width: 40,
-                background: "linear-gradient(to right,rgba(20,18,53,0.73) 60%,rgba(20,18,53,0.01) 100%)",
-                borderRadius: "1rem 0 0 1rem"
-              }}
-              aria-hidden="true"
-            />
-            {/* Identification Badge */}
-            {hiddenLeftCount > 0 && (
-              <span
-                className="absolute left-3 top-1/2 -translate-y-1/2 z-[50] bg-primary text-white text-xs font-semibold px-2 py-1 rounded-full border-2 border-background shadow select-none pointer-events-none"
-                style={{
-                  minWidth: 27,
-                  textAlign: "center"
-                }}
-                aria-label={`+${hiddenLeftCount} more images on left`}
-              >
-                +{hiddenLeftCount}
-              </span>
-            )}
-          </>
-        )}
-        {showRightOverlay && (
-          <>
-            <div
-              className="absolute top-0 right-0 h-full z-40 pointer-events-none"
-              style={{
-                width: 40,
-                background: "linear-gradient(to left,rgba(20,18,53,0.73) 60%,rgba(20,18,53,0.01) 100%)",
-                borderRadius: "0 1rem 1rem 0"
-              }}
-              aria-hidden="true"
-            />
-            {/* Identification Badge */}
-            {hiddenRightCount > 0 && (
-              <span
-                className="absolute right-3 top-1/2 -translate-y-1/2 z-[50] bg-primary text-white text-xs font-semibold px-2 py-1 rounded-full border-2 border-background shadow select-none pointer-events-none"
-                style={{
-                  minWidth: 27,
-                  textAlign: "center"
-                }}
-                aria-label={`+${hiddenRightCount} more images on right`}
-              >
-                +{hiddenRightCount}
-              </span>
-            )}
-          </>
-        )}
+        {/* 5 visible images, circular from displayIndices */}
         {images.map((img, idx) => (
           <div
             key={img.label + idx}
@@ -185,9 +172,7 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
             style={{
               ...getImageStyle(idx),
               transition: "all 0.55s cubic-bezier(0.4, 0, 0.2, 1)",
-              transform: `${getImageStyle(idx).transform} translateX(-50%)`,
-              cursor: idx === activeIdx ? "default" : "pointer",
-              background: "#141235",
+              cursor: idx === activeIdx ? "default" : "pointer"
             }}
             onClick={() => idx !== activeIdx && setActiveIdx(idx)}
             aria-label={img.label}
@@ -203,6 +188,7 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
               className="w-full h-full object-cover rounded-2xl user-select-none"
               draggable={false}
             />
+            {/* Label shown for each image, with contrast for active */}
             <div
               className={`absolute bottom-2 left-1/2 -translate-x-1/2 text-[1rem] font-semibold px-3 py-1 rounded-lg bg-card/80 shadow`}
               style={{
