@@ -59,6 +59,18 @@ const screenshotImages = {
       label: "Kitchen",
       img: "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=400&q=80"
     },
+    {
+      label: "Balcony",
+      img: "https://images.unsplash.com/photo-1615874959474-d609969a09a0?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      label: "Dining Area",
+      img: "https://images.unsplash.com/photo-1615874959876-5231d6ad7c0f?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      label: "Washroom",
+      img: "https://images.unsplash.com/photo-1549187774-b4e9b0445b06?auto=format&fit=crop&w=400&q=80"
+    },
   ],
   "3BHK": [
     {
@@ -72,6 +84,18 @@ const screenshotImages = {
     {
       label: "Kitchen",
       img: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      label: "Balcony",
+      img: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      label: "Dining Area",
+      img: "https://images.unsplash.com/photo-1519985176271-adb1088fa94c?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      label: "Washroom",
+      img: "https://images.unsplash.com/photo-1465101178521-c1a9136a3fd4?auto=format&fit=crop&w=400&q=80"
     },
   ]
 };
@@ -127,7 +151,7 @@ const FlatsAvailable = () => {
             <div className="flex-1">
               <h3 className="text-xl font-bold mb-2">Sample Screenshots</h3>
               {/* Carousel */}
-              <ScreenshotCarousel images={screenshotImages["2BHK"]} initialIndex={1} />
+              <ScreenshotCarousel images={screenshotImages["2BHK"]} initialIndex={0} />
             </div>
           </div>
         </div>
@@ -144,7 +168,7 @@ const FlatsAvailable = () => {
             <div className="flex-1">
               <h3 className="text-xl font-bold mb-2">Sample Screenshots</h3>
               {/* Carousel */}
-              <ScreenshotCarousel images={screenshotImages["3BHK"]} initialIndex={1} />
+              <ScreenshotCarousel images={screenshotImages["3BHK"]} initialIndex={0} />
             </div>
           </div>
         </div>
