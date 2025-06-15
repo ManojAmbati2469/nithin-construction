@@ -13,68 +13,71 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
   images,
   initialIndex = 0,
   spacing = 110, // more spacing for better peeking
-  highlightHeight = 340, // even taller for highlight
+  highlightHeight = 370, // even taller for highlight
   inactiveScale = 0.78
 }) => {
   const [activeIdx, setActiveIdx] = useState(initialIndex);
 
-  // Ensure proper overlap for edge images (every image "peeks")
-  // We offset all images, center active in the middle, and spread rest left/right.
   const total = images.length;
-  const overlap = spacing;
+  const baseSpacing = spacing;
+  const highlightW = 350;
+  const inactiveW = 220;
 
-  // For each index, calculate proper "stack" positioning so that image at 0 and length-1 are visible even when not active
-  // We'll center the active in the carousel, and push others left/right with visible overflow.
-
-  // Calculate the position for each image so that all images peek out from behind the active one
+  // Improved getImageStyle for 2 or 3 images
   const getImageStyle = (idx: number): React.CSSProperties => {
-    const delta = idx - activeIdx;
+    // For 2 or 3 images, "wrap" so all are visible beside the highlighted one
+    let delta = idx - activeIdx;
 
-    // At edges, wrap so first/last images aren't fully hidden
-    // For 3 images:
-    // when activeIdx=1: show [0(left),1(active),2(right)]
-    // when activeIdx=0: show [2(left edge),0(active),1(right)]
-    // when activeIdx=2: show [1(left),2(active),0(right edge)]
-    let realDelta = delta;
-
-    if (total > 2) {
-      // Make the carousel "infinite look" by wrapping indices for neighbors
-      if (delta > 1) realDelta = delta - total;
-      if (delta < -1) realDelta = delta + total;
+    // Always wrap for small carousels
+    if (total === 2) {
+      /* 0(active) delta=0, 1: delta=1; 1(active) delta=0, 0:-1 */
+      if (delta > 1) delta -= total;
+      if (delta < -1) delta += total;
+    } else if (total === 3) {
+      // 3 images: left is delta=-1, right is delta=1, wrap correctly
+      if (delta > 1) delta -= total;
+      if (delta < -1) delta += total;
+    } else {
+      // 4+ images: wrap only far neighbors for infinite effect
+      if (delta > 1) delta -= total;
+      if (delta < -1) delta += total;
     }
 
-    // Active image - on top, large, no filter
-    if (realDelta === 0) {
+    // Z-index logic: Always put highlighted in front, neighbors behind, etc
+    const zIndex = delta === 0 ? 30 : 20 - Math.abs(delta);
+
+    if (delta === 0) {
       return {
-        zIndex: 30,
-        transform: "translateX(0) scale(1.0)",
+        zIndex,
+        transform: `translateX(0px) scale(1.0)`,
         filter: "none",
-        width: "350px",
+        width: `${highlightW}px`,
         height: `${highlightHeight}px`,
         boxShadow: "0 18px 38px rgba(0,0,0,0.16)",
         opacity: 1,
       };
+    } else {
+      // Neighbors peek out left/right even for 2 or 3 images
+      // For 2 or 3, force wider peeking since there are no far neighbors
+      const peekDistance = total <= 3 ? highlightW * 0.60 : baseSpacing * delta;
+      return {
+        zIndex,
+        transform: `translateX(${peekDistance * delta}px) scale(${inactiveScale})`,
+        filter: "grayscale(1) brightness(0.74)",
+        width: `${inactiveW}px`,
+        height: `${highlightHeight * 0.70}px`,
+        opacity: 0.92,
+        boxShadow: "0 2px 12px rgba(20,18,38,0.11)",
+      };
     }
-
-    // Side images: Peek out from left/right, never 100% hidden!
-    // Each side is spread by overlap * realDelta, scale down side images, set grayscale
-    return {
-      zIndex: 20 - Math.abs(realDelta),
-      transform: `translateX(${realDelta * overlap}px) scale(${inactiveScale})`,
-      filter: "grayscale(1) brightness(0.74)",
-      width: "220px",
-      height: `${highlightHeight * 0.69}px`,
-      opacity: 0.9,
-      boxShadow: "0 2px 12px rgba(20,18,38,0.11)",
-    };
   };
 
   return (
     <div className="relative w-full flex flex-col items-center select-none">
-      <div 
+      <div
         className="relative flex justify-center w-full"
         style={{
-          height: `${highlightHeight + 28}px`,
+          height: `${highlightHeight + 32}px`,
           minWidth: "min(100%,340px)",
           maxWidth: "100vw",
           pointerEvents: "auto",
@@ -83,12 +86,14 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
         {images.map((img, idx) => (
           <div
             key={img.label + idx}
-            className={`absolute left-1/2 top-2 cursor-pointer transition-all duration-500 rounded-2xl border-4
+            className={`
+              absolute left-1/2 top-2 cursor-pointer transition-all duration-500 rounded-2xl border-4
               ${idx === activeIdx ? "border-primary" : "border-muted"}
-              group`}
+              group
+            `}
             style={{
               ...getImageStyle(idx),
-              transition: "all 0.45s cubic-bezier(0.4, 0, 0.2, 1)",
+              transition: "all 0.55s cubic-bezier(0.4, 0, 0.2, 1)",
               transform: `${getImageStyle(idx).transform} translateX(-50%)`,
               cursor: idx === activeIdx ? "default" : "pointer",
               background: "#141235",
