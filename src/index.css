@@ -76,7 +76,6 @@
     overflow-x: hidden !important;
     width: 100%;
     max-width: 100vw;
-    height: 100%;
   }
 
   body {
@@ -86,33 +85,17 @@
     max-width: 100vw;
     margin: 0;
     padding: 0;
-    height: 100%;
-    min-height: 100vh;
   }
 
   #root {
     overflow-x: hidden !important;
     width: 100%;
     max-width: 100vw;
-    min-height: 100vh;
   }
 
   /* Prevent horizontal overflow on all elements */
   * {
     max-width: 100%;
-  }
-
-  /* Main container fixes for laptop view */
-  @media (min-width: 1024px) {
-    html, body {
-      overflow-y: auto;
-      overflow-x: hidden;
-    }
-    
-    #root {
-      overflow-y: visible;
-      height: auto;
-    }
   }
 
   /* Ensure all containers respect viewport width */
@@ -261,19 +244,11 @@
     overflow-x: hidden;
   }
 
-  /* Fix double scroll on laptop */
+  /* Simple page container without conflicting scroll properties */
   .page-container {
     width: 100%;
     max-width: 100vw;
     overflow-x: hidden;
-    min-height: auto;
-  }
-  
-  @media (min-width: 1024px) {
-    .page-container {
-      height: auto;
-      overflow-y: visible;
-    }
   }
 
   /* Responsive container padding */
