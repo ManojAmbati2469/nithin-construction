@@ -12,8 +12,8 @@ type ScreenshotCarouselProps = {
 const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
   images,
   initialIndex = 0,
-  spacing = 110, // more spacing for better peeking
-  highlightHeight = 370, // even taller for highlight
+  spacing = 110,
+  highlightHeight = 370,
   inactiveScale = 0.78
 }) => {
   const [activeIdx, setActiveIdx] = useState(initialIndex);
@@ -23,30 +23,30 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
   const highlightW = 350;
   const inactiveW = 220;
 
-  // Improved getImageStyle for 2 or 3 images
+  // Fix: For small carousels always visually show each image (never perfectly hidden behind the active)
   const getImageStyle = (idx: number): React.CSSProperties => {
-    // For 2 or 3 images, "wrap" so all are visible beside the highlighted one
     let delta = idx - activeIdx;
 
     // Always wrap for small carousels
     if (total === 2) {
-      /* 0(active) delta=0, 1: delta=1; 1(active) delta=0, 0:-1 */
+      // For 2 images, one is active (center) and one peeks fully left/right
       if (delta > 1) delta -= total;
       if (delta < -1) delta += total;
     } else if (total === 3) {
-      // 3 images: left is delta=-1, right is delta=1, wrap correctly
+      // For 3 images, always show two neighbors peeking on each side of the active
       if (delta > 1) delta -= total;
       if (delta < -1) delta += total;
     } else {
-      // 4+ images: wrap only far neighbors for infinite effect
-      if (delta > 1) delta -= total;
-      if (delta < -1) delta += total;
+      // For >=4 images, only show left/right-most neighbors peeking
+      if (delta > 2) delta -= total;
+      if (delta < -2) delta += total;
     }
 
-    // Z-index logic: Always put highlighted in front, neighbors behind, etc
-    const zIndex = delta === 0 ? 30 : 20 - Math.abs(delta);
+    // Z-index logic: highlight on top, sides below
+    const zIndex = 30 - Math.abs(delta);
 
     if (delta === 0) {
+      // Highlighted image
       return {
         zIndex,
         transform: `translateX(0px) scale(1.0)`,
@@ -56,13 +56,26 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
         boxShadow: "0 18px 38px rgba(0,0,0,0.16)",
         opacity: 1,
       };
-    } else {
-      // Neighbors peek out left/right even for 2 or 3 images
-      // For 2 or 3, force wider peeking since there are no far neighbors
-      const peekDistance = total <= 3 ? highlightW * 0.60 : baseSpacing * delta;
+    } else if (total <= 3) {
+      // For 2 or 3 images, always have two images peek left/right of center, no hiding
+      // Always same distance out
+      const peekDistance = highlightW * 0.63;
+      // Left or right
       return {
         zIndex,
-        transform: `translateX(${peekDistance * delta}px) scale(${inactiveScale})`,
+        transform: `translateX(${(delta === -1 ? -1 : 1) * peekDistance}px) scale(${inactiveScale})`,
+        filter: "grayscale(1) brightness(0.74)",
+        width: `${inactiveW}px`,
+        height: `${highlightHeight * 0.70}px`,
+        opacity: 0.96,
+        boxShadow: "0 2px 12px rgba(20,18,38,0.13)",
+      };
+    } else {
+      // For >=4 images, standard peeking logic
+      const peekDistance = baseSpacing * delta;
+      return {
+        zIndex,
+        transform: `translateX(${peekDistance}px) scale(${inactiveScale})`,
         filter: "grayscale(1) brightness(0.74)",
         width: `${inactiveW}px`,
         height: `${highlightHeight * 0.70}px`,
