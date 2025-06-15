@@ -1,14 +1,15 @@
-import { useState } from 'react';
+
+import { useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { MapPin, Home, Square, Navigation } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import InquiryModal from './InquiryModal';
+import { useNavigate } from 'react-router-dom';
 
 const CurrentProject = () => {
   const { ref: projectRef, isVisible: projectVisible } = useScrollAnimation();
   const { ref: highlightsRef, isVisible: highlightsVisible } = useScrollAnimation();
-  const [modalOpen, setModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -116,7 +117,7 @@ const CurrentProject = () => {
                 <div className="pt-8">
                   <Button 
                     size="lg" 
-                    onClick={() => setModalOpen(true)}
+                    onClick={() => navigate('/flats-available')}
                     className="gradient-construction text-white hover:opacity-90 transition-all duration-300 hover:scale-105 text-lg px-10 py-4 animate-pulse-glow"
                   >
                     Know More About NC Vihanga
@@ -127,15 +128,9 @@ const CurrentProject = () => {
           </div>
         </div>
       </section>
-
-      {/* Modal */}
-      <InquiryModal
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        type="journey"
-      />
     </>
   );
 };
 
 export default CurrentProject;
+

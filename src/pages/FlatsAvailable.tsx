@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell, TableCaption } from "@/components/ui/table";
 import { Loader2, AlertTriangle } from "lucide-react";
@@ -39,6 +38,48 @@ function parseTableFromHtml(html: string): FlatEntry[] {
   });
 }
 
+const placeholder2BHK =
+  "https://images.unsplash.com/photo-1721322800607-8c38375eef04?auto=format&fit=crop&w=600&q=80";
+const placeholder3BHK =
+  "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80";
+
+// Placeholder images for flat types
+const screenshotImages = {
+  "2BHK": [
+    {
+      label: "Living Room",
+      img: "https://images.unsplash.com/photo-1460518451285-97b6aa326961?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      label: "Bedroom",
+      img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      label: "Kitchen",
+      img: "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=400&q=80"
+    },
+  ],
+  "3BHK": [
+    {
+      label: "Living Room",
+      img: "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      label: "Bedroom",
+      img: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      label: "Kitchen",
+      img: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80"
+    },
+  ]
+};
+
+const planImages: Record<string, string> = {
+  "2BHK": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400&q=80",
+  "3BHK": "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=400&q=80"
+};
+
 const FlatsAvailable = () => {
   const [flats, setFlats] = useState<FlatEntry[]>([]);
   const [loading, setLoading] = useState(true);
@@ -66,12 +107,61 @@ const FlatsAvailable = () => {
   }, []);
 
   return (
-    <section className="min-h-screen flex items-center justify-center py-20 bg-background">
+    <section className="min-h-screen flex flex-col items-center justify-center py-16 bg-background">
       <div className="container mx-auto max-w-5xl px-4">
         <h1 className="text-4xl font-bold gradient-text mb-8 text-center">Flats Available for Sale</h1>
         <p className="text-center text-muted-foreground mb-10">
           Latest availability as per our records.
         </p>
+
+        {/* Plans + Screenshots: 2BHK */}
+        <div className="mb-16 bg-card/60 rounded-2xl p-8 shadow-md border border-border">
+          <h2 className="text-3xl font-bold mb-2 gradient-text">2BHK Flat Plan</h2>
+          <div className="flex flex-col md:flex-row items-start gap-8">
+            <img
+              src={planImages["2BHK"]}
+              alt="2BHK Plan"
+              className="rounded-xl shadow-xl w-full md:w-1/2 object-cover"
+            />
+            <div className="flex-1">
+              <h3 className="text-xl font-bold mb-2">Sample Screenshots</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                {screenshotImages["2BHK"].map((item) => (
+                  <div key={item.label} className="flex flex-col items-center bg-card rounded-xl p-3 shadow hover-scale">
+                    <img src={item.img} alt={item.label} className="rounded-lg h-32 w-full object-cover mb-2" />
+                    <span className="font-semibold text-sm">{item.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Plans + Screenshots: 3BHK */}
+        <div className="mb-16 bg-card/60 rounded-2xl p-8 shadow-md border border-border">
+          <h2 className="text-3xl font-bold mb-2 gradient-text">3BHK Flat Plan</h2>
+          <div className="flex flex-col md:flex-row items-start gap-8">
+            <img
+              src={planImages["3BHK"]}
+              alt="3BHK Plan"
+              className="rounded-xl shadow-xl w-full md:w-1/2 object-cover"
+            />
+            <div className="flex-1">
+              <h3 className="text-xl font-bold mb-2">Sample Screenshots</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                {screenshotImages["3BHK"].map((item) => (
+                  <div key={item.label} className="flex flex-col items-center bg-card rounded-xl p-3 shadow hover-scale">
+                    <img src={item.img} alt={item.label} className="rounded-lg h-32 w-full object-cover mb-2" />
+                    <span className="font-semibold text-sm">{item.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Available Flats Table */}
+        {/* Loading, error, empty, or table */}
         {loading ? (
           <div className="flex flex-col items-center justify-center py-16">
             <Loader2 className="animate-spin w-10 h-10 mb-4 text-primary" />
