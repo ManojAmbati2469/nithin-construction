@@ -1,4 +1,3 @@
-
 import { Card, CardContent } from '@/components/ui/card';
 import { Building, Construction, Hammer, Wrench } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
@@ -10,36 +9,45 @@ const About = () => {
   const { ref: experienceRef, isVisible: experienceVisible } = useScrollAnimation();
   const { ref: missionRef, isVisible: missionVisible } = useScrollAnimation();
 
-  // Counter animations for achievements
-  const sqftCount = useCountUp(6, 2000, achievementsVisible);
-  const projectsCount = useCountUp(26, 2500, achievementsVisible);
-  const customersCount = useCountUp(400, 3000, achievementsVisible);
-  const experienceCount = useCountUp(20, 1500, achievementsVisible);
+  // Each stat gets its own animation pair (value, reset function)
+  const [sqftCount, resetSqft] = useCountUp(6, 2000, achievementsVisible);
+  const [projectsCount, resetProjects] = useCountUp(26, 2500, achievementsVisible);
+  const [customersCount, resetCustomers] = useCountUp(400, 3000, achievementsVisible);
+  const [experienceCount, resetExperience] = useCountUp(20, 1500, achievementsVisible);
 
+  // Offer clickable stats (interactive restart)
   const achievements = [
     {
       icon: Building,
-      number: `${sqftCount} Lakh+`,
+      value: sqftCount,
+      reset: resetSqft,
       label: 'sq.ft Constructed',
-      description: 'Successfully delivered across residential and commercial sectors'
+      description: 'Successfully delivered across residential and commercial sectors',
+      display: (v: number) => `${v} Lakh+`,
     },
     {
       icon: Construction,
-      number: projectsCount.toString(),
+      value: projectsCount,
+      reset: resetProjects,
       label: 'Completed Projects',
-      description: 'A milestone achieved by Nithin Construction'
+      description: 'A milestone achieved by Nithin Construction',
+      display: (v: number) => v.toString(),
     },
     {
       icon: Hammer,
-      number: `${customersCount}+`,
+      value: customersCount,
+      reset: resetCustomers,
       label: 'Happy Customers',
-      description: 'Rejoicing in the pleasures of a splendid life'
+      description: 'Rejoicing in the pleasures of a splendid life',
+      display: (v: number) => `${v}+`,
     },
     {
       icon: Wrench,
-      number: `${experienceCount}+`,
+      value: experienceCount,
+      reset: resetExperience,
       label: 'Years Experience',
-      description: 'Decades of expertise in construction and project management'
+      description: 'Decades of expertise in construction and project management',
+      display: (v: number) => `${v}+`,
     }
   ];
 
@@ -98,8 +106,15 @@ const About = () => {
                     <achievement.icon className="w-6 h-6 text-white" />
                   </div>
                   <div className="space-y-2">
-                    <div className="text-3xl font-bold gradient-text">
-                      {achievement.number}
+                    <div
+                      className="text-3xl font-bold gradient-text cursor-pointer select-none transition-transform duration-300 active:scale-95"
+                      title="Click to replay"
+                      onClick={achievement.reset}
+                      tabIndex={0}
+                      role="button"
+                      aria-label={`Replay ${achievement.label} counter animation`}
+                    >
+                      {achievement.display(achievement.value)}
                     </div>
                     <div className="font-semibold text-card-foreground">
                       {achievement.label}
