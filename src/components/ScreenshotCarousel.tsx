@@ -32,7 +32,6 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
       ];
     }
     if (total === 3) {
-      // Show all: left, active, right around the circle
       return [
         (activeIdx + total - 1) % total, // left
         activeIdx,
@@ -40,7 +39,6 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
       ];
     }
     if (total === 4) {
-      // Show all 4: 2 left, active, right
       return [
         (activeIdx + total - 2) % total,
         (activeIdx + total - 1) % total,
@@ -74,10 +72,10 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
     }
 
     const displayLen = displayIndices.length;
-    const centerIdx = Math.floor(displayLen / 2); // Middle
+    const centerIdx = Math.floor(displayLen / 2);
     const rel = posInDisplay - centerIdx;
 
-    // Default styling
+    // Peeking and overlap logic
     let baseX = 0;
     let s = 1.0;
     let w = highlightW;
@@ -85,6 +83,7 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
     let filter = "none";
     let op = 1;
     let bs = "0 18px 38px rgba(0,0,0,0.16)";
+    let z = 20 - Math.abs(rel);
 
     if (rel === 0) {
       // Center
@@ -95,42 +94,28 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
       filter = "none";
       op = 1;
       bs = "0 18px 38px rgba(0,0,0,0.16)";
+      z = 30;
     } else if (Math.abs(rel) === 1) {
-      // Nearest peek
-      // --- ADJUSTED FOR STRONGER, MORE EQUAL PEEKING ---
-      if (displayLen === 3) {
-        // 3 images: emphasize peeking
-        baseX = rel * (spacing * 2.25);
-        s = inactiveScale + 0.13;
-        w = inactiveW + 42;
-        h = highlightHeight * 0.86;
-      } else if (displayLen === 2) {
-        // classic, just 2: left/right
-        baseX = rel * spacing * 1.2;
-        s = inactiveScale + 0.17;
-        w = inactiveW + 22;
-        h = highlightHeight * 0.83;
-      } else {
-        // 4+ images: normal peek
-        baseX = rel * spacing * 1.55;
-        s = inactiveScale + 0.11;
-        w = inactiveW;
-        h = highlightHeight * 0.75;
-      }
-      filter = "grayscale(0.7) brightness(0.86)";
-      op = 0.89;
-      bs = "0 2px 12px rgba(20,18,38,0.12)";
+      // Immediate left/right (first peeking)
+      baseX = rel * (spacing * 2.5); // wider peeking
+      s = inactiveScale + 0.17;
+      w = inactiveW + 54;
+      h = highlightHeight * 0.88;
+      filter = "grayscale(0.58) brightness(0.88)";
+      op = 0.93;
+      bs = "0 4px 18px rgba(20,18,38,0.13)";
+      z = 25;
     } else if (Math.abs(rel) === 2) {
-      // Farthest peek (only for 5+)
-      baseX = rel * spacing * 2.13;
-      s = inactiveScale;
-      w = inactiveW * 0.92;
-      h = highlightHeight * 0.67;
-      filter = "grayscale(0.95) brightness(0.73)";
-      op = 0.58;
-      bs = "0 1px 5px rgba(20,18,38,0.07)";
+      // 2nd left/right (outermost, even wider peek & less shade)
+      baseX = rel * (spacing * 4.1); // much more visible
+      s = inactiveScale + 0.09;
+      w = inactiveW + 28;
+      h = highlightHeight * 0.78;
+      filter = "grayscale(0.92) brightness(0.74)";
+      op = 0.82;
+      bs = "0 2px 12px rgba(20,18,38,0.11)";
+      z = 22;
     } else {
-      // Not visible
       return {
         visibility: "hidden",
         opacity: 0,
@@ -140,7 +125,7 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
     }
 
     return {
-      zIndex: 20 - Math.abs(rel),
+      zIndex: z,
       transform: `translateX(${baseX}px) scale(${s}) translateX(-50%)`,
       width: `${w}px`,
       height: `${h}px`,
