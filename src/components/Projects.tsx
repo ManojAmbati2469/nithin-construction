@@ -1,3 +1,4 @@
+
 import { Card, CardContent } from '@/components/ui/card';
 import { Building, Construction, Home, Users } from 'lucide-react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './ui/carousel';
@@ -78,21 +79,21 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="section-padding">
-      <div className="container mx-auto px-4">
+    <section id="projects" className="section-padding no-overflow-x">
+      <div className="container-safe mx-auto">
         {/* Section Header */}
         <div className={`text-center mb-16 reveal-up ${headerVisible ? 'visible' : ''}`} ref={headerRef}>
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
             Our <span className="gradient-text">Residential Projects</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
             Explore our portfolio of premium residential apartments that have provided 
             comfortable homes to hundreds of satisfied families.
           </p>
         </div>
 
         {/* Projects Grid */}
-        <div className="grid lg:grid-cols-2 gap-8 mb-16" ref={gridRef}>
+        <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 mb-16 px-4" ref={gridRef}>
           {projects.map((project, index) => (
             <Card 
               key={project.title} 
@@ -117,10 +118,10 @@ const Projects = () => {
                   <project.icon className="w-5 h-5 text-white" />
                 </div>
               </div>
-              <CardContent className="p-6 space-y-4 flex flex-col flex-grow">
+              <CardContent className="p-4 sm:p-6 space-y-4 flex flex-col flex-grow">
                 <div className="flex justify-between items-start">
                   <div>
-                    <h3 className="text-xl font-bold text-card-foreground mb-2">
+                    <h3 className="text-lg sm:text-xl font-bold text-card-foreground mb-2">
                       {project.title}
                     </h3>
                     <span className="text-sm font-medium text-primary">
@@ -131,7 +132,7 @@ const Projects = () => {
                     {project.year}
                   </span>
                 </div>
-                <p className="text-muted-foreground leading-relaxed flex-grow">
+                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed flex-grow">
                   {project.description}
                 </p>
                 <div className="flex justify-between items-center pt-2">
@@ -147,24 +148,24 @@ const Projects = () => {
         {/* Completed Projects Section */}
         <div className="mb-16">
           <div className={`text-center mb-12 reveal-up ${completedVisible ? 'visible' : ''}`} ref={completedRef}>
-            <h3 className="text-3xl font-bold mb-4">Successfully <span className="gradient-text">Delivered</span></h3>
-            <p className="text-lg text-muted-foreground">
+            <h3 className="text-2xl sm:text-3xl font-bold mb-4">Successfully <span className="gradient-text">Delivered</span></h3>
+            <p className="text-base sm:text-lg text-muted-foreground px-4">
               A showcase of our completed residential projects where families now call home
             </p>
           </div>
           
-          <div className={`w-[90vw] mx-auto py-8 reveal-scale ${carouselVisible ? 'visible' : ''}`} ref={carouselRef}>
+          <div className={`w-full max-w-[95vw] mx-auto py-8 reveal-scale ${carouselVisible ? 'visible' : ''}`} ref={carouselRef}>
             <Carousel 
               opts={{
                 align: "start",
                 loop: true,
               }}
               className="w-full">
-                <CarouselContent>
+                <CarouselContent className="-ml-2 md:-ml-4">
                   {completedProjects.map((project, index) => (
                     <CarouselItem
                       key={index}
-                      className="md:basis-1/2 lg:basis-1/3 px-2"
+                      className="pl-2 md:pl-4 basis-[280px] sm:basis-[320px] md:basis-1/2 lg:basis-1/3"
                     >
                       <Link
                         to={`/flats-available?variant=completed&project=${encodeURIComponent(project.title)}`}
@@ -179,7 +180,7 @@ const Projects = () => {
                             className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
                           />
                           <div className="p-4 text-center">
-                            <h3 className="text-lg font-semibold text-card-foreground">
+                            <h3 className="text-base sm:text-lg font-semibold text-card-foreground">
                               {project.title}
                             </h3>
                           </div>
@@ -188,21 +189,21 @@ const Projects = () => {
                     </CarouselItem>
                   ))}
                 </CarouselContent>
-                <CarouselPrevious />
-                <CarouselNext />
+                <CarouselPrevious className="hidden sm:flex" />
+                <CarouselNext className="hidden sm:flex" />
               </Carousel>
           </div>
         </div>
 
         {/* Stats Section */}
-        <div className={`gradient-construction rounded-2xl p-8 lg:p-12 text-white reveal-up ${statsVisible ? 'visible' : ''}`} ref={statsRef}>
+        <div className={`gradient-construction rounded-2xl p-6 sm:p-8 lg:p-12 text-white reveal-up mx-4 ${statsVisible ? 'visible' : ''}`} ref={statsRef}>
           <div className="text-center mb-8">
-            <h3 className="text-3xl font-bold mb-4">Our Achievement</h3>
-            <p className="text-xl opacity-90">
+            <h3 className="text-2xl sm:text-3xl font-bold mb-4">Our Achievement</h3>
+            <p className="text-lg sm:text-xl opacity-90">
               Numbers that reflect our commitment to providing quality homes
             </p>
           </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             {[
               { number: '26', label: 'Completed Projects' },
               { number: '6 Lakh+', label: 'sq.ft Delivered' },
@@ -210,8 +211,8 @@ const Projects = () => {
               { number: '20+', label: 'Years Experience' }
             ].map((stat, index) => (
               <div key={stat.label} className="text-center">
-                <div className="text-4xl font-bold mb-2">{stat.number}</div>
-                <div className="text-lg opacity-90">{stat.label}</div>
+                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2">{stat.number}</div>
+                <div className="text-sm sm:text-base lg:text-lg opacity-90">{stat.label}</div>
               </div>
             ))}
           </div>
