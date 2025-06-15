@@ -2,6 +2,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Building, Construction, Hammer, Wrench } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { useCountUp } from '@/hooks/useCountUp';
+import { useGroupCountUp } from '@/hooks/useGroupCountUp';
 
 const About = () => {
   const { ref: aboutRef, isVisible: aboutVisible } = useScrollAnimation();
@@ -9,42 +10,43 @@ const About = () => {
   const { ref: experienceRef, isVisible: experienceVisible } = useScrollAnimation();
   const { ref: missionRef, isVisible: missionVisible } = useScrollAnimation();
 
-  // Each stat gets its own animation pair (value, reset function)
-  const [sqftCount, resetSqft] = useCountUp(6, 2000, achievementsVisible);
-  const [projectsCount, resetProjects] = useCountUp(26, 2500, achievementsVisible);
-  const [customersCount, resetCustomers] = useCountUp(400, 3000, achievementsVisible);
-  const [experienceCount, resetExperience] = useCountUp(20, 1500, achievementsVisible);
+  // Grouped count-up: all finish together when achievementsVisible
+  const [groupValues, resetGroup] = useGroupCountUp({
+    ends: [6, 26, 400, 20],
+    duration: 2500,
+    isVisible: achievementsVisible,
+  });
 
-  // Offer clickable stats (interactive restart)
+  // Map values to correct stat.
   const achievements = [
     {
       icon: Building,
-      value: sqftCount,
-      reset: resetSqft,
+      value: groupValues[0] ?? 0,
+      reset: resetGroup,
       label: 'sq.ft Constructed',
       description: 'Successfully delivered across residential and commercial sectors',
       display: (v: number) => `${v} Lakh+`,
     },
     {
       icon: Construction,
-      value: projectsCount,
-      reset: resetProjects,
+      value: groupValues[1] ?? 0,
+      reset: resetGroup,
       label: 'Completed Projects',
       description: 'A milestone achieved by Nithin Construction',
       display: (v: number) => v.toString(),
     },
     {
       icon: Hammer,
-      value: customersCount,
-      reset: resetCustomers,
+      value: groupValues[2] ?? 0,
+      reset: resetGroup,
       label: 'Happy Customers',
       description: 'Rejoicing in the pleasures of a splendid life',
       display: (v: number) => `${v}+`,
     },
     {
       icon: Wrench,
-      value: experienceCount,
-      reset: resetExperience,
+      value: groupValues[3] ?? 0,
+      reset: resetGroup,
       label: 'Years Experience',
       description: 'Decades of expertise in construction and project management',
       display: (v: number) => `${v}+`,

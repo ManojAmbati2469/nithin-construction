@@ -4,16 +4,19 @@ import { Home, Building, Users, Award } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import InquiryModal from './InquiryModal';
 import { useCountUp } from '@/hooks/useCountUp';
+import { useGroupCountUp } from '@/hooks/useGroupCountUp';
 
 const Hero = () => {
   const { ref: heroRef, isVisible: heroVisible } = useScrollAnimation();
   const [siteVisitModalOpen, setSiteVisitModalOpen] = useState(false);
   const [journeyModalOpen, setJourneyModalOpen] = useState(false);
 
-  // Animated counters for hero stats, start only when visible
-  const [years, resetYears] = useCountUp(20, 1200, heroVisible);
-  const [families, resetFamilies] = useCountUp(400, 1200, heroVisible);
-  const [sqft, resetSqft] = useCountUp(6, 1200, heroVisible);
+  // Grouped count-up: years, families, sqft for hero section (same finish time)
+  const [vals, reset] = useGroupCountUp({
+    ends: [20, 400, 6],
+    duration: 1200,
+    isVisible: heroVisible,
+  });
 
   // Format helper
   const formatNumber = (val: number, label: "years" | "families" | "sqft") => {
@@ -76,34 +79,34 @@ const Hero = () => {
                 <div
                   className={`text-center reveal-scale reveal-stagger-1 cursor-pointer select-none transition-transform duration-300 active:scale-95 ${heroVisible ? 'visible' : ''}`}
                   title="Click to replay"
-                  onClick={resetYears}
+                  onClick={reset}
                   tabIndex={0}
                   role="button"
                   aria-label="Replay years counter animation"
                 >
-                  <div className="text-4xl lg:text-5xl font-bold gradient-text">{formatNumber(years, "years")}</div>
+                  <div className="text-4xl lg:text-5xl font-bold gradient-text">{formatNumber(vals[0] ?? 0, "years")}</div>
                   <div className="text-sm lg:text-base text-muted-foreground font-medium">Years Experience</div>
                 </div>
                 <div
                   className={`text-center reveal-scale reveal-stagger-2 cursor-pointer select-none transition-transform duration-300 active:scale-95 ${heroVisible ? 'visible' : ''}`}
                   title="Click to replay"
-                  onClick={resetFamilies}
+                  onClick={reset}
                   tabIndex={0}
                   role="button"
                   aria-label="Replay happy families counter animation"
                 >
-                  <div className="text-4xl lg:text-5xl font-bold gradient-text">{formatNumber(families, "families")}</div>
+                  <div className="text-4xl lg:text-5xl font-bold gradient-text">{formatNumber(vals[1] ?? 0, "families")}</div>
                   <div className="text-sm lg:text-base text-muted-foreground font-medium">Happy Families</div>
                 </div>
                 <div
                   className={`text-center reveal-scale reveal-stagger-3 cursor-pointer select-none transition-transform duration-300 active:scale-95 ${heroVisible ? 'visible' : ''}`}
                   title="Click to replay"
-                  onClick={resetSqft}
+                  onClick={reset}
                   tabIndex={0}
                   role="button"
                   aria-label="Replay sq.ft delivered counter animation"
                 >
-                  <div className="text-4xl lg:text-5xl font-bold gradient-text">{formatNumber(sqft, "sqft")}</div>
+                  <div className="text-4xl lg:text-5xl font-bold gradient-text">{formatNumber(vals[2] ?? 0, "sqft")}</div>
                   <div className="text-sm lg:text-base text-muted-foreground font-medium">sq.ft Delivered</div>
                 </div>
               </div>
