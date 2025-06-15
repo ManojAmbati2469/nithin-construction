@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -53,7 +52,7 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				// Construction theme colors
+				// Construction brand colors; now precisely logo matched
 				'brick-red': 'hsl(var(--brick-red))',
 				'construction-blue': 'hsl(var(--construction-blue))',
 				'concrete-gray': 'hsl(var(--concrete-gray))',

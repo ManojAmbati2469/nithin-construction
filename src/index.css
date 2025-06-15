@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,58 +6,62 @@
 @layer base {
   :root {
     --scroll-thumb: #a3a3a3; /* gray-400 */
+
+    /* Basing these on logo colors you uploaded: */
+    --brick-red: 4 94% 44%;                 /* #d22d2d for a strong brick red */
+    --construction-blue: 221 78% 41%;       /* #193875 for a rich, deep blue */
+
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 220 40% 12%;
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    /* Primary: Brick Red */
-    --primary: 0 70% 41%;
-    --primary-foreground: 210 40% 98%;
-    /* Secondary: Deep Blue */
-    --secondary: 221 83% 53%;
-    --secondary-foreground: 210 40% 98%;
+
+    /* Use logo theme for Primary/Accent */
+    --primary: var(--brick-red);
+    --primary-foreground: 0 0% 100%;        /* White text on brick for contrast */
+    --secondary: var(--construction-blue);
+    --secondary-foreground: 0 0% 100%;      /* White text on blue for contrast */
+
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 221 83% 53%;
-    --accent-foreground: 210 40% 98%;
+    --accent: var(--construction-blue);
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 0 70% 41%;
+    --ring: var(--brick-red);
     --radius: 0.5rem;
-    /* Construction theme colors */
-    --brick-red: 0 70% 41%;
-    --construction-blue: 221 83% 53%;
+
+    /* Construction brand */
     --concrete-gray: 220 9% 46%;
     --steel-gray: 215 25% 27%;
   }
 
   .dark {
-    --background: 215 25% 27%; /* Steel gray as dark background */
-    --foreground: 210 40% 98%;
-    --scroll-thumb: #52525b; /* zinc-600 */
-    --card: 220 9% 46%; /* Concrete gray for cards */
-    --card-foreground: 210 40% 98%;
-    --popover: 220 9% 46%;
-    --popover-foreground: 210 40% 98%;
-    /* Primary: Brighter brick red for dark mode */
-    --primary: 0 70% 50%;
-    --primary-foreground: 210 40% 98%;
-    /* Secondary: Brighter construction blue for dark mode */
-    --secondary: 221 83% 60%;
-    --secondary-foreground: 210 40% 98%;
+    --background: 221 78% 14%;           /* almost construction blue, but much darker */
+    --foreground: 0 0% 100%;
+    --scroll-thumb: #52525b;              /* zinc-600 */
+    --card: 221 78% 18%;                  /* deep blue card in dark */
+    --card-foreground: 0 0% 100%;
+    --popover: 221 78% 18%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 4 94% 52%;                /* brighter brick red for dark mode */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 221 78% 60%;            /* more vibrant blue in dark */
+    --secondary-foreground: 0 0% 100%;
     --muted: 220 9% 46%;
     --muted-foreground: 210 40% 90%;
-    --accent: 221 83% 60%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 221 78% 60%;
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 62.8% 55%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 220 9% 46%;
-    --input: 220 9% 46%;
-    --ring: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 221 78% 24%;
+    --input: 221 78% 24%;
+    --ring: 4 94% 52%;
   }
 }
 
