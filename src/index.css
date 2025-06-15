@@ -89,83 +89,86 @@
     background-clip: text;
   }
   
-  /* Consistent Reveal on Scroll Animations */
+  /* Consistent "Coming from Down" Animation */
   .reveal-up {
     opacity: 0;
-    transform: translateY(60px);
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(80px) scale(0.9);
+    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .reveal-up.visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
   
+  /* All other reveal animations now use the same "coming from down" effect */
   .reveal-left {
     opacity: 0;
-    transform: translateX(-60px);
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(80px) scale(0.9);
+    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .reveal-left.visible {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0) scale(1);
   }
   
   .reveal-right {
     opacity: 0;
-    transform: translateX(60px);
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(80px) scale(0.9);
+    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .reveal-right.visible {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0) scale(1);
   }
   
   .reveal-scale {
     opacity: 0;
-    transform: scale(0.9);
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(80px) scale(0.9);
+    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .reveal-scale.visible {
     opacity: 1;
-    transform: scale(1);
+    transform: translateY(0) scale(1);
   }
   
   .reveal-fade {
     opacity: 0;
-    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(80px) scale(0.9);
+    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .reveal-fade.visible {
     opacity: 1;
+    transform: translateY(0) scale(1);
   }
 
-  /* Staggered reveal animations */
+  /* Staggered reveal animations with increased delays for smoother effect */
   .reveal-stagger-1 {
-    transition-delay: 0.1s;
-  }
-  
-  .reveal-stagger-2 {
     transition-delay: 0.2s;
   }
   
+  .reveal-stagger-2 {
+    transition-delay: 0.4s;
+  }
+  
   .reveal-stagger-3 {
-    transition-delay: 0.3s;
+    transition-delay: 0.6s;
   }
   
   .reveal-stagger-4 {
-    transition-delay: 0.4s;
+    transition-delay: 0.8s;
   }
 
   .reveal-stagger-5 {
-    transition-delay: 0.5s;
+    transition-delay: 1s;
   }
 
   .reveal-stagger-6 {
-    transition-delay: 0.6s;
+    transition-delay: 1.2s;
   }
 
   /* Enhanced floating animation for background elements */

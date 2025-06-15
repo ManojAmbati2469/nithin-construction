@@ -1,7 +1,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-export const useScrollAnimation = (threshold = 0.1, rootMargin = '0px 0px -100px 0px') => {
+export const useScrollAnimation = (threshold = 0.15, rootMargin = '0px 0px -50px 0px') => {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -36,7 +36,7 @@ export const useScrollAnimation = (threshold = 0.1, rootMargin = '0px 0px -100px
 };
 
 // Hook for staggered animations
-export const useStaggeredScrollAnimation = (delay = 0, threshold = 0.1) => {
+export const useStaggeredScrollAnimation = (delay = 0, threshold = 0.15) => {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
