@@ -59,17 +59,17 @@ const Hero = () => {
               </div>
 
               {/* Enhanced Stats */}
-              <div className="grid grid-cols-3 gap-8 pt-10 border-t border-gray-200 dark:border-gray-700">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 pt-10 border-t border-gray-200 dark:border-gray-700">
                 <div className={`text-center reveal-scale reveal-stagger-1 ${heroVisible ? 'visible' : ''}`}>
-                  <div className="text-4xl lg:text-5xl font-bold gradient-text">26+</div>
-                  <div className="text-sm lg:text-base text-muted-foreground font-medium">Projects Completed</div>
+                  <div className="text-4xl lg:text-5xl font-bold gradient-text">20+</div>
+                  <div className="text-sm lg:text-base text-muted-foreground font-medium">Years Experience</div>
                 </div>
                 <div className={`text-center reveal-scale reveal-stagger-2 ${heroVisible ? 'visible' : ''}`}>
                   <div className="text-4xl lg:text-5xl font-bold gradient-text">400+</div>
                   <div className="text-sm lg:text-base text-muted-foreground font-medium">Happy Families</div>
                 </div>
                 <div className={`text-center reveal-scale reveal-stagger-3 ${heroVisible ? 'visible' : ''}`}>
-                  <div className="text-4xl lg:text-5xl font-bold gradient-text">6L+</div>
+                  <div className="text-4xl lg:text-5xl font-bold gradient-text">6 Lakh+</div>
                   <div className="text-sm lg:text-base text-muted-foreground font-medium">sq.ft Delivered</div>
                 </div>
               </div>

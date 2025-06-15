@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Building, Home, Hammer, Users } from 'lucide-react';
@@ -55,7 +54,7 @@ const Services = () => {
 
   return (
     <>
-      <section id="services" className="py-5">
+      <section id="services" className="section-padding">
         <div className="container mx-auto container-padding" ref={servicesRef}>
           {/* Section Header */}
           <div className={`text-center mb-20 reveal-up ${servicesVisible ? 'visible' : ''}`}>
@@ -71,9 +70,9 @@ const Services = () => {
           {/* Services Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
             {services.map((service, index) => (
-              <div key={service.title} ref={service.ref}>
+              <div key={service.title} ref={service.ref} className="h-full">
                 <Card 
-                  className={`hover-lift bg-card border-border shadow-xl reveal-up ${service.isVisible ? 'visible' : ''}`}
+                  className={`h-full flex flex-col hover-lift bg-card border-border shadow-xl reveal-up ${service.isVisible ? 'visible' : ''}`}
                 >
                   <CardHeader className="text-center pb-6">
                     <div className="w-20 h-20 gradient-construction rounded-full flex items-center justify-center mx-auto mb-6 hover-scale">
@@ -83,7 +82,7 @@ const Services = () => {
                       {service.title}
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="text-center space-y-6">
+                  <CardContent className="flex-grow text-center space-y-6">
                     <p className="text-muted-foreground leading-relaxed text-base lg:text-lg">
                       {service.description}
                     </p>

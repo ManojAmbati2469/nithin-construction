@@ -22,16 +22,6 @@ const Projects = () => {
       units: '50 Apartments'
     },
     {
-      title: 'NC Vihanga',
-      category: 'Current Project',
-      description: '2 & 3BHK apartments located at Kardanoor near ORR Exit-3 with modern amenities.',
-      icon: Construction,
-      image: '/lovable-uploads/image.png',
-      status: 'Selling',
-      year: '2024',
-      units: '2 & 3 BHK Available'
-    },
-    {
       title: 'Garden View Residency',
       category: 'Completed Project',
       description: 'Family-friendly apartment complex with landscaped gardens and children\'s play areas.',
@@ -87,7 +77,7 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="py-5">
+    <section id="projects" className="section-padding">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className={`text-center mb-16 reveal-up ${headerVisible ? 'visible' : ''}`} ref={headerRef}>
@@ -105,7 +95,7 @@ const Projects = () => {
           {projects.map((project, index) => (
             <Card 
               key={project.title} 
-              className={`overflow-hidden hover-lift bg-card border-border shadow-lg reveal-scale reveal-stagger-${index + 1} ${gridVisible ? 'visible' : ''}`}
+              className={`h-full flex flex-col overflow-hidden hover-lift bg-card border-border shadow-lg reveal-scale reveal-stagger-${index + 1} ${gridVisible ? 'visible' : ''}`}
             >
               <div className="relative h-64 overflow-hidden">
                 <img 
@@ -126,7 +116,7 @@ const Projects = () => {
                   <project.icon className="w-5 h-5 text-white" />
                 </div>
               </div>
-              <CardContent className="p-6 space-y-4">
+              <CardContent className="p-6 space-y-4 flex flex-col flex-grow">
                 <div className="flex justify-between items-start">
                   <div>
                     <h3 className="text-xl font-bold text-card-foreground mb-2">
@@ -140,7 +130,7 @@ const Projects = () => {
                     {project.year}
                   </span>
                 </div>
-                <p className="text-muted-foreground leading-relaxed">
+                <p className="text-muted-foreground leading-relaxed flex-grow">
                   {project.description}
                 </p>
                 <div className="flex justify-between items-center pt-2">

@@ -5,10 +5,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Building, Phone, Mail, MapPin, CheckCircle } from 'lucide-react';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const Contact = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { ref: contactRef, isVisible: contactVisible } = useScrollAnimation();
 
   const contactInfo = [
     {
@@ -63,9 +65,9 @@ const Contact = () => {
 
   if (isSubmitted) {
     return (
-      <section id="contact" className="py-5 sm:py-20 bg-background">
+      <section id="contact" className="section-padding bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl mx-auto text-center animate-fade-in">
+          <div className="max-w-2xl mx-auto text-center">
             <div className="mb-8">
               <CheckCircle className="w-16 h-16 sm:w-20 sm:h-20 text-green-500 mx-auto mb-6" />
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
@@ -88,10 +90,10 @@ const Contact = () => {
   }
 
   return (
-    <section id="contact" className="py-4 sm:py-2 bg-background">
+    <section id="contact" className="section-padding bg-background" ref={contactRef}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-12 sm:mb-16 animate-fade-in">
+        <div className={`text-center mb-12 sm:mb-16 reveal-up ${contactVisible ? 'visible' : ''}`}>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
             Inquire About <span className="gradient-text">Our Apartments</span>
           </h2>
@@ -103,7 +105,7 @@ const Contact = () => {
 
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16">
           {/* Contact Form */}
-          <div className="animate-slide-in-left">
+          <div className={`reveal-left ${contactVisible ? 'visible' : ''}`}>
             <Card className="border border-border shadow-lg bg-card">
               <CardHeader className="px-4 sm:px-6">
                 <CardTitle className="text-xl sm:text-2xl font-bold text-foreground">Send us a Message</CardTitle>
@@ -202,12 +204,12 @@ const Contact = () => {
           </div>
 
           {/* Contact Information */}
-          <div className="space-y-6 sm:space-y-8 animate-slide-in-right">
-            <div className="grid grid-cols-1 gap-4 sm:gap-6">
+          <div className={`space-y-6 sm:space-y-8 reveal-right ${contactVisible ? 'visible' : ''}`}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 sm:gap-6">
               {contactInfo.map((info, index) => (
                 <Card 
                   key={info.title} 
-                  className="hover-lift border border-border shadow-lg bg-card"
+                  className="h-full hover-lift border border-border shadow-lg bg-card"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <CardContent className="p-4 sm:p-6 flex items-center space-x-3 sm:space-x-4">

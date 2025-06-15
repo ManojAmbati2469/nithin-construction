@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -13,7 +12,7 @@ const CurrentProject = () => {
 
   return (
     <>
-      <section className="py-5">
+      <section className="section-padding">
         <div className="container mx-auto container-padding" ref={projectRef}>
           {/* Section Header */}
           <div className={`text-center mb-20 reveal-up ${projectVisible ? 'visible' : ''}`}>
@@ -70,7 +69,7 @@ const CurrentProject = () => {
                   <h4 className="text-2xl lg:text-3xl font-bold text-foreground">Project Highlights</h4>
                   
                   <div className="grid gap-6">
-                    <div className={`group p-6 bg-card rounded-2xl border border-border hover:border-primary/20 hover:bg-primary/5 transition-all duration-500 reveal-scale reveal-stagger-1 ${highlightsVisible ? 'visible' : ''}`}>
+                    <div className={`group p-6 bg-card rounded-2xl border border-border hover:border-primary/20 hover:bg-primary/5 transition-all duration-500 reveal-scale reveal-stagger-1 ${highlightsVisible ? 'visible' : ''} h-full`}>
                       <div className="flex items-start space-x-6">
                         <div className="w-16 h-16 gradient-construction rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                           <Home className="w-8 h-8 text-white" />
@@ -84,7 +83,7 @@ const CurrentProject = () => {
                       </div>
                     </div>
 
-                    <div className={`group p-6 bg-card rounded-2xl border border-border hover:border-primary/20 hover:bg-primary/5 transition-all duration-500 reveal-scale reveal-stagger-2 ${highlightsVisible ? 'visible' : ''}`}>
+                    <div className={`group p-6 bg-card rounded-2xl border border-border hover:border-primary/20 hover:bg-primary/5 transition-all duration-500 reveal-scale reveal-stagger-2 ${highlightsVisible ? 'visible' : ''} h-full`}>
                       <div className="flex items-start space-x-6">
                         <div className="w-16 h-16 gradient-construction rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                           <Square className="w-8 h-8 text-white" />
@@ -98,7 +97,7 @@ const CurrentProject = () => {
                       </div>
                     </div>
 
-                    <div className={`group p-6 bg-card rounded-2xl border border-border hover:border-primary/20 hover:bg-primary/5 transition-all duration-500 reveal-scale reveal-stagger-3 ${highlightsVisible ? 'visible' : ''}`}>
+                    <div className={`group p-6 bg-card rounded-2xl border border-border hover:border-primary/20 hover:bg-primary/5 transition-all duration-500 reveal-scale reveal-stagger-3 ${highlightsVisible ? 'visible' : ''} h-full`}>
                       <div className="flex items-start space-x-6">
                         <div className="w-16 h-16 gradient-construction rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                           <MapPin className="w-8 h-8 text-white" />

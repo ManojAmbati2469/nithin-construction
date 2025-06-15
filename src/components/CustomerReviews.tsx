@@ -55,7 +55,7 @@ const CustomerReviews = () => {
   ];
 
   return (
-    <section className="py-20 bg-background relative overflow-hidden">
+    <section className="section-padding bg-background relative overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-20 left-10 w-32 h-32 gradient-construction rounded-full blur-3xl animate-float"></div>
@@ -106,7 +106,7 @@ const CustomerReviews = () => {
           >
             <CarouselContent className="-ml-2 md:-ml-4">
               {reviews.map((review, index) => (
-                <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/2">
+                <CarouselItem key={index} className="pl-2 md:pl-4 basis-full md:basis-1/2">
                   <Card className="hover-lift bg-card border border-border shadow-xl h-full group hover:border-primary/30 transition-all duration-500">
                     <CardContent className="p-8 lg:p-10 flex flex-col h-full relative overflow-hidden">
                       {/* Verified Badge */}
