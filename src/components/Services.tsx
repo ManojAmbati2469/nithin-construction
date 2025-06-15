@@ -7,6 +7,8 @@ import InquiryModal from './InquiryModal';
 
 const Services = () => {
   const { ref: servicesRef, isVisible: servicesVisible } = useScrollAnimation();
+  const { ref: cardsRef, isVisible: cardsVisible } = useScrollAnimation();
+  const { ref: ctaRef, isVisible: ctaVisible } = useScrollAnimation();
   const [siteVisitModalOpen, setSiteVisitModalOpen] = useState(false);
   const [availableUnitsModalOpen, setAvailableUnitsModalOpen] = useState(false);
 
@@ -42,7 +44,7 @@ const Services = () => {
       <section id="services" className="py-5">
         <div className="container mx-auto container-padding" ref={servicesRef}>
           {/* Section Header */}
-          <div className={`text-center mb-20 transition-all duration-800 ${servicesVisible ? 'animate-fade-in' : 'opacity-0 translate-y-[30px]'}`}>
+          <div className={`text-center mb-20 reveal-up ${servicesVisible ? 'visible' : ''}`}>
             <h2 className="text-4xl lg:text-6xl font-bold mb-8">
               What We <span className="gradient-text">Offer</span>
             </h2>
@@ -53,21 +55,17 @@ const Services = () => {
           </div>
 
           {/* Services Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10" ref={cardsRef}>
             {services.map((service, index) => (
               <Card 
                 key={service.title} 
-                className={`hover-lift bg-card border-border dark:bg-gray-900 shadow-xl transition-all duration-700 ${
-                  servicesVisible 
-                    ? `animate-scale-on-scroll in-view animate-stagger-${index + 1}` 
-                    : 'animate-scale-on-scroll'
-                }`}
+                className={`hover-lift bg-card border-border shadow-xl reveal-scale reveal-stagger-${index + 1} ${cardsVisible ? 'visible' : ''}`}
               >
                 <CardHeader className="text-center pb-6">
                   <div className="w-20 h-20 gradient-construction rounded-full flex items-center justify-center mx-auto mb-6 hover-scale">
                     <service.icon className="w-10 h-10 text-white" />
                   </div>
-                  <CardTitle className="text-xl lg:text-2xl font-bold text-foreground">
+                  <CardTitle className="text-xl lg:text-2xl font-bold text-card-foreground">
                     {service.title}
                   </CardTitle>
                 </CardHeader>
@@ -89,7 +87,7 @@ const Services = () => {
           </div>
 
           {/* Enhanced CTA Section */}
-          <div className={`text-center mt-20 transition-all duration-800 ${servicesVisible ? 'animate-fade-in' : 'opacity-0 translate-y-[30px]'}`} style={{ animationDelay: '0.5s' }}>
+          <div className={`text-center mt-20 reveal-up ${ctaVisible ? 'visible' : ''}`} ref={ctaRef}>
             <div className="gradient-construction rounded-3xl p-10 lg:p-16 text-white hover-lift">
               <h3 className="text-3xl lg:text-5xl font-bold mb-6">Ready to Own Your Dream Apartment?</h3>
               <p className="text-xl lg:text-2xl mb-10 opacity-90 max-w-3xl mx-auto">

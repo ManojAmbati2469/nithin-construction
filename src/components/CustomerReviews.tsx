@@ -1,4 +1,3 @@
-
 import { Card, CardContent } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { Star, Quote } from 'lucide-react';
@@ -8,8 +7,9 @@ import InquiryModal from './InquiryModal';
 
 const CustomerReviews = () => {
   const { ref: reviewsRef, isVisible: reviewsVisible } = useScrollAnimation();
+  const { ref: carouselRef, isVisible: carouselVisible } = useScrollAnimation();
+  const { ref: ctaRef, isVisible: ctaVisible } = useScrollAnimation();
   const [journeyModalOpen, setJourneyModalOpen] = useState(false);
-
 
   const reviews = [
     {
@@ -46,7 +46,7 @@ const CustomerReviews = () => {
     <section className="py-5 bg-background">
       <div className="container mx-auto container-padding" ref={reviewsRef}>
         {/* Section Header */}
-        <div className={`text-center mb-20 transition-all duration-800 ${reviewsVisible ? 'animate-fade-in' : 'opacity-0 translate-y-[30px]'}`}>
+        <div className={`text-center mb-20 reveal-up ${reviewsVisible ? 'visible' : ''}`}>
           <h2 className="text-4xl lg:text-6xl font-bold mb-8">
             Customer <span className="gradient-text">Reviews</span>
           </h2>
@@ -56,7 +56,7 @@ const CustomerReviews = () => {
         </div>
 
         {/* Reviews Carousel */}
-        <div className={`max-w-7xl mx-auto transition-all duration-1000 ${reviewsVisible ? 'animate-scale-in' : 'opacity-0 scale-90'}`}>
+        <div className={`max-w-7xl mx-auto reveal-scale ${carouselVisible ? 'visible' : ''}`} ref={carouselRef}>
           <Carousel
             opts={{
               align: "start",
@@ -67,7 +67,7 @@ const CustomerReviews = () => {
             <CarouselContent className="-ml-2 md:-ml-4">
               {reviews.map((review, index) => (
                 <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/2">
-                  <Card className="hover-lift bg-card border-border shadow-xl h-full hover-scale dark:bg-gray-900">
+                  <Card className="hover-lift bg-card border-border shadow-xl h-full hover-scale">
                     <CardContent className="p-8 lg:p-10 flex flex-col h-full">
                       {/* Quote Icon */}
                       <div className="mb-8">
@@ -94,7 +94,7 @@ const CustomerReviews = () => {
                           className="w-16 h-16 rounded-full object-cover hover-scale"
                         />
                         <div>
-                          <div className="font-bold text-foreground text-lg">{review.name}</div>
+                          <div className="font-bold text-card-foreground text-lg">{review.name}</div>
                           <div className="text-primary font-medium">{review.company}</div>
                         </div>
                       </div>
@@ -109,7 +109,7 @@ const CustomerReviews = () => {
         </div>
 
         {/* Enhanced CTA Section */}
-        <div className={`text-center mt-20 transition-all duration-800 ${reviewsVisible ? 'animate-fade-in' : 'opacity-0 translate-y-[30px]'}`} style={{ animationDelay: '0.5s' }}>
+        <div className={`text-center mt-20 reveal-up ${ctaVisible ? 'visible' : ''}`} ref={ctaRef}>
           <div className="gradient-construction rounded-3xl p-10 lg:p-16 text-white hover-lift">
             <h3 className="text-3xl lg:text-5xl font-bold mb-6">Join Our Happy Customers</h3>
             <p className="text-xl lg:text-2xl mb-10 opacity-90 max-w-3xl mx-auto">

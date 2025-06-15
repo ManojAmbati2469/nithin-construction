@@ -1,8 +1,14 @@
 
 import { Card, CardContent } from '@/components/ui/card';
 import { Building, Construction, Hammer, Wrench } from 'lucide-react';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const About = () => {
+  const { ref: aboutRef, isVisible: aboutVisible } = useScrollAnimation();
+  const { ref: achievementsRef, isVisible: achievementsVisible } = useScrollAnimation();
+  const { ref: experienceRef, isVisible: experienceVisible } = useScrollAnimation();
+  const { ref: missionRef, isVisible: missionVisible } = useScrollAnimation();
+
   const achievements = [
     {
       icon: Building,
@@ -33,9 +39,9 @@ const About = () => {
   return (
     <section id="about" className="py-5">
       <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-16 items-center" ref={aboutRef}>
           {/* Left Content */}
-          <div className="space-y-8 animate-slide-in-left">
+          <div className={`space-y-8 reveal-left ${aboutVisible ? 'visible' : ''}`}>
             <div className="space-y-6">
               <h2 className="text-4xl lg:text-5xl font-bold">
                 About <span className="gradient-text">Nithin Constructions</span>
@@ -55,7 +61,7 @@ const About = () => {
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Why Choose Us?</h3>
+              <h3 className="text-2xl font-bold text-foreground">Why Choose Us?</h3>
               <ul className="space-y-3">
                 {[
                   'Expert team with 20+ years of experience',
@@ -74,12 +80,11 @@ const About = () => {
           </div>
 
           {/* Right Content - Achievements */}
-          <div className="grid grid-cols-2 gap-6 animate-slide-in-right">
+          <div className={`grid grid-cols-2 gap-6 reveal-right ${aboutVisible ? 'visible' : ''}`} ref={achievementsRef}>
             {achievements.map((achievement, index) => (
               <Card 
                 key={achievement.label} 
-                className="hover-lift border-0 shadow-lg bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-900"
-                style={{ animationDelay: `${index * 0.2}s` }}
+                className={`hover-lift border-0 shadow-lg bg-card reveal-scale reveal-stagger-${index + 1} ${achievementsVisible ? 'visible' : ''}`}
               >
                 <CardContent className="p-6 text-center space-y-4">
                   <div className="w-12 h-12 gradient-construction rounded-full flex items-center justify-center mx-auto">
@@ -89,7 +94,7 @@ const About = () => {
                     <div className="text-3xl font-bold gradient-text">
                       {achievement.number}
                     </div>
-                    <div className="font-semibold text-gray-900 dark:text-white">
+                    <div className="font-semibold text-card-foreground">
                       {achievement.label}
                     </div>
                     <p className="text-sm text-muted-foreground">
@@ -103,13 +108,13 @@ const About = () => {
         </div>
 
         {/* About Our Experience Section */}
-        <div className="mt-20 animate-fade-in">
+        <div className={`mt-20 reveal-up ${experienceVisible ? 'visible' : ''}`} ref={experienceRef}>
           <div className="text-center mb-12">
             <h3 className="text-3xl font-bold mb-4">About Our <span className="gradient-text">Experience</span></h3>
           </div>
-          <div className="light:bg-gray-50 dark:bg-gray-900 rounded-2xl p-8 lg:p-12">
+          <div className="bg-card rounded-2xl p-8 lg:p-12">
             <p className="text-lg text-muted-foreground leading-relaxed">
-              <strong className="light:text-gray-900 dark:text-white">SRI. BOGIREDDY VENKATA RAMANA REDDY</strong> graduate in Civil engineering in 1998, 
+              <strong className="text-card-foreground">SRI. BOGIREDDY VENKATA RAMANA REDDY</strong> graduate in Civil engineering in 1998, 
               after graduation worked as Civil Contractor at RTPC, Karnataka up to 2002, after that returned to Hyderabad, 
               taken License as Civil Engineer in LB Nagar Municipality and started Consultancy named on RAMANA PLANNERS up to 2005, 
               then started Construction named as RAMANA CONSTRUCTIONS constructed 30 independent houses and 9 apartments, 
@@ -122,7 +127,7 @@ const About = () => {
         </div>
 
         {/* Mission & Vision */}
-        <div className="mt-20 grid lg:grid-cols-2 gap-12 animate-fade-in">
+        <div className={`mt-20 grid lg:grid-cols-2 gap-12 reveal-up ${missionVisible ? 'visible' : ''}`} ref={missionRef}>
           <div className="text-center p-8 gradient-construction rounded-2xl text-white hover-lift">
             <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
             <p className="text-lg opacity-90">
@@ -131,7 +136,7 @@ const About = () => {
               Our mission is to be the most customer-focused builders.
             </p>
           </div>
-          <div className="text-center p-8 light:bg-gray-50 dark:bg-gray-900 rounded-2xl hover-lift">
+          <div className="text-center p-8 bg-card rounded-2xl hover-lift">
             <h3 className="text-2xl font-bold mb-4 gradient-text">Our Vision</h3>
             <p className="text-lg text-muted-foreground">
               Our vision, 'Building Moments,' reflects our dedication to society. Our top priority is ensuring customer 

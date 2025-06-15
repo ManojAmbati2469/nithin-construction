@@ -28,7 +28,7 @@ const Hero = () => {
         <div className="container mx-auto container-padding relative z-10" ref={heroRef}>
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Left Content */}
-            <div className={`space-y-10 transition-all duration-1000 ${heroVisible ? 'animate-slide-in-left' : 'opacity-0 translate-x-[-60px]'}`}>
+            <div className={`space-y-10 reveal-left ${heroVisible ? 'visible' : ''}`}>
               <div className="space-y-6">
                 <h1 className="text-5xl lg:text-7xl font-bold leading-tight">
                   Your Dream
@@ -59,16 +59,16 @@ const Hero = () => {
               </div>
 
               {/* Enhanced Stats */}
-              <div className="grid grid-cols-3 gap-8 pt-10 border-t border-gray-200">
-                <div className={`text-center transition-all duration-700 ${heroVisible ? 'animate-scale-in animate-stagger-1' : 'opacity-0 scale-90'}`}>
+              <div className="grid grid-cols-3 gap-8 pt-10 border-t border-gray-200 dark:border-gray-700">
+                <div className={`text-center reveal-scale reveal-stagger-1 ${heroVisible ? 'visible' : ''}`}>
                   <div className="text-4xl lg:text-5xl font-bold gradient-text">26+</div>
                   <div className="text-sm lg:text-base text-muted-foreground font-medium">Projects Completed</div>
                 </div>
-                <div className={`text-center transition-all duration-700 ${heroVisible ? 'animate-scale-in animate-stagger-2' : 'opacity-0 scale-90'}`}>
+                <div className={`text-center reveal-scale reveal-stagger-2 ${heroVisible ? 'visible' : ''}`}>
                   <div className="text-4xl lg:text-5xl font-bold gradient-text">400+</div>
                   <div className="text-sm lg:text-base text-muted-foreground font-medium">Happy Families</div>
                 </div>
-                <div className={`text-center transition-all duration-700 ${heroVisible ? 'animate-scale-in animate-stagger-3' : 'opacity-0 scale-90'}`}>
+                <div className={`text-center reveal-scale reveal-stagger-3 ${heroVisible ? 'visible' : ''}`}>
                   <div className="text-4xl lg:text-5xl font-bold gradient-text">6L+</div>
                   <div className="text-sm lg:text-base text-muted-foreground font-medium">sq.ft Delivered</div>
                 </div>
@@ -76,12 +76,12 @@ const Hero = () => {
             </div>
 
             {/* Right Content - Enhanced Visual Elements */}
-            <div className={`relative transition-all duration-1000 ${heroVisible ? 'animate-slide-in-right' : 'opacity-0 translate-x-[60px]'}`}>
+            <div className={`relative reveal-right ${heroVisible ? 'visible' : ''}`}>
               <div className="relative">
                 {/* Main construction illustration */}
                 <div className="w-full h-[500px] lg:h-[600px] gradient-construction rounded-3xl flex items-center justify-center relative overflow-hidden hover-lift">
                   <div className="text-white text-center space-y-6">
-                    <Building className="w-20 h-20 mx-auto animate-bounce-subtle" />
+                    <Building className="w-20 h-20 mx-auto animate-float" />
                     <h3 className="text-3xl lg:text-4xl font-bold">Premium Apartments</h3>
                     <p className="text-xl lg:text-2xl opacity-90">Quality Living Spaces</p>
                   </div>
@@ -96,25 +96,25 @@ const Hero = () => {
                 </div>
 
                 {/* Enhanced decorative cards */}
-                <div className="absolute -bottom-8 -left-8 bg-white rounded-2xl p-6 shadow-2xl hover-lift hover-scale">
+                <div className="absolute -bottom-8 -left-8 bg-card rounded-2xl p-6 shadow-2xl hover-lift hover-scale">
                   <div className="flex items-center space-x-4">
                     <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
                       <Home className="w-8 h-8 text-primary" />
                     </div>
                     <div>
-                      <div className="font-bold text-gray-900 text-lg">2 & 3 BHK</div>
+                      <div className="font-bold text-card-foreground text-lg">2 & 3 BHK</div>
                       <div className="text-muted-foreground">Modern Apartments</div>
                     </div>
                   </div>
                 </div>
 
-                <div className="absolute -top-8 -right-8 bg-white rounded-2xl p-6 shadow-2xl hover-lift hover-scale">
+                <div className="absolute -top-8 -right-8 bg-card rounded-2xl p-6 shadow-2xl hover-lift hover-scale">
                   <div className="flex items-center space-x-4">
                     <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center">
                       <Award className="w-8 h-8 text-secondary" />
                     </div>
                     <div>
-                      <div className="font-bold text-gray-900 text-lg">Premium</div>
+                      <div className="font-bold text-card-foreground text-lg">Premium</div>
                       <div className="text-muted-foreground">Quality Homes</div>
                     </div>
                   </div>
