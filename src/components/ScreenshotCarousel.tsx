@@ -23,12 +23,16 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
   const highlightW = 350;
   const inactiveW = 220;
 
-  // For overlays
+  // For overlays & peeking logic
   const maxPeek = 3;
 
   // Only for >3 images, we may have more-hidden indicators
   const showLeftOverlay = total > 3 && activeIdx - maxPeek > 0;
   const showRightOverlay = total > 3 && activeIdx + maxPeek < total - 1;
+
+  // Number of images hidden on each side
+  const hiddenLeftCount = total > 3 ? Math.max(0, activeIdx - maxPeek) : 0;
+  const hiddenRightCount = total > 3 ? Math.max(0, total - 1 - (activeIdx + maxPeek)) : 0;
 
   // Returns style for each image based on position.
   const getImageStyle = (idx: number): React.CSSProperties => {
@@ -108,26 +112,58 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
       >
         {/* Gradient overlays (left/right) for more images indication */}
         {showLeftOverlay && (
-          <div
-            className="absolute top-0 left-0 h-full z-40 pointer-events-none"
-            style={{
-              width: 40,
-              background: "linear-gradient(to right,rgba(20,18,53,0.73) 60%,rgba(20,18,53,0.01) 100%)",
-              borderRadius: "1rem 0 0 1rem"
-            }}
-            aria-hidden="true"
-          />
+          <>
+            <div
+              className="absolute top-0 left-0 h-full z-40 pointer-events-none"
+              style={{
+                width: 40,
+                background: "linear-gradient(to right,rgba(20,18,53,0.73) 60%,rgba(20,18,53,0.01) 100%)",
+                borderRadius: "1rem 0 0 1rem"
+              }}
+              aria-hidden="true"
+            />
+            {/* Identification Badge */}
+            {hiddenLeftCount > 0 && (
+              <span
+                className="absolute left-3 top-1/2 -translate-y-1/2 z-[50] bg-primary text-white text-xs font-semibold px-2 py-1 rounded-full border-2 border-background shadow select-none pointer-events-none"
+                style={{
+                  // Place at vertical center, left edge, on top of gradient
+                  // Adjust as needed for aesthetics
+                  minWidth: 27,
+                  textAlign: "center"
+                }}
+                aria-label={`+${hiddenLeftCount} more images on left`}
+              >
+                +{hiddenLeftCount}
+              </span>
+            )}
+          </>
         )}
         {showRightOverlay && (
-          <div
-            className="absolute top-0 right-0 h-full z-40 pointer-events-none"
-            style={{
-              width: 40,
-              background: "linear-gradient(to left,rgba(20,18,53,0.73) 60%,rgba(20,18,53,0.01) 100%)",
-              borderRadius: "0 1rem 1rem 0"
-            }}
-            aria-hidden="true"
-          />
+          <>
+            <div
+              className="absolute top-0 right-0 h-full z-40 pointer-events-none"
+              style={{
+                width: 40,
+                background: "linear-gradient(to left,rgba(20,18,53,0.73) 60%,rgba(20,18,53,0.01) 100%)",
+                borderRadius: "0 1rem 1rem 0"
+              }}
+              aria-hidden="true"
+            />
+            {/* Identification Badge */}
+            {hiddenRightCount > 0 && (
+              <span
+                className="absolute right-3 top-1/2 -translate-y-1/2 z-[50] bg-primary text-white text-xs font-semibold px-2 py-1 rounded-full border-2 border-background shadow select-none pointer-events-none"
+                style={{
+                  minWidth: 27,
+                  textAlign: "center"
+                }}
+                aria-label={`+${hiddenRightCount} more images on right`}
+              >
+                +{hiddenRightCount}
+              </span>
+            )}
+          </>
         )}
         {images.map((img, idx) => (
           <div
@@ -189,4 +225,5 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
 };
 
 export default ScreenshotCarousel;
+
 
