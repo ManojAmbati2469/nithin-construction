@@ -55,7 +55,7 @@ const CustomerReviews = () => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-br from-background via-background to-muted/20 relative overflow-hidden">
+    <section className="py-20 bg-background relative overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-20 left-10 w-32 h-32 gradient-construction rounded-full blur-3xl animate-float"></div>
@@ -107,7 +107,7 @@ const CustomerReviews = () => {
             <CarouselContent className="-ml-2 md:-ml-4">
               {reviews.map((review, index) => (
                 <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/2">
-                  <Card className="hover-lift bg-card backdrop-blur-sm border-2 border-border shadow-2xl h-full group hover:border-primary/30 transition-all duration-500">
+                  <Card className="hover-lift bg-card border border-border shadow-xl h-full group hover:border-primary/30 transition-all duration-500">
                     <CardContent className="p-8 lg:p-10 flex flex-col h-full relative overflow-hidden">
                       {/* Verified Badge */}
                       {review.verified && (
@@ -119,12 +119,12 @@ const CustomerReviews = () => {
 
                       {/* Quote Icon with Animation */}
                       <div className="mb-6 relative">
-                        <Quote className="w-16 h-16 text-primary/20 group-hover:text-primary/40 transition-colors duration-300" />
+                        <Quote className="w-16 h-16 text-primary/30 group-hover:text-primary/50 transition-colors duration-300" />
                         <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                       </div>
 
                       {/* Review Text */}
-                      <p className="text-muted-foreground leading-relaxed mb-8 flex-grow text-base lg:text-lg relative z-10">
+                      <p className="text-foreground/90 leading-relaxed mb-8 flex-grow text-base lg:text-lg relative z-10">
                         "{review.review}"
                       </p>
 
@@ -155,7 +155,7 @@ const CustomerReviews = () => {
                           </div>
                         </div>
                         <div>
-                          <div className="font-bold text-card-foreground text-lg group-hover:text-primary transition-colors duration-300">{review.name}</div>
+                          <div className="font-bold text-foreground text-lg group-hover:text-primary transition-colors duration-300">{review.name}</div>
                           <div className="text-primary/80 font-medium">{review.company}</div>
                         </div>
                       </div>
