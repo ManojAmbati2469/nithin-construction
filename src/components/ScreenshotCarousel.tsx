@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import ScreenshotCarouselImage from "./ScreenshotCarouselImage";
 import { getDisplayIndices, getImageStyle } from "./carouselUtils";
@@ -19,6 +20,7 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
 }) => {
   const [activeIdx, setActiveIdx] = useState(initialIndex);
   const [isPaused, setIsPaused] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const total = images.length;
   const highlightW = 350;
@@ -27,18 +29,33 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
   // Get indices to display (ensuring consistency)
   const displayIndices = getDisplayIndices(total, activeIdx);
 
-  // --- Auto-advance logic (pause on hover/focus) ---
+  // Enhanced auto-advance logic with smoother transitions
   const autoChangeRef = useRef<NodeJS.Timeout | null>(null);
 
+  const handleIndexChange = (newIndex: number) => {
+    if (isTransitioning) return;
+    
+    setIsTransitioning(true);
+    setActiveIdx(newIndex);
+    
+    // Reset transition state after animation completes
+    setTimeout(() => {
+      setIsTransitioning(false);
+    }, 600); // Slightly longer than CSS transition duration
+  };
+
   useEffect(() => {
-    if (isPaused || total <= 1) return;
+    if (isPaused || total <= 1 || isTransitioning) return;
+    
     autoChangeRef.current = setTimeout(() => {
-      setActiveIdx((prev) => (prev + 1) % total);
-    }, 4000); // now 4 seconds
+      const nextIndex = (activeIdx + 1) % total;
+      handleIndexChange(nextIndex);
+    }, 4000);
+    
     return () => {
       if (autoChangeRef.current) clearTimeout(autoChangeRef.current);
     };
-  }, [activeIdx, isPaused, total]);
+  }, [activeIdx, isPaused, total, isTransitioning]);
 
   const carouselAreaRef = useRef<HTMLDivElement>(null);
 
@@ -69,7 +86,7 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
       aria-label="Image Carousel"
     >
       <div
-        className="relative flex justify-center w-full"
+        className="relative flex justify-center w-full overflow-hidden"
         style={{
           height: `${highlightHeight + 32}px`,
           minWidth: "min(100%,340px)",
@@ -93,9 +110,11 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
               spacing
             })}
             isActive={idx === activeIdx}
-            onClick={() => idx !== activeIdx && setActiveIdx(idx)}
+            onClick={() => idx !== activeIdx && !isTransitioning && handleIndexChange(idx)}
             onKeyDown={e => {
-              if ((e.key === "Enter" || e.key === " ") && idx !== activeIdx) setActiveIdx(idx);
+              if ((e.key === "Enter" || e.key === " ") && idx !== activeIdx && !isTransitioning) {
+                handleIndexChange(idx);
+              }
             }}
             tabIndex={0}
           />
@@ -109,7 +128,8 @@ const ScreenshotCarousel: React.FC<ScreenshotCarouselProps> = ({
             className={`h-2 w-2 rounded-full transition-all ${idx === activeIdx ? "bg-primary scale-110" : "bg-muted"}`}
             aria-label={img.label}
             style={{ outline: "none", border: "none" }}
-            onClick={() => setActiveIdx(idx)}
+            onClick={() => !isTransitioning && handleIndexChange(idx)}
+            disabled={isTransitioning}
           />
         ))}
       </div>

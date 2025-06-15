@@ -26,14 +26,15 @@ const ScreenshotCarouselImage: React.FC<ScreenshotCarouselImageProps> = ({
 }) => (
   <div
     className={`
-      absolute left-1/2 top-2 cursor-pointer transition-all duration-500 rounded-2xl border-4
+      absolute left-1/2 top-2 cursor-pointer rounded-2xl border-4
       ${isActive ? borderActiveClass : borderInactiveClass}
       group
     `}
     style={{
       ...style,
       transition: "all 0.55s cubic-bezier(0.4, 0, 0.2, 1)",
-      cursor: isActive ? "default" : "pointer"
+      cursor: isActive ? "default" : "pointer",
+      transformStyle: "preserve-3d"
     }}
     onClick={onClick}
     aria-label={label}
@@ -46,14 +47,19 @@ const ScreenshotCarouselImage: React.FC<ScreenshotCarouselImageProps> = ({
       alt={label}
       className="w-full h-full object-cover rounded-2xl user-select-none"
       draggable={false}
+      style={{
+        backfaceVisibility: "hidden",
+        transform: "translateZ(0)"
+      }}
     />
     <div
-      className={`absolute bottom-2 left-1/2 -translate-x-1/2 text-[1rem] font-semibold px-3 py-1 rounded-lg bg-card/80 shadow`}
+      className="absolute bottom-2 left-1/2 -translate-x-1/2 text-[1rem] font-semibold px-3 py-1 rounded-lg bg-card/80 shadow"
       style={{
         color: isActive ? "#fff" : "#b5b8c5",
         background: isActive ? "rgb(var(--primary))" : "rgba(28,28,28,0.77)",
         pointerEvents: "none",
-        whiteSpace: "nowrap"
+        whiteSpace: "nowrap",
+        backfaceVisibility: "hidden"
       }}
     >
       {label}

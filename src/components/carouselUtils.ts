@@ -1,3 +1,4 @@
+
 import React from "react";
 
 type CarouselImageStyleOpts = {
@@ -45,11 +46,12 @@ export function getDisplayIndices(total: number, activeIdx: number): number[] {
   ];
 }
 
-// Consistent style logic for all carousels
+// Enhanced style logic to prevent visual glitches during wrap-around
 export function getImageStyle(opts: CarouselImageStyleOpts): React.CSSProperties {
   const {
     displayIndices,
     idx,
+    activeIdx,
     highlightW,
     inactiveW,
     highlightHeight,
@@ -64,7 +66,8 @@ export function getImageStyle(opts: CarouselImageStyleOpts): React.CSSProperties
       visibility: "hidden",
       opacity: 0,
       pointerEvents: "none",
-      position: "absolute"
+      position: "absolute",
+      zIndex: -1
     };
   }
 
@@ -81,12 +84,8 @@ export function getImageStyle(opts: CarouselImageStyleOpts): React.CSSProperties
   let bs = "0 18px 38px rgba(0,0,0,0.16)";
   let z = 20 - Math.abs(rel);
 
-  // Consistency: same peeking width for all carousels
-  // 1st peeking image (next to active): mid peek
-  // 2nd peeking image: smaller/thinner
-  // All overlap under main by negative translateX, main image always highest z.
-
   if (rel === 0) {
+    // Active/center image
     baseX = 0;
     s = 1.0;
     w = highlightW;
@@ -94,9 +93,9 @@ export function getImageStyle(opts: CarouselImageStyleOpts): React.CSSProperties
     filter = "none";
     op = 1;
     bs = "0 18px 38px rgba(0,0,0,0.16)";
-    z = 40; // Highest
+    z = 40; // Highest z-index for active image
   } else if (Math.abs(rel) === 1) {
-    // 1st away: wider peek, under main
+    // First level adjacent images
     baseX = rel * (spacing * 1.6);
     s = inactiveScale + 0.18;
     w = inactiveW + 60;
@@ -106,7 +105,7 @@ export function getImageStyle(opts: CarouselImageStyleOpts): React.CSSProperties
     bs = "0 4px 18px rgba(20,18,38,0.13)";
     z = 15;
   } else if (Math.abs(rel) === 2) {
-    // 2nd away: thinner peek, still clickable but less prominent
+    // Second level adjacent images
     baseX = rel * (spacing * 2.05);
     s = inactiveScale + 0.04;
     w = inactiveW + 16;
@@ -116,11 +115,13 @@ export function getImageStyle(opts: CarouselImageStyleOpts): React.CSSProperties
     bs = "0 1px 12px rgba(20,18,38,0.09)";
     z = 7;
   } else {
+    // Hide images that are too far from center
     return {
       visibility: "hidden",
       opacity: 0,
       pointerEvents: "none",
-      position: "absolute"
+      position: "absolute",
+      zIndex: -1
     };
   }
 
@@ -132,6 +133,10 @@ export function getImageStyle(opts: CarouselImageStyleOpts): React.CSSProperties
     filter,
     opacity: op,
     boxShadow: bs,
-    background: "#141235"
+    background: "#141235",
+    // Prevent visual glitches during transitions
+    backfaceVisibility: "hidden",
+    perspective: "1000px",
+    willChange: "transform, opacity"
   };
 }
